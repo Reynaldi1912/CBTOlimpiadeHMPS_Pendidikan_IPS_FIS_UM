@@ -30,6 +30,18 @@ Route::get('/login_admin', function () {
 Route::get('/dashboardAdmin', function () {
     return view('admin.dashboard');
 })->name('dashboardAdmin');
+
+Route::get('/hasilUjian', function () {
+    return view('admin.hasilUjian');
+})->name('hasilUjian');
+
+Route::get('/kelolaAdmin', function () {
+    return view('admin.kelolaAdmin');
+})->name('kelolaAdmin');
+
+Route::get('/kelolaPeserta', function () {
+    return view('admin.kelolaPeserta');
+})->name('kelolaPeserta');
 // end page section
 
 

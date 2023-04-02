@@ -73,22 +73,22 @@
         <div class="content-side content-side-full">
             <ul class="nav-main">
                 <li>
-                    <a href="{{route('dashboardAdmin')}}"><i class="si si-cup"></i><span class="sidebar-mini-hide">Dashboard</span></a>
+                    <a href="{{route('dashboardAdmin')}}" style="cursor: pointer;"><i class="si si-cup"></i><span class="sidebar-mini-hide">Dashboard</span></a>
                 </li>
                 <li>
-                    <a href="#"><i class="si si-lock"></i><span class="sidebar-mini-hide">Bank Soal</span></a>
+                    <a href="#"><i class="si si-lock" style="cursor: pointer;"></i><span class="sidebar-mini-hide">Bank Soal</span></a>
                 </li>
                 <li>
-                    <a href="#"><i class="si si-badge"></i><span class="sidebar-mini-hide">Pengerjaan Peserta</span></a>
+                    <a href="{{route('hasilUjian')}}" style="cursor: pointer;"><i class="si si-badge"></i><span class="sidebar-mini-hide">Hasil Ujian</span></a>
                 </li>
                 <li>
-                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-user"></i><span class="sidebar-mini-hide">Kelola Admin dan User</span></a>
+                    <a class="nav-submenu" data-toggle="nav-submenu" style="cursor: pointer;"><i class="si si-user"></i><span class="sidebar-mini-hide">Kelola Admin dan Peserta</span></a>
                     <ul>
                         <li>
-                            <a href="#">Admin</a>
+                            <a href="{{route('kelolaAdmin')}}">Admin</a>
                         </li>
                         <li>
-                            <a href="#">User</a>
+                            <a href="{{route('kelolaPeserta')}}">Peserta</a>
                         </li>
                     </ul>
                 </li>
