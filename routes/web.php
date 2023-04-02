@@ -22,8 +22,12 @@ Route::get('/login_admin', function () {
     return view('/auth/admin/adminLogin');
 });
 
-Route::get('/adminDashboard', function () {
-    return view('admin/admin');
+Route::get('/adminMaster', function () {
+    return view('layouts/masterAdmin');
+});
+
+Route::get('/dashboardAdmin', function () {
+    return view('admin/dashboard');
 });
 // end page section
 
