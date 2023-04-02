@@ -22,7 +22,7 @@ Route::get('/login_admin', function () {
     return view('/auth/admin/adminLogin');
 });
 
-Route::get('dashboardAdmin', [AuthController::class, 'dashboardAdmin'])->name('dashboardAdmin');
+// Route::get('dashboardAdmin', [AuthController::class, 'dashboardAdmin'])->name('dashboardAdmin');
 // Route::get('/adminMaster', function () {
 //     return view('layout/master');
 // });
