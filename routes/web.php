@@ -22,9 +22,9 @@ Route::get('/login_admin', function () {
     return view('/auth/admin/adminLogin');
 });
 
-Route::get('/adminMaster', function () {
-    return view('layouts/masterAdmin');
-});
+// Route::get('/adminMaster', function () {
+//     return view('layouts/master');
+// });
 
 Route::get('/dashboardAdmin', function () {
     return view('admin/dashboard');

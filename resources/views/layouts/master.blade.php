@@ -195,7 +195,7 @@
                     <div class="content-side content-side-full">
                         <ul class="nav-main">
                             <li>
-                                <a href="{{ url ('/adminDashboard') }}"><i class="si si-cup"></i><span class="sidebar-mini-hide">Dashboard</span></a>
+                                <a href="{{route('dashboardAdmin')}}"><i class="si si-cup"></i><span class="sidebar-mini-hide">Dashboard</span></a>
                             </li>
                             <li>
                                 <a href="#"><i class="si si-lock"></i><span class="sidebar-mini-hide">Bank Soal</span></a>
