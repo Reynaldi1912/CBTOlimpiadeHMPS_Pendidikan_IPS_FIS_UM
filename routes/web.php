@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/login_admin', function () {
-    return view('/auth/admin/adminLogin');
+    return view('auth.admin.adminLogin');
 });
 
 // Route::get('dashboardAdmin', [AuthController::class, 'dashboardAdmin'])->name('dashboardAdmin');
@@ -28,8 +28,8 @@ Route::get('/login_admin', function () {
 // });
 
 Route::get('/dashboardAdmin', function () {
-    return view('admin/dashboard');
-});
+    return view('admin.dashboard');
+})->name('dashboardAdmin');
 // end page section
 
 
