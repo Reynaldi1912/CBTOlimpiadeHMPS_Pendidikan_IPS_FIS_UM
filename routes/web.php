@@ -22,7 +22,7 @@ Route::get('/login_admin', function () {
     return view('/auth/admin/adminLogin');
 });
 
-Route::post('/adminDashboard', function () {
+Route::get('/adminDashboard', function () {
     return view('admin/admin');
 });
 // end page section
