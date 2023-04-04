@@ -51,6 +51,10 @@ Route::get('/ujianPeserta', function () {
     return view('peserta.ujianPeserta');
 })->name('ujianPeserta');
 
+Route::get('/pengerjaanUjian', function () {
+    return view('peserta.pengerjaanUjian');
+})->name('pengerjaanUjian');
+
 Route::get('/profilPeserta', function () {
     return view('peserta.profilPeserta');
 })->name('profilPeserta');

@@ -31,7 +31,7 @@
                                     </form>
                                     <div class="form-group row">
                                         <div class="col-lg-8 ml-auto">
-                                            <a href="{{ url('/dashboardPeserta') }}"><button class="btn btn-alt-danger">Tes Ke Halaman Pengerjaan</button></a>
+                                            <a href="{{ url('/pengerjaanUjian') }}"><button class="btn btn-alt-danger">Tes Ke Halaman Pengerjaan</button></a>
                                         </div>
                                     </div>
                                 </div>
