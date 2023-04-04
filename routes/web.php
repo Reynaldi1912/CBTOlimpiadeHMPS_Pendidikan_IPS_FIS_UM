@@ -42,9 +42,17 @@ Route::get('/kelolaAdmin', function () {
 Route::get('/kelolaPeserta', function () {
     return view('admin.kelolaPeserta');
 })->name('kelolaPeserta');
+
+Route::get('/dashboardPeserta', function () {
+    return view('peserta.dashboard');
+})->name('dashboardPeserta');
 // end page section
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
