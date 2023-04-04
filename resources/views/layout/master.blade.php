@@ -26,6 +26,21 @@
         <!-- END Icons -->
 
         <!-- Stylesheets -->
+        <!-- Page JS Plugins CSS -->
+        <link rel="stylesheet" href="/assets/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
+        <link rel="stylesheet" href="/assets/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+        <link rel="stylesheet" href="/assets/js/plugins/select2/css/select2.min.css">
+        <link rel="stylesheet" href="/assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
+        <link rel="stylesheet" href="/assets/js/plugins/jquery-auto-complete/jquery.auto-complete.min.css">
+        <link rel="stylesheet" href="/assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.css">
+        <link rel="stylesheet" href="/assets/js/plugins/dropzonejs/dist/dropzone.css">
+        <link rel="stylesheet" href="/assets/js/plugins/flatpickr/flatpickr.min.css">
+        <!-- Page JS Plugins CSS -->
+        <link rel="stylesheet" href="/assets/js/plugins/slick/slick.css">
+        <link rel="stylesheet" href="/assets/js/plugins/slick/slick-theme.css">
+        <link rel="stylesheet" href="/assets/js/plugins/datatables/dataTables.bootstrap4.css">
+
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
 
         <!-- Fonts and Codebase framework -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
@@ -36,6 +51,7 @@
         <!-- END Stylesheets -->
     </head>
     <body>
+        @include('flashmessage')
         <!-- Page Container -->
         <div id="page-container" class="sidebar-o sidebar-inverse enable-page-overlay side-scroll page-header-fixed page-header-modern main-content-boxed">
             <!-- Side Overlay-->
@@ -76,6 +92,7 @@
                 Adding .sidebar-mini-visible to an element will show it only when the sidebar is in mini mode
                     - use .sidebar-mini-visible-b if you would like to be a block when visible (display: block)
             -->
+            <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
             @include('layout.sidebar')
             @include('layout.header')
             @include('layout.footer')
@@ -119,5 +136,71 @@
 
         <!-- Page JS Code -->
         <script src="/codebase/js/pages/be_pages_dashboard.min.js"></script>
+        <script src="/assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="/assets/js/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+        <script src="/assets/js/pages/be_tables_datatables.min.js"></script>
+
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.js'></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+            integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script src="/assets/js/plugins/pwstrength-bootstrap/pwstrength-bootstrap.min.js"></script>
+        <script src="/assets/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+        <script src="/assets/js/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+        <script src="/assets/js/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+        <script src="/assets/js/plugins/select2/js/select2.full.min.js"></script>
+        <script src="/assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.js"></script>
+        <script src="/assets/js/plugins/jquery-auto-complete/jquery.auto-complete.min.js"></script>
+        <script src="/assets/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
+        <script src="/assets/js/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+        <script src="/assets/js/plugins/dropzonejs/dropzone.min.js"></script>
+        <script src="/assets/js/plugins/flatpickr/flatpickr.min.js"></script>
+
+        <script src="/assets/js/pages/be_forms_plugins.min.js"></script>
+        
+        <script src="/assets/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <script src="/assets/js/plugins/moment/moment.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+        <script type="text/javascript">
+ 
+            $('.show_confirm_delete').click(function(event) {
+                var form =  $(this).closest("form");
+                var name = $(this).data("name");
+                event.preventDefault();
+                swal({
+                    title: `Apakah anda yakin ingin menghapus data ini ?`,
+                    text: "Data yang sudah dihapus tidak bisa dikembalikan",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                    form.submit();
+                    }
+                });
+            });
+
+            $('.show_confirm_simpan').click(function(event) {
+                var form =  $(this).closest("form");
+                var name = $(this).data("name");
+                event.preventDefault();
+                swal({
+                    title: `Apakah anda yakin ingin menyimpan data ini ?`,
+                    text: "",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                    form.submit();
+                    }
+                });
+            });
+
+        </script>
     </body>
 </html>

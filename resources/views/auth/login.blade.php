@@ -80,6 +80,7 @@
             'main-content-boxed'                        Full width Main Content with a specific maximum width (screen width > 1200px)
             'main-content-narrow'                       Full width Main Content with a percentage width (screen width > 1200px)
         -->
+        @include('flashmessage')
         <div id="page-container" class="main-content-boxed">
 
             <!-- Main Container -->
@@ -100,11 +101,12 @@
                             <div class="col-sm-8 col-md-6 col-xl-4">
                                 <!-- jQuery Validation functionality is initialized with .js-validation-signin class in js/pages/op_auth_signin.min.js which was auto compiled from _es6/pages/op_auth_signin.js -->
                                 <!-- For more examples you can check out https://github.com/jzaefferer/jquery-validation -->
-                                <form class="js-validation-signin" action="be_pages_auth_all.html" method="post">
+                                <form class="js-validation-signin" method="POST" action="{{route('login_peserta')}}">
+                                    @csrf
                                     <div class="form-group row">
                                         <div class="col-12">
                                             <div class="form-material floating">
-                                                <input type="text" class="form-control" id="login-username" name="login-username">
+                                                <input type="text" class="form-control" id="login-username" name="username">
                                                 <label for="login-username">Username</label>
                                             </div>
                                         </div>
@@ -112,7 +114,7 @@
                                     <div class="form-group row">
                                         <div class="col-12">
                                             <div class="form-material floating">
-                                                <input type="password" class="form-control" id="login-password" name="login-password">
+                                                <input type="password" class="form-control" id="login-password" name="password">
                                                 <label for="login-password">Password</label>
                                             </div>
                                         </div>

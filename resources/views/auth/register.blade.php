@@ -100,11 +100,20 @@
                             <div class="col-sm-8 col-md-6 col-xl-4">
                                 <!-- jQuery Validation functionality is initialized with .js-validation-signup class in js/pages/op_auth_signup.min.js which was auto compiled from _es6/pages/op_auth_signup.js -->
                                 <!-- For more examples you can check out https://github.com/jzaefferer/jquery-validation -->
-                                <form class="js-validation-signup" action="be_pages_auth_all.html" method="post">
+                                <form class="js-validation-signup" method="POST" action="{{route('register')}}">
+                                    @csrf
                                     <div class="form-group row">
                                         <div class="col-12">
                                             <div class="form-material floating">
-                                                <input type="text" class="form-control" id="signup-username" name="signup-username">
+                                                <input type="text" class="form-control" id="signup-name" name="name">
+                                                <label for="signup-name">Nama Lengkap</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-12">
+                                            <div class="form-material floating">
+                                                <input type="text" class="form-control" id="signup-username" name="username">
                                                 <label for="signup-username">Username</label>
                                             </div>
                                         </div>
@@ -112,7 +121,7 @@
                                     <div class="form-group row">
                                         <div class="col-12">
                                             <div class="form-material floating">
-                                                <input type="email" class="form-control" id="signup-email" name="signup-email">
+                                                <input type="email" class="form-control" id="signup-email" name="email">
                                                 <label for="signup-email">Email</label>
                                             </div>
                                         </div>
@@ -120,7 +129,7 @@
                                     <div class="form-group row">
                                         <div class="col-12">
                                             <div class="form-material floating">
-                                                <input type="password" class="form-control" id="signup-password" name="signup-password">
+                                                <input type="password" class="form-control" id="signup-password" name="password">
                                                 <label for="signup-password">Password</label>
                                             </div>
                                         </div>

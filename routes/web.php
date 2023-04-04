@@ -14,12 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 // page section
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-Route::get('/login_admin', function () {
-    return view('auth.admin.adminLogin');
+Route::get('/', function () {
+    return redirect()->route('login');
 });
 
 // Route::get('dashboardAdmin', [AuthController::class, 'dashboardAdmin'])->name('dashboardAdmin');
@@ -51,9 +47,10 @@ Route::get('/dashboardPeserta', function () {
 
 
 Auth::routes();
+Route::post('/login_peserta', [App\Http\Controllers\Auth\LoginController::class, 'login_peserta'])->name('login_peserta');
+Route::get('/login_admin', function () {
+    return view('auth.admin.adminLogin');
+})->name('login_admin');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -31,7 +31,7 @@
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-rounded btn-dual-secondary" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-user d-sm-none"></i>
-                    <span class="d-none d-sm-inline-block">J. Smith</span>
+                    <span class="d-none d-sm-inline-block">{{ Auth::user()->name }}</span>
                     <i class="fa fa-angle-down ml-5"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right min-width-200" aria-labelledby="page-header-user-dropdown">
@@ -51,9 +51,15 @@
                     <!-- Toggle Side Overlay -->
                     <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
                     <!-- END Side Overlay -->
-                    <a class="dropdown-item" href="{{ url('/login') }}">
-                        <i class="si si-logout mr-5"></i> Sign Out
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
                     </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                        <i class="si si-logout mr-5"></i> Sign Out
+                    </form>
                 </div>
             </div>
             <!-- END User Dropdown -->
