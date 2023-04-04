@@ -52,7 +52,7 @@ class LoginController extends Controller
         if(auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password'])))
         {
             if ( Auth::user()->role === 'admin'){
-                return redirect()->route('home')->with('success','Login Admin Berhasil , Selamat Datang '.Auth::user()->name);
+                return redirect()->route('dashboardAdmin')->with('success','Login Admin Berhasil , Selamat Datang '.Auth::user()->name);
             }else{
                 $request->session()->flush();
                 return redirect()->route('login_admin')->with('error','Gagal Login , Login Khusus untuk Admin');
@@ -75,7 +75,7 @@ class LoginController extends Controller
         if(auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password'])))
         {
             if ( Auth::user()->role === 'peserta'){
-                return redirect()->route('home')->with('success','Login Peserta Berhasil , Selamat Datang '.Auth::user()->name);
+                return redirect()->route('dashboardPeserta')->with('success','Login Peserta Berhasil , Selamat Datang '.Auth::user()->name);
             }else{
                 $request->session()->flush();
                 return redirect()->route('login')->with('error','Gagal Login , Halaman ini untuk peserta');

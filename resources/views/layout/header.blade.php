@@ -11,16 +11,6 @@
                 <i class="fa fa-navicon"></i>
             </button>
             <!-- END Toggle Sidebar -->
-
-            <!-- Open Search Section -->
-            <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-            <button type="button" class="btn btn-circle btn-dual-secondary" data-toggle="layout" data-action="header_search_on">
-                <i class="fa fa-search"></i>
-            </button>
-            <!-- END Open Search Section -->
-
-            <!-- Layout Options (used just for demonstration) -->
-            <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
             <!-- END Layout Options -->
         </div>
         <!-- END Left Section -->

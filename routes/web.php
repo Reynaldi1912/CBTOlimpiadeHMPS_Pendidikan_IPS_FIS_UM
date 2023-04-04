@@ -42,6 +42,18 @@ Route::get('/kelolaPeserta', function () {
 Route::get('/dashboardPeserta', function () {
     return view('peserta.dashboard');
 })->name('dashboardPeserta');
+
+Route::get('/dashboardPeserta', function () {
+    return view('peserta.dashboard');
+})->name('dashboardPeserta');
+
+Route::get('/ujianPeserta', function () {
+    return view('peserta.ujianPeserta');
+})->name('ujianPeserta');
+
+Route::get('/profilPeserta', function () {
+    return view('peserta.profilPeserta');
+})->name('profilPeserta');
 // end page section
 
 

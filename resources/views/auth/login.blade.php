@@ -91,7 +91,7 @@
                     <div class="hero-static content content-full bg-white invisible" data-toggle="appear">
                         <!-- Header -->
                         <div class="py-30 px-5 text-center">
-                            <h1 class="h2 font-w700 mt-50 mb-10">Selamat Datang</h1>
+                            <h1 class="h2 font-w700 mt-50 mb-10">Selamat Datang Peserta</h1>
                             <h2 class="h4 font-w400 text-muted mb-0">Silahkan Log In</h2>
                         </div>
                         <!-- END Header -->

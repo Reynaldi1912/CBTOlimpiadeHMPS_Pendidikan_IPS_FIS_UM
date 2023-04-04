@@ -70,6 +70,7 @@
         <!-- END Side User -->
 
         <!-- Side Navigation -->
+        @if(Auth::user()->role=='admin')
         <div class="content-side content-side-full">
             <ul class="nav-main">
                 <li>
@@ -95,6 +96,23 @@
             </ul>
         </div>
         <!-- END Side Navigation -->
+        <!-- Side Navigation -->
+        @elseif(Auth::user()->role=='peserta')
+        <div class="content-side content-side-full">
+            <ul class="nav-main">
+                <li>
+                    <a href="{{route('dashboardPeserta')}}" style="cursor: pointer;"><i class="si si-cup"></i><span class="sidebar-mini-hide">Dashboard</span></a>
+                </li>
+                <li>
+                    <a href="{{route('ujianPeserta')}}"><i class="si si-lock" style="cursor: pointer;"></i><span class="sidebar-mini-hide">Ujian Peserta</span></a>
+                </li>
+                <li>
+                    <a href="{{route('profilPeserta')}}" style="cursor: pointer;"><i class="si si-badge"></i><span class="sidebar-mini-hide">Profile</span></a>
+                </li>
+            </ul>
+        </div>
+        <!-- END Side Navigation -->
+        @endif
     </div>
     <!-- Sidebar Content -->
 </nav>

@@ -27,18 +27,18 @@
 
         <!-- Stylesheets -->
         <!-- Page JS Plugins CSS -->
-        <link rel="stylesheet" href="/assets/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
-        <link rel="stylesheet" href="/assets/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
-        <link rel="stylesheet" href="/assets/js/plugins/select2/css/select2.min.css">
-        <link rel="stylesheet" href="/assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
-        <link rel="stylesheet" href="/assets/js/plugins/jquery-auto-complete/jquery.auto-complete.min.css">
-        <link rel="stylesheet" href="/assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.css">
-        <link rel="stylesheet" href="/assets/js/plugins/dropzonejs/dist/dropzone.css">
-        <link rel="stylesheet" href="/assets/js/plugins/flatpickr/flatpickr.min.css">
+        <link rel="stylesheet" href="/codebase/js/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
+        <link rel="stylesheet" href="/codebase/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+        <link rel="stylesheet" href="/codebase/js/plugins/select2/css/select2.min.css">
+        <link rel="stylesheet" href="/codebase/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
+        <link rel="stylesheet" href="/codebase/js/plugins/jquery-auto-complete/jquery.auto-complete.min.css">
+        <link rel="stylesheet" href="/codebase/js/plugins/ion-rangeslider/css/ion.rangeSlider.css">
+        <link rel="stylesheet" href="/codebase/js/plugins/dropzonejs/dist/dropzone.css">
+        <link rel="stylesheet" href="/codebase/js/plugins/flatpickr/flatpickr.min.css">
         <!-- Page JS Plugins CSS -->
-        <link rel="stylesheet" href="/assets/js/plugins/slick/slick.css">
-        <link rel="stylesheet" href="/assets/js/plugins/slick/slick-theme.css">
-        <link rel="stylesheet" href="/assets/js/plugins/datatables/dataTables.bootstrap4.css">
+        <link rel="stylesheet" href="/codebase/js/plugins/slick/slick.css">
+        <link rel="stylesheet" href="/codebase/js/plugins/slick/slick-theme.css">
+        <link rel="stylesheet" href="/codebase/js/plugins/datatables/dataTables.bootstrap4.css">
 
         <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
 
@@ -136,31 +136,31 @@
 
         <!-- Page JS Code -->
         <script src="/codebase/js/pages/be_pages_dashboard.min.js"></script>
-        <script src="/assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
-        <script src="/assets/js/plugins/datatables/dataTables.bootstrap4.min.js"></script>
-        <script src="/assets/js/pages/be_tables_datatables.min.js"></script>
+        <script src="/codebase/js/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="/codebase/js/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+        <script src="/codebase/js/pages/be_tables_datatables.min.js"></script>
 
         <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.js'></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
             integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        <script src="/assets/js/plugins/pwstrength-bootstrap/pwstrength-bootstrap.min.js"></script>
-        <script src="/assets/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-        <script src="/assets/js/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-        <script src="/assets/js/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
-        <script src="/assets/js/plugins/select2/js/select2.full.min.js"></script>
-        <script src="/assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.js"></script>
-        <script src="/assets/js/plugins/jquery-auto-complete/jquery.auto-complete.min.js"></script>
-        <script src="/assets/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
-        <script src="/assets/js/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
-        <script src="/assets/js/plugins/dropzonejs/dropzone.min.js"></script>
-        <script src="/assets/js/plugins/flatpickr/flatpickr.min.js"></script>
+        <script src="/codebase/js/plugins/pwstrength-bootstrap/pwstrength-bootstrap.min.js"></script>
+        <script src="/codebase/js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+        <script src="/codebase/js/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+        <script src="/codebase/js/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+        <script src="/codebase/js/plugins/select2/js/select2.full.min.js"></script>
+        <script src="/codebase/js/plugins/jquery-tags-input/jquery.tagsinput.min.js"></script>
+        <script src="/codebase/js/plugins/jquery-auto-complete/jquery.auto-complete.min.js"></script>
+        <script src="/codebase/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
+        <script src="/codebase/js/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+        <script src="/codebase/js/plugins/dropzonejs/dropzone.min.js"></script>
+        <script src="/codebase/js/plugins/flatpickr/flatpickr.min.js"></script>
 
-        <script src="/assets/js/pages/be_forms_plugins.min.js"></script>
+        <script src="/codebase/js/pages/be_forms_plugins.min.js"></script>
         
-        <script src="/assets/js/plugins/jquery-ui/jquery-ui.min.js"></script>
-        <script src="/assets/js/plugins/moment/moment.min.js"></script>
+        <script src="/codebase/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <script src="/codebase/js/plugins/moment/moment.min.js"></script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
         <script type="text/javascript">

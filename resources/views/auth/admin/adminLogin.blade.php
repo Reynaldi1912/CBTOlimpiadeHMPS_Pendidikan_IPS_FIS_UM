@@ -1,3 +1,4 @@
+<!doctype html>
 <html lang="en" class="no-focus">
     <head>
         <meta charset="utf-8">
@@ -87,20 +88,30 @@
             <main id="main-container">
 
                 <!-- Page Content -->
-                <div class="bg-gd-dusk">
-                    <div class="hero-static content content-full bg-white invisible" data-toggle="appear">
-                        <!-- Header -->
-                        <div class="py-30 px-5 text-center">
-                            <h1 class="h2 font-w700 mt-50 mb-10">Admin Log In</h1>
+                <div class="bg-image" style="background-image: url('/codebase/media/photos/photo34@2x.jpg');">
+                    <div class="row mx-0 bg-black-op">
+                        <div class="hero-static col-md-6 col-xl-8 d-none d-md-flex align-items-md-end">
+                            <div class="p-30 invisible" data-toggle="appear">
+                                <p class="font-size-h3 font-w600 text-white">
+                                    Get Inspired and Create.
+                                </p>
+                                <p class="font-italic text-white-op">
+                                    Copyright &copy; <span class="js-year-copy"></span>
+                                </p>
+                            </div>
                         </div>
-                        <!-- END Header -->
+                        <div class="hero-static col-md-6 col-xl-4 d-flex align-items-center bg-white invisible" data-toggle="appear" data-class="animated fadeInRight">
+                            <div class="content content-full">
+                                <!-- Header -->
+                                <div class="px-30 py-10">
+                                    <h1 class="h3 font-w700 mt-30 mb-10">Login Admin</h1>
+                                </div>
+                                <!-- END Header -->
 
-                        <!-- Sign In Form -->
-                        <div class="row justify-content-center px-5">
-                            <div class="col-sm-8 col-md-6 col-xl-4">
+                                <!-- Sign In Form -->
                                 <!-- jQuery Validation functionality is initialized with .js-validation-signin class in js/pages/op_auth_signin.min.js which was auto compiled from _es6/pages/op_auth_signin.js -->
                                 <!-- For more examples you can check out https://github.com/jzaefferer/jquery-validation -->
-                                <form class="js-validation-signin" action="{{ route('login') }}" method="post">
+                                <form class="js-validation-signin px-30" action="{{ route('login') }}" method="post">
                                     @csrf
                                     <div class="form-group row">
                                         <div class="col-12">
@@ -118,17 +129,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group row gutters-tiny">
-                                        <div class="col-12 mb-10">
-                                            <button type="submit" class="btn btn-block btn-hero btn-noborder btn-rounded btn-alt-primary">
-                                                <i class="si si-login mr-10"></i> Sign In
-                                            </button>
-                                        </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-sm btn-hero btn-alt-primary">
+                                            <i class="si si-login mr-10"></i> Sign In
+                                        </button>
                                     </div>
                                 </form>
+                                <!-- END Sign In Form -->
                             </div>
                         </div>
-                        <!-- END Sign In Form -->
                     </div>
                 </div>
                 <!-- END Page Content -->
