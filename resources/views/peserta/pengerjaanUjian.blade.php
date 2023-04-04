@@ -85,20 +85,21 @@
                         </div>
                         <!-- END Pop Out Modal -->
                         <div class="col-6 col-md-4 col-xl-2">
-                            <a class="block block-link-pop text-center" href="javascript:void(0)">
+                            <div class="block block-link-pop text-center" href="javascript:void(0)">
                                 <div class="block-content">
                                     <p class="font-size-h5 text-earth" id="waktu-tersisa">
                                         <!-- <strong>987&euro;</strong> -->
                                     </p>
                                 </div>
-                                <div class="content bg-body-light ">
+                                <div class="bg-body-light">
                                     <p class="font-w400">
                                         <i class="fa fa-clock-o text-muted mr-5"></i> Waktu Tersisa
                                     </p>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
+
                     <div class="block-content">
                         <!-- Bootstrap Forms Validation -->
                         <div class="row justify-content-center py-20">
@@ -136,31 +137,7 @@
 
         </main>
         <!-- END Main Container -->
-<!--
-            Codebase JS Core
-
-            Vital libraries and plugins used in all pages. You can choose to not include this file if you would like
-            to handle those dependencies through webpack. Please check out /codebase/_es6/main/bootstrap.js for more info.
-
-            If you like, you could also include them separately directly from the /codebase/js/core folder in the following
-            order. That can come in handy if you would like to include a few of them (eg jQuery) from a CDN.
-
-            /codebase/js/core/jquery.min.js
-            /codebase/js/core/bootstrap.bundle.min.js
-            /codebase/js/core/simplebar.min.js
-            /codebase/js/core/jquery-scrollLock.min.js
-            /codebase/js/core/jquery.appear.min.js
-            /codebase/js/core/jquery.countTo.min.js
-            /codebase/js/core/js.cookie.min.js
-        -->
         <script src="/codebase/js/codebase.core.min.js"></script>
-
-        <!--
-            Codebase JS
-
-            Custom functionality including Blocks/Layout API as well as other vital and optional helpers
-            webpack is putting everything together at /codebase/_es6/main/app.js
-        -->
         <script src="/codebase/js/codebase.app.min.js"></script>
 
         <!-- Page JS Plugins -->
@@ -235,7 +212,7 @@
         </script>
         <script>
             // Set the date we're counting down to
-            var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
+            var countDownDate = new Date("Apr 5, 2023 01:34:00").getTime();
 
             // Update the count down every 1 second
             var x = setInterval(function() {
@@ -259,7 +236,7 @@
             // If the count down is over, write some text 
             if (distance < 0) {
                 clearInterval(x);
-                document.getElementById("demo").innerHTML = "EXPIRED";
+                document.getElementById("waktu-tersisa").innerHTML = "EXPIRED";
             }
             }, 1000);
             </script>
