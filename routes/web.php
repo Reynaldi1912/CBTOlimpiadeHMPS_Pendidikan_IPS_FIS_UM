@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UjianPesertaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,9 +48,9 @@ Route::get('/dashboardPeserta', function () {
     return view('peserta.dashboard');
 })->name('dashboardPeserta');
 
-Route::get('/ujianPeserta', function () {
-    return view('peserta.ujianPeserta');
-})->name('ujianPeserta');
+// Route::get('/ujianPeserta', function () {
+//     return view('peserta.ujianPeserta');
+// })->name('ujianPeserta');
 
 Route::get('/pengerjaanUjian', function () {
     return view('peserta.pengerjaanUjian');
@@ -59,7 +60,11 @@ Route::get('/profilPeserta', function () {
     return view('peserta.profilPeserta');
 })->name('profilPeserta');
 // end page section
+// Route::get('/pengerjaan', function () {
+//     return view('peserta.pengerjaanSoal');
+// })->name('pengerjaan');
 
+Route::resource('pengerjaan', UjianPesertaController::class);
 
 
 Auth::routes();

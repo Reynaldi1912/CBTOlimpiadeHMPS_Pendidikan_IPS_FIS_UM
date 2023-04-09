@@ -58,32 +58,9 @@
             <div class="content">
                 <div class="block">
                     <div class="block-header block-header-default">
-                        <!-- Pop Out Modal -->
                         <div class="block">
-                                <button type="button" class="btn btn-alt-danger" data-toggle="modal" data-target="#instruksi-pengerjaan">Instruksi Pengerjaan!</button>
+                            <button type="button" class="btn btn-alt-danger" data-toggle="modal" data-target="#instruksi-pengerjaan">Instruksi Pengerjaan!</button>
                         </div>
-                        <!-- END Pop Out Modal -->
-                        <!-- Pop Out Modal -->
-                        <div class="modal fade" id="instruksi-pengerjaan" tabindex="-1" role="dialog" aria-labelledby="modal-popout" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-popout" role="document">
-                                <div class="modal-content">
-                                    <div class="block block-themed block-transparent mb-0">
-                                        <div class="block-header bg-primary-dark">
-                                            <h3 class="block-title">Instruksi Pengerjaan</h3>
-                                        </div>
-                                        <div class="block-content">
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc a posuere velit. Ut id augue eget ex pulvinar ullamcorper eget ac risus. Aliquam mollis nisl ac justo tempus, ac lobortis quam lobortis. Morbi sit amet ipsum et nulla imperdiet aliquet in in mauris. Vestibulum quis lectus tincidunt, mollis sem eget, ultrices ante. Nulla vitae magna et ex tincidunt tempor.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Tutup</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END Pop Out Modal -->
                         <div class="col-6 col-md-4 col-xl-2">
                             <div class="block block-link-pop text-center" href="javascript:void(0)">
                                 <div class="block-content">
@@ -101,32 +78,11 @@
                     </div>
 
                     <div class="block-content">
-                        <!-- Bootstrap Forms Validation -->
-                        <div class="row justify-content-center py-20">
-                            <div class="col-xl-6">
-                                <!-- jQuery Validation functionality is initialized in js/pages/be_forms_validation.min.js which was auto compiled from _es6/pages/be_forms_validation.js -->
-                                <!-- For more info and examples you can check out https://github.com/jzaefferer/jquery-validation -->
-                                <form class="js-validation-bootstrap" action="be_forms_validation.html" method="post">
-                                    <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="val-username">Token <span class="text-danger">*</span></label>
-                                        <div class="col-lg-8">
-                                            <input type="text" class="form-control" id="val-username" name="val-username" placeholder="Masukkan Token">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-lg-8 ml-auto">
-                                            <button type="submit" class="btn btn-alt-primary">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
-                                <div class="form-group row">
-                                    <div class="col-lg-8 ml-auto">
-                                        <a href="{{ url('/dashboardPeserta') }}"><button class="btn btn-alt-danger">Kembali Ke Halaman Peserta</button></a>
-                                    </div>
-                                </div>
+                        <div class="row justify-content-start py-20">
+                            <div class="col-xl-12">
+                                @livewire('exam')
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <!-- Bootstrap Forms Validation -->
@@ -136,6 +92,30 @@
             <!-- END Page Content -->
 
         </main>
+
+        <!-- Pop Out Modal -->
+        <div class="modal fade" id="instruksi-pengerjaan" tabindex="-1" role="dialog" aria-labelledby="modal-popout" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-popout" role="document">
+                    <div class="modal-content">
+                        <div class="block block-themed block-transparent mb-0">
+                            <div class="block-header bg-primary-dark">
+                                <h3 class="block-title">Instruksi Pengerjaan</h3>
+                            </div>
+                            <div class="block-content">
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc a posuere velit. Ut id augue eget ex pulvinar ullamcorper eget ac risus. Aliquam mollis nisl ac justo tempus, ac lobortis quam lobortis. Morbi sit amet ipsum et nulla imperdiet aliquet in in mauris. Vestibulum quis lectus tincidunt, mollis sem eget, ultrices ante. Nulla vitae magna et ex tincidunt tempor.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Tutup</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END Pop Out Modal -->
+            
+            
         <!-- END Main Container -->
         <script src="/codebase/js/codebase.core.min.js"></script>
         <script src="/codebase/js/codebase.app.min.js"></script>

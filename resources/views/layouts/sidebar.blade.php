@@ -104,7 +104,7 @@
                     <a href="{{route('dashboardPeserta')}}" style="cursor: pointer;"><i class="si si-cup"></i><span class="sidebar-mini-hide">Dashboard</span></a>
                 </li>
                 <li>
-                    <a href="{{route('ujianPeserta')}}"><i class="si si-lock" style="cursor: pointer;"></i><span class="sidebar-mini-hide">Ujian Peserta</span></a>
+                    <a href="{{route('pengerjaan.index')}}"><i class="si si-lock" style="cursor: pointer;"></i><span class="sidebar-mini-hide">Ujian Peserta</span></a>
                 </li>
                 <li>
                     <a href="{{route('profilPeserta')}}" style="cursor: pointer;"><i class="si si-badge"></i><span class="sidebar-mini-hide">Profile</span></a>

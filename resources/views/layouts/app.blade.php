@@ -80,9 +80,9 @@
             </aside>
             <!-- END Side Overlay -->
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-            @include('layout.sidebar')
-            @include('layout.header')
-            @include('layout.footer')
+            @include('layouts.sidebar')
+            @include('layouts.header')
+            @include('layouts.footer')
             @yield('content')
 
             
