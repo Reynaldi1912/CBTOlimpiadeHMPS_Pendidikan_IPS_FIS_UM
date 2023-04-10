@@ -52,9 +52,9 @@ Route::get('/dashboardPeserta', function () {
 //     return view('peserta.ujianPeserta');
 // })->name('ujianPeserta');
 
-Route::get('/pengerjaanUjian', function () {
-    return view('peserta.pengerjaanUjian');
-})->name('pengerjaanUjian');
+Route::get('/pengerjaanSoal', function () {
+    return view('peserta.pengerjaanSoal');
+})->name('pengerjaanSoal');
 
 Route::get('/profilPeserta', function () {
     return view('peserta.profilPeserta');
