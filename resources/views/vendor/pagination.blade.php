@@ -1,4 +1,5 @@
 @if ($paginator->hasPages())
+    <div class="container">
     <ul class="pagination justify-content-start">
         <li class="page-item {{ ($paginator->currentPage() == 1) ? ' disabled' : '' }}">
             <a class="page-link" href="{{ $paginator->url(1) }}">1</a>
@@ -14,6 +15,7 @@
             </li>
         @endfor
     </ul>
+    </div>
     @if ($paginator->currentPage() == $paginator->lastPage())
     <footer class="footer">
         <div class="container">

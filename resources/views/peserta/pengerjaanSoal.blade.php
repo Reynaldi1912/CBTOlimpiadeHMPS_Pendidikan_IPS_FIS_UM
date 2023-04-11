@@ -189,7 +189,7 @@
         </script>
         <script>
             // Set the date we're counting down to
-            var countDownDate = new Date("Apr 5, 2023 01:34:00").getTime();
+            var countDownDate = new Date("Apr 11, 2023 18:56:00").getTime();
 
             // Update the count down every 1 second
             var x = setInterval(function() {
