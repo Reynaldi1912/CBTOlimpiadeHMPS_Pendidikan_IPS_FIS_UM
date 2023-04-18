@@ -1,9 +1,5 @@
 <div class="container">
   <div class="row">
-    <div class="col-2">
-        {{ $soals->links('vendor.pagination') }}
-    </div>
-    <div class="col-2"></div>
     <div class="col-8">
         @foreach($soals as $soal)
             <span>type : {{$soal->question_type}}</span>
@@ -46,7 +42,17 @@
         @endforeach
 
         <br>
+        <div class="container align-content-center">
+            <button class="btn btn-primary">Sebelumnya</button>
+            <button class="btn btn-secondary">Simpan Jawaban</button>
+            <button class="btn btn-primary">Selanjutnya</button>
+        </div>
+        <br><br><br>
         <button class="btn btn-success btn-block">Simpan Jawaban</button>
+    </div>
+    <div class="col-2"></div>
+    <div class="col-2">
+        {{ $soals->links('vendor.pagination') }}
     </div>
   </div>
 </div>
