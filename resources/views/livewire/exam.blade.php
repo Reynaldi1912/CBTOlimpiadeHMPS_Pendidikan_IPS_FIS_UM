@@ -42,17 +42,26 @@
         @endforeach
 
         <br>
-        <div class="container align-content-center">
-            <button class="btn btn-primary">Sebelumnya</button>
-            <button class="btn btn-secondary">Simpan Jawaban</button>
-            <button class="btn btn-primary">Selanjutnya</button>
+        <div class="container">
+            <div class="row">
+                <button class="btn btn-primary col-sm">Sebelumnya</button>
+                <button class="btn btn-secondary col-sm">Ragu - ragu</button>
+                <button class="btn btn-primary col-sm">Selanjutnya</button>
+            </div>
         </div>
-        <br><br><br>
+        <br><br>
         <button class="btn btn-success btn-block">Simpan Jawaban</button>
     </div>
     <div class="col-2"></div>
     <div class="col-2">
-        {{ $soals->links('vendor.pagination') }}
+            <div class="block">
+                <div class="block-header block-header-default">
+                    <h3 class="block-title">Nomor Soal</h3>
+                </div>
+                <div class="block-content">
+                    {{ $soals->links('vendor.pagination') }}
+                </div>
+            </div>
     </div>
   </div>
 </div>

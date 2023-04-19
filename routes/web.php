@@ -36,6 +36,10 @@ Route::get('/kelolaAdmin', function () {
     return view('admin.kelolaAdmin');
 })->name('kelolaAdmin');
 
+Route::get('/buatToken', function () {
+    return view('admin.buatToken');
+})->name('buatToken');
+
 Route::get('/kelolaPeserta', function () {
     return view('admin.kelolaPeserta');
 })->name('kelolaPeserta');
