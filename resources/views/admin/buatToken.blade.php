@@ -21,31 +21,31 @@
                                 <div class="col-xl-6" id="visibleToken">
                                     <!-- jQuery Validation functionality is initialized in js/pages/be_forms_validation.min.js which was auto compiled from _es6/pages/be_forms_validation.js -->
                                     <!-- For more info and examples you can check out https://github.com/jzaefferer/jquery-validation -->
+                                    <form action="{{route('ujianAdmin.storeToken')}}" method="post">
                                         @csrf
                                         <div class="form-group row">
                                             <label class="col-lg-4 col-form-label">Token <span class="text-danger">*</span></label>
                                             <div class="col-lg-8" id="theToken" style="display: none;">
-                                                <span class="input-group-text" id="maketoken">
-                                                </span>
+                                                <input class="input-group-text" id="maketoken" type="text" name="token" readonly>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-lg-4 col-form-label">Pilih Jadwal <span class="text-danger">*</span></label>
                                             <div class="col-lg-8">
-                                                <select class="form-control" id="example-select" name="example-select">
-                                                    <option value="0">Please select</option>
-                                                    <option value="1">Option #1</option>
-                                                    <option value="2">Option #2</option>
-                                                    <option value="3">Option #3</option>
+                                                <select class="form-control" id="example-select" name="jadwal_exam">
+                                                    @foreach($data as $data)
+                                                        <option value="{{$data->id}}">{{$data->title}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-lg-8 ml-auto">
-                                                <button onclick="visibleToken()" class="btn btn-alt-primary">Perlihatkan Token</button>
-                                                <button class="btn btn-alt-success">Submit</button>
+                                                <button onclick="visibleToken()" class="btn btn-alt-primary" type="button">Perlihatkan Token</button>
+                                                <button class="btn btn-alt-success" type="submit">Submit</button>
                                             </div>
                                         </div>
+                                    </form>
                                 </div>
                             </div>
 
@@ -73,54 +73,50 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" style="width: 50px;">No.</th>
-                                                        <th>Nama Token</th>
+                                                        <th>Nama Ujian</th>
+                                                        <th class="d-none d-sm-table-cell" style="width: 15%;">Token Ujian</th>
                                                         <th class="d-none d-sm-table-cell" style="width: 15%;">Status</th>
                                                         <th class="text-center" style="width: 100px;">Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <th class="text-center" scope="row">1</th>
-                                                        <td>Helen Jacobs</td>
-                                                        <td class="d-none d-sm-table-cell">
-                                                            <span class="badge badge-success">Active</span>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <div class="btn-group">
-                                                                <button type="button" class="btn btn-sm btn-secondary" data-toggle="tooltip" title="Delete">
-                                                                    <i class="fa fa-times"></i>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="text-center" scope="row">2</th>
-                                                        <td>Brian Cruz</td>
-                                                        <td class="d-none d-sm-table-cell">
-                                                            <span class="badge badge-danger">Non-Active</span>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <div class="btn-group">
-                                                                <button type="button" class="btn btn-sm btn-secondary" data-toggle="tooltip" title="Delete">
-                                                                    <i class="fa fa-times"></i>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="text-center" scope="row">3</th>
-                                                        <td>Thomas Riley</td>
-                                                        <td class="d-none d-sm-table-cell">
-                                                            <span class="badge badge-success">Active</span>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <div class="btn-group">
-                                                                <button type="button" class="btn btn-sm btn-secondary" data-toggle="tooltip" title="Delete">
-                                                                    <i class="fa fa-times"></i>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                    <?php
+                                                        $i =1;
+                                                    ?>
+                                                    @foreach($allData as $key)
+                                                        <tr>
+                                                            <th class="text-center" scope="row">{{$i++}}</th>
+                                                            <td>{{$key->title}}</td>
+                                                            <td class="d-none d-sm-table-cell">{{$key->token == null ? '-':$key->token}}</td>
+                                                            <td class="d-none d-sm-table-cell">
+                                                                @if($key->token == null)
+                                                                    <span class="badge badge-danger">Non-Active</span>
+                                                                @elseif($key->token != null)
+                                                                    <span class="badge badge-success">Active</span>
+                                                                @endif
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <div class="btn-group">
+                                                                    <form action="{{route('ujianAdmin.update',$key->id)}}" method="post">
+                                                                        @csrf
+                                                                        @method('PATCH')
+                                                                        <input type="hidden" value="delete" name="btn">
+                                                                        <button type="submit" class="btn btn-sm btn-danger show_confirm_delete" data-toggle="tooltip" title="Delete">
+                                                                            Hapus Token
+                                                                        </button>
+                                                                    </form>
+                                                                    <form action="{{route('ujianAdmin.update',$key->id)}}" method="post">
+                                                                        @csrf
+                                                                        @method('PATCH')
+                                                                        <input type="hidden" value="update" name="btn">
+                                                                        <button type="submit" class="btn btn-sm btn-warning" data-toggle="tooltip" title="Update">
+                                                                            Update Token
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
@@ -146,7 +142,7 @@
                 result += characters.charAt(Math.floor(Math.random() * charactersLength));
                 counter += 1;
                 }
-                document.getElementById("maketoken").innerHTML = result;
+                document.getElementById("maketoken").value = result;
             }
                 console.log(makeid(8));
             </script>
