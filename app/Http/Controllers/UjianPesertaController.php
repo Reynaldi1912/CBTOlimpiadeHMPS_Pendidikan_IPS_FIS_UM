@@ -7,6 +7,8 @@ use App\Models\exam;
 use App\Models\exam_attemp;
 use Auth;
 use DB;
+use Illuminate\Support\Facades\Session;
+
 
 class UjianPesertaController extends Controller
 {
@@ -15,6 +17,11 @@ class UjianPesertaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        date_default_timezone_set('Asia/Jakarta');
+    }
     public function index()
     {
         $listUjian = DB::table('vw_list_peserta_ujian')->where('id_user',Auth::user()->id)->get();
@@ -28,7 +35,22 @@ class UjianPesertaController extends Controller
      */
     public function create()
     {
-        return view('peserta.pengerjaanSoal');
+
+    }
+    public function selesaikanUjian(){
+        // Menghapus data ujian pada session
+        Session::forget('ujian_id');
+        Session::forget('waktu_mulai');
+        Session::forget('durasi');
+
+        $listUjian = DB::table('vw_list_peserta_ujian')->where('id_user',Auth::user()->id)->get();
+        return view('peserta.listUjian',['listUjian'=>$listUjian]);
+    }
+    public function kerjakanUjian($id)
+    {
+
+        $listUjian = DB::table('vw_list_peserta_ujian')->where('id',Session::get('ujian_id'))->where('id_user',Auth::user()->id)->get();
+        return view('peserta.pengerjaanSoal' , ['listUjian'=>$listUjian[0]]);
     }
 
     /**
@@ -46,18 +68,28 @@ class UjianPesertaController extends Controller
                 if($attemp_token->total_attemp >= 3){
                     return redirect()->route('pengerjaan.index')->with('error','penggunaan token anda sudah melebhi 3x');;
                 }
+                // Menyimpan data ujian pada session
+                Session::put('ujian_id', $token->id);
+                Session::put('waktu_mulai', now());
+                Session::put('durasi', $token->duration);
+
                 $attemp_token->update([
                     'exam_id' => $token->id,
                     'total_attemp' => (int)$attemp_token->total_attemp + 1
                 ]);
-                return redirect()->route('pengerjaan.create');
+                return redirect()->route('pengerjaan.kerjakanUjian',$token->id);
             }else{
+                // Menyimpan data ujian pada session
+                Session::put('ujian_id', $token->id);
+                Session::put('waktu_mulai', now());
+                Session::put('durasi', $token->duration);
+
                 exam_attemp::create([
                     'id_user' => Auth::user()->id,
                     'exam_id' => $token->id,
                     'total_attemp' => 1
                 ]);
-                return redirect()->route('pengerjaan.create');
+                return redirect()->route('pengerjaan.kerjakanUjian',$token->id);
             }
         }else{
             return redirect()->route('pengerjaan.index')->with('error','tidak ada ujian dengan token "'.$request->token.'"');;
@@ -72,7 +104,12 @@ class UjianPesertaController extends Controller
      */
     public function show($id)
     {
-        return view('peserta.ujianPeserta');
+        $key = DB::table('vw_list_peserta_ujian')->where('id_user',Auth::user()->id)->where('id',$id)->get();
+        if(date('Y-m-d H:i:s') >= $key[0]->start_at  &&  date('Y-m-d H:i:s') <= date('Y-m-d H:i:s',strtotime($key[0]->duration.' minutes',strtotime($key[0]->start_at)))){
+            return view('peserta.ujianPeserta');
+        }else{
+            return redirect()->route('pengerjaan.index')->with('error','Maaf Diluar Waktu Pengerjaan');
+        }
     }
 
     /**

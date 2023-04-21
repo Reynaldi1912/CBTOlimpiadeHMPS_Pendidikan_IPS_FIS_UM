@@ -30,11 +30,24 @@
                                 <th class="text-center" style="width: 100px;">{{$key->duration}} menit</th>
                                 <td class="text-center">
                                     <div class="btn-group">
-                                        <a href="{{route('pengerjaan.show',$key->id)}}">
+                                    <?php
+                                        date_default_timezone_set('Asia/Jakarta');
+                                    ?>
+                                        @if(date('Y-m-d H:i:s') >= $key->start_at  &&  date('Y-m-d H:i:s') <= date('Y-m-d H:i:s',strtotime($key->duration.' minutes',strtotime($key->start_at))))
+                                            <a href="{{route('pengerjaan.show',$key->id)}}">
+                                                <button type="button" class="btn btn-sm btn-primary js-tooltip-enabled" data-toggle="tooltip" title="" data-original-title="Edit">
+                                                    Kerjakan
+                                                </button>
+                                            </a>
+                                        @elseif($key->start_at > date('Y-m-d H:i:s'))
                                             <button type="button" class="btn btn-sm btn-secondary js-tooltip-enabled" data-toggle="tooltip" title="" data-original-title="Edit">
-                                                Kerjakan
+                                                Belum Mulai
                                             </button>
-                                        </a>
+                                        @else
+                                            <button type="button" class="btn btn-sm btn-secondary btn-disabled js-tooltip-enabled" data-toggle="tooltip" title="" data-original-title="Edit">
+                                                Expired
+                                            </button>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

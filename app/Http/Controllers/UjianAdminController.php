@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\exam;
+use Illuminate\Support\Facades\Session;
+
 
 class UjianAdminController extends Controller
 {
@@ -12,6 +14,11 @@ class UjianAdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        date_default_timezone_set('Asia/Jakarta');
+    }
     public function index()
     {
         return view('admin.createUjian');
