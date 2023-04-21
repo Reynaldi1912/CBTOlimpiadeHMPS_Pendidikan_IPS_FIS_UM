@@ -8,7 +8,7 @@
     <div class="block">
         <div class="block-header block-header-default">
             <h3 class="block-title">Daftar Admin</h3>
-            <button type="button" class="btn btn-alt-success mr-5 mb-5">
+            <button type="button" class="btn btn-alt-success mr-5 mb-5" data-toggle="modal" data-target="#tambah-admin">
                 <i class="fa fa-plus mr-5"></i>Tambah Admin
             </button>
         </div>
@@ -94,26 +94,38 @@
 
     <!-- Pop Out Modal Tambah Admin-->
     <div class="modal fade" id="tambah-admin" tabindex="-1" role="dialog" aria-labelledby="modal-popout" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-popout" role="document">
-                <div class="modal-content">
-                    <div class="block block-themed block-transparent mb-0">
-                        <div class="block-header bg-primary-dark">
-                            <h3 class="block-title">Tambah Admin</h3>
-                            <div class="block-options">
-                                <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
-                                    <i class="si si-close"></i>
-                                </button>
-                            </div>
+        <div class="modal-dialog modal-dialog-popout" role="document">
+            <div class="modal-content">
+                <div class="block block-themed block-transparent mb-0">
+                    <div class="block-header bg-primary-dark">
+                        <h3 class="block-title">Tambah Admin</h3>
+                        <div class="block-options">
+                            <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                <i class="si si-close"></i>
+                            </button>
                         </div>
-                        <div class="block-content">
-                            <!-- Default Elements -->
-                            <div class="block">
+                    </div>
+                    <div class="block-content">
+                        <!-- Default Elements -->
+                        <div class="block">
                                 <div class="block-content">
                                     <form action="be_forms_elements_bootstrap.html" method="post" enctype="multipart/form-data" onsubmit="return false;">
                                         <div class="form-group row">
+                                            <label class="col-12">Role</label>
+                                            <div class="col-md-9">
+                                                <div class="form-control-plaintext">Admin</div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
                                             <label class="col-12" for="example-text-input">Nama</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control" id="example-text-input" name="example-text-input" placeholder="Nama">
+                                                <input type="text" class="form-control" id="example-nama-input" name="example-nama-input" placeholder="Nama..">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-12" for="example-text-input">Username</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" id="example-username-input" name="example-username-input" placeholder="Username..">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -128,27 +140,32 @@
                                                 <input type="password" class="form-control" id="example-password-input" name="example-password-input" placeholder="Password..">
                                             </div>
                                         </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-alt-success">
+                                                <i class="fa fa-check"></i> Submit
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                             <!-- END Default Elements -->
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-alt-success" data-dismiss="modal">
-                            <i class="fa fa-check"></i> Save
-                        </button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- END Pop Out Modal Tambah Admin-->
+    </div>
+    <!-- END Pop Out Modal Tambah Admin-->
 
-        <!-- Pop Out Modal -->
-        <div class="modal fade" id="edit-admin" tabindex="-1" role="dialog" aria-labelledby="modal-popout" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-popout" role="document">
+    <!-- Pop In Modal Edit Admin -->
+    <div class="modal fade" id="edit-admin" tabindex="-1" role="dialog" aria-labelledby="modal-popin" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-popin" role="document">
                 <div class="modal-content">
                     <div class="block block-themed block-transparent mb-0">
                         <div class="block-header bg-primary-dark">
-                            <h3 class="block-title">Terms &amp; Conditions</h3>
+                            <h3 class="block-title">Edit Admin</h3>
                             <div class="block-options">
                                 <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
                                     <i class="si si-close"></i>
@@ -156,20 +173,56 @@
                             </div>
                         </div>
                         <div class="block-content">
-                            <p>Dolor posuere proin blandit accumsan senectus netus nullam curae, ornare laoreet adipiscing luctus mauris adipiscing pretium eget fermentum, tristique lobortis est ut metus lobortis tortor tincidunt himenaeos habitant quis dictumst proin odio sagittis purus mi, nec taciti vestibulum quis in sit varius lorem sit metus mi.</p>
-                            <p>Dolor posuere proin blandit accumsan senectus netus nullam curae, ornare laoreet adipiscing luctus mauris adipiscing pretium eget fermentum, tristique lobortis est ut metus lobortis tortor tincidunt himenaeos habitant quis dictumst proin odio sagittis purus mi, nec taciti vestibulum quis in sit varius lorem sit metus mi.</p>
+                            <!-- Default Elements -->
+                            <div class="block">
+                                <div class="block-content">
+                                    <form action="be_forms_elements_bootstrap.html" method="post" enctype="multipart/form-data" onsubmit="return false;">
+                                        <div class="form-group row">
+                                            <label class="col-12">Role</label>
+                                            <div class="col-md-9">
+                                                <div class="form-control-plaintext">Admin</div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-12" for="example-text-input">Nama</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" id="example-nama-input" name="example-nama-input" placeholder="Nama..">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-12" for="example-text-input">Username</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" id="example-username-input" name="example-username-input" placeholder="Username..">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-12" for="example-email-input">Email</label>
+                                            <div class="col-md-9">
+                                                <input type="email" class="form-control" id="example-email-input" name="example-email-input" placeholder="Email..">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-12" for="example-password-input">Password</label>
+                                            <div class="col-md-9">
+                                                <input type="password" class="form-control" id="example-password-input" name="example-password-input" placeholder="Password..">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-alt-success">
+                                                <i class="fa fa-check"></i> Submit
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- END Default Elements -->
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-alt-success" data-dismiss="modal">
-                            <i class="fa fa-check"></i> Perfect
-                        </button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- END Pop Out Modal -->
+        <!-- END Pop In Modal Edit Admin -->
 </div>
 <!-- END Page Content -->
 @endsection
