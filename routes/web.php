@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UjianPesertaController;
+use App\Http\Controllers\UjianAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,9 +37,9 @@ Route::get('/kelolaAdmin', function () {
     return view('admin.kelolaAdmin');
 })->name('kelolaAdmin');
 
-Route::get('/buatToken', function () {
-    return view('admin.buatToken');
-})->name('buatToken');
+// Route::get('/buatToken', function () {
+//     return view('admin.buatToken');
+// })->name('buatToken');
 
 Route::get('/kelolaPeserta', function () {
     return view('admin.kelolaPeserta');
@@ -69,6 +70,8 @@ Route::get('/profilPeserta', function () {
 // })->name('pengerjaan');
 
 Route::resource('pengerjaan', UjianPesertaController::class);
+Route::resource('ujianAdmin', UjianAdminController::class);
+Route::post('ujianAdmin/storeToken', [UjianAdminController::class, 'storeToken'])->name('ujianAdmin.storeToken');
 
 
 Auth::routes();

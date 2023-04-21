@@ -77,7 +77,10 @@
                     <a href="{{route('dashboardAdmin')}}" style="cursor: pointer;"><i class="si si-cup"></i><span class="sidebar-mini-hide">Dashboard</span></a>
                 </li>
                 <li>
-                    <a href="{{route('buatToken')}}"><i class="si si-key" style="cursor: pointer;"></i><span class="sidebar-mini-hide">Token Ujian</span></a>
+                    <a href="{{route('ujianAdmin.index')}}"><i class="si si-notebook" style="cursor: pointer;"></i><span class="sidebar-mini-hide">Ujian</span></a>
+                </li>
+                <li>
+                    <a href="{{route('ujianAdmin.create')}}"><i class="si si-key" style="cursor: pointer;"></i><span class="sidebar-mini-hide">Token Ujian</span></a>
                 </li>
                 <li>
                     <a href="#"><i class="si si-lock" style="cursor: pointer;"></i><span class="sidebar-mini-hide">Bank Soal</span></a>

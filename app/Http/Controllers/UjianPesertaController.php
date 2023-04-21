@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\exam;
 use App\Models\exam_attemp;
 use Auth;
+use DB;
 
 class UjianPesertaController extends Controller
 {
@@ -16,7 +17,8 @@ class UjianPesertaController extends Controller
      */
     public function index()
     {
-        return view('peserta.ujianPeserta');
+        $listUjian = DB::table('vw_list_peserta_ujian')->where('id_user',Auth::user()->id)->get();
+        return view('peserta.listUjian',['listUjian'=>$listUjian]);
     }
 
     /**
@@ -70,7 +72,7 @@ class UjianPesertaController extends Controller
      */
     public function show($id)
     {
-        
+        return view('peserta.ujianPeserta');
     }
 
     /**

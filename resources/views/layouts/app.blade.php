@@ -190,5 +190,7 @@
             });
 
         </script>
+        <script>jQuery(function(){ Codebase.helpers(['flatpickr', 'datepicker', 'colorpicker', 'maxlength', 'select2', 'masked-inputs', 'rangeslider', 'tags-inputs']); });</script>
+
     </body>
 </html>
