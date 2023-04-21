@@ -8,7 +8,9 @@
     <div class="block">
         <div class="block-header block-header-default">
             <h3 class="block-title">Daftar Peserta</h3>
-            <button type="button" class="btn btn-success min-width-125" data-toggle="modal" data-target="#tambah-peserta">Tambah Peserta</button>
+            <button type="button" class="btn btn-alt-success mr-5 mb-5">
+                <i class="fa fa-plus mr-5"></i>Tambah Peserta
+            </button>
         </div>
         <div class="block-content">
             <div class="table-responsive">
