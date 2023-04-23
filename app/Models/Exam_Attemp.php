@@ -10,6 +10,6 @@ class Exam_Attemp extends Model
     use HasFactory;
     protected $table = 'exam_attemps';
     protected $fillable = [
-        'id' ,'id_user', 'exam_id', 'total_attemp','created_at','updated_at',
+        'id' ,'id_user', 'exam_id', 'total_attemp','finish','created_at','updated_at',
     ];
 }

@@ -16,15 +16,4 @@
             @endfor
         </ul>
     </div>
-    @if ($paginator->currentPage() == $paginator->lastPage())
-    <footer class="footer">
-        <div class="container">
-            <div class="row justify-content-center">
-            <div class="col-auto">
-                <a type="button" href="{{route('pengerjaan.selesaikanUjian')}}" class="btn btn-danger btn-block">Selesaikan Ujian</a>
-            </div>
-            </div>
-        </div>
-    </footer>
-    @endif
 @endif

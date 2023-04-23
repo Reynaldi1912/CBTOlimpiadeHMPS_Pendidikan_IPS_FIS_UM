@@ -53,7 +53,7 @@
     <body>
         <!-- Main Container -->
         <main id="main-container">
-
+        @include('flashmessage')
             <!-- Page Content -->
             <div class="content">
                 <div class="block">
@@ -82,7 +82,7 @@
                     <div class="block-content">
                         <div class="row justify-content-start py-20">
                             <div class="col-xl-12">
-                                @livewire('exam')
+                                @livewire('exam', ['id' => $id_ujian])
                             </div>
                         </div>
                     </div>
@@ -177,6 +177,23 @@
                 event.preventDefault();
                 swal({
                     title: `Apakah anda yakin ingin menyimpan data ini ?`,
+                    text: "",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                    form.submit();
+                    }
+                });
+            });
+            $('.show_confirm_simpan_ujian').click(function(event) {
+                var form =  $(this).closest("form");
+                var name = $(this).data("name");
+                event.preventDefault();
+                swal({
+                    title: `Apakah anda yakin ingin Menyelesaikan Ujian ini ?`,
                     text: "",
                     icon: "warning",
                     buttons: true,

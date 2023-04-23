@@ -189,6 +189,23 @@
                     }
                 });
             });
+            $('.show_confirm_simpan_ujian').click(function(event) {
+                var form =  $(this).closest("form");
+                var name = $(this).data("name");
+                event.preventDefault();
+                swal({
+                    title: `Apakah anda yakin ingin Menyelesaikan Ujian ini ?`,
+                    text: "",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                    form.submit();
+                    }
+                });
+            });
 
         </script>
         <script>jQuery(function(){ Codebase.helpers(['flatpickr', 'datepicker', 'colorpicker', 'maxlength', 'select2', 'masked-inputs', 'rangeslider', 'tags-inputs']); });</script>

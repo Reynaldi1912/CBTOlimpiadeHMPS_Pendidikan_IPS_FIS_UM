@@ -35,13 +35,25 @@ class UjianPesertaController extends Controller
      */
     public function create()
     {
-
+        $soals = DB::table('vw_question_exam')->where('id','1')->paginate(1);
+        foreach ($soals as $soal) {
+            $soal->jawaban = Question_Option::all()->where('exam_question_id',$soal->question_id);
+        }
+        
+        return view('livewire.exam', [
+            'soals' => $soals
+        ]);
     }
-    public function selesaikanUjian(){
+    public function selesaikanUjian($id){
         // Menghapus data ujian pada session
         Session::forget('ujian_id');
         Session::forget('waktu_mulai');
         Session::forget('durasi');
+
+        $exam_attemp = Exam_Attemp::all()->where('id_user',Auth::user()->id)->where('exam_id',$id)->first();
+        $exam_attemp->update([
+            'finish' => 1
+        ]);
 
         $listUjian = DB::table('vw_list_peserta_ujian')->where('id_user',Auth::user()->id)->get();
         return view('peserta.listUjian',['listUjian'=>$listUjian]);
@@ -50,7 +62,10 @@ class UjianPesertaController extends Controller
     {
 
         $listUjian = DB::table('vw_list_peserta_ujian')->where('id',Session::get('ujian_id'))->where('id_user',Auth::user()->id)->get();
-        return view('peserta.pengerjaanSoal' , ['listUjian'=>$listUjian[0]]);
+        return view('peserta.pengerjaanSoal' , [
+            'listUjian'=>$listUjian[0],
+            'id_ujian' => $listUjian[0]->id
+        ]);
     }
 
     /**

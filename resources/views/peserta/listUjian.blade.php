@@ -33,7 +33,11 @@
                                     <?php
                                         date_default_timezone_set('Asia/Jakarta');
                                     ?>
-                                        @if(date('Y-m-d H:i:s') >= $key->start_at  &&  date('Y-m-d H:i:s') <= date('Y-m-d H:i:s',strtotime($key->duration.' minutes',strtotime($key->start_at))))
+                                        @if($key->finish == 1)
+                                            <button type="button" class="btn btn-sm btn-secondary js-tooltip-enabled" data-toggle="tooltip" title="" data-original-title="Edit">
+                                                Menyelesaikan
+                                            </button>
+                                        @elseif(date('Y-m-d H:i:s') >= $key->start_at  &&  date('Y-m-d H:i:s') <= date('Y-m-d H:i:s',strtotime($key->duration.' minutes',strtotime($key->start_at))))
                                             <a href="{{route('pengerjaan.show',$key->id)}}">
                                                 <button type="button" class="btn btn-sm btn-primary js-tooltip-enabled" data-toggle="tooltip" title="" data-original-title="Edit">
                                                     Kerjakan

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UjianPesertaController;
 use App\Http\Controllers\UjianAdminController;
+use App\Http\Controllers\AnswerExamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,8 +43,9 @@ Route::group(['middleware' => ['ujian']], function () {
     Route::get('/dashboardPeserta', function () {return view('peserta.dashboard');})->name('dashboardPeserta');    
     Route::get('/profilPeserta', function () {return view('peserta.profilPeserta');})->name('profilPeserta');  
 });
+Route::resource('answer', AnswerExamController::class);
 Route::get('/kerjakanUjian/{id}', [App\Http\Controllers\UjianPesertaController::class, 'kerjakanUjian'])->name('pengerjaan.kerjakanUjian');
-Route::get('/selesaikanUjian', [App\Http\Controllers\UjianPesertaController::class, 'selesaikanUjian'])->name('pengerjaan.selesaikanUjian');
+Route::get('/selesaikanUjian/{id}', [App\Http\Controllers\UjianPesertaController::class, 'selesaikanUjian'])->name('pengerjaan.selesaikanUjian');
 //end jika keadaan mengerjakan
 
 Route::resource('ujianAdmin', UjianAdminController::class);
