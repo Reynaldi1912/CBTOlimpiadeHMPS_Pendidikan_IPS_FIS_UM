@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\exam;
 use App\Models\exam_attemp;
+use App\Models\Exam_Answer;
 use Auth;
 use DB;
 use Illuminate\Support\Facades\Session;
@@ -62,6 +63,7 @@ class UjianPesertaController extends Controller
     {
 
         $listUjian = DB::table('vw_list_peserta_ujian')->where('id',Session::get('ujian_id'))->where('id_user',Auth::user()->id)->get();
+
         return view('peserta.pengerjaanSoal' , [
             'listUjian'=>$listUjian[0],
             'id_ujian' => $listUjian[0]->id
