@@ -21,6 +21,7 @@
                                         <div class="form-group row">
                                             <label class="col-lg-4 col-form-label" for="val-username">Token <span class="text-danger">*</span></label>
                                             <div class="col-lg-8">
+                                                <input type="hidden" name="id_exam" value="{{$key->id}}">
                                                 <input type="text" class="form-control" id="val-username" name="token" placeholder="Masukkan Token" required>
                                             </div>
                                         </div>

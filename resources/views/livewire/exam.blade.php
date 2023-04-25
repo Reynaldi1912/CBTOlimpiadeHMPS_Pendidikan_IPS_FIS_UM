@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-8">
+    <div class="col-sm-9">
         @foreach($soals as $soal)
         <form action="{{route('answer.store')}}" method="post">
             @csrf
@@ -54,38 +54,27 @@
             <br>
             <div class="container">
                 <div class="row">
-                    <button class="btn btn-primary col-sm" type="button">Sebelumnya</button>
+                    <button class="btn btn-primary col-sm" id="prev-btn" type="button">Sebelumnya</button>
                     <button class="btn btn-secondary col-sm" type="button">Ragu - ragu</button>
-                    <button class="btn btn-primary col-sm" type="button">Selanjutnya</button>
+                    <button class="btn btn-primary col-sm" id="next-btn" type="button">Selanjutnya</button>
                 </div>
             </div>
+
             <br><br>
         <button class="btn btn-success btn-block" type="submit">Simpan Jawaban</button>
     </form>
     </div>
-    <div class="col-2"></div>
-    <div class="col-2">
+    <div class="col-sm-3">
         <div class="block">
-            <div class="block-header block-header-default">
+            <div class="block-header block-header-default text-center">
                 <h3 class="block-title">Nomor Soal</h3>
             </div>
             <div class="block-content">
-                {{ $soals->appends(['id'=>$soal->id])->links('vendor.pagination') }}
+                {{ $soals->links('vendor.pagination', ['existing_question' => $existing_question , 'soal' => $list_soal , 'id'=>$id]) }}
             </div>
-            <footer class="footer">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-auto">
-                            <form action="{{route('pengerjaan.selesaikanUjian',$id)}}">
-                                @csrf
-                                <button type="submit" class="btn btn-danger btn-block show_confirm_simpan_ujian">Selesaikan Ujian</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </footer>
         </div>
     </div>
   </div>
 </div>
+
 

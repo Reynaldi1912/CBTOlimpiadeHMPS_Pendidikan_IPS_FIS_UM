@@ -77,19 +77,38 @@
                     <a href="{{route('dashboardAdmin')}}" style="cursor: pointer;"><i class="si si-cup"></i><span class="sidebar-mini-hide">Dashboard</span></a>
                 </li>
                 <li>
-                    <a href="{{route('ujianAdmin.index')}}"><i class="si si-notebook" style="cursor: pointer;"></i><span class="sidebar-mini-hide">Ujian</span></a>
+                    <a class="nav-submenu" data-toggle="nav-submenu" style="cursor: pointer;"><i class="si si-notebook"></i><span class="sidebar-mini-hide">Kelola Ujian</span></a>
+                    <ul>
+                        <li>
+                            <a href="{{route('ujianAdmin.index')}}">Jadwal Ujian</a>
+                        </li>
+                        <li>
+                            <a href="{{route('tambahPeserta')}}">Tambah Peserta ujian</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{{route('ujianAdmin.create')}}"><i class="si si-key" style="cursor: pointer;"></i><span class="sidebar-mini-hide">Token Ujian</span></a>
                 </li>
                 <li>
-                    <a href="#"><i class="si si-lock" style="cursor: pointer;"></i><span class="sidebar-mini-hide">Bank Soal</span></a>
+                    <a class="nav-submenu" data-toggle="nav-submenu" style="cursor: pointer;"><i class="si si-lock"></i><span class="sidebar-mini-hide">Kelola Soal</span></a>
+                    <ul>
+                        <li>
+                            <a href="#">Bank Soal</a>
+                        </li>
+                        <li>
+                            <a href="#">Tambah Soal</a>
+                        </li>
+                    </ul>
                 </li>
+                <!-- <li>
+                    <a href="#"><i class="si si-lock" style="cursor: pointer;"></i><span class="sidebar-mini-hide">Bank Soal</span></a>
+                </li> -->
                 <li>
                     <a href="{{route('hasilUjian')}}" style="cursor: pointer;"><i class="si si-badge"></i><span class="sidebar-mini-hide">Hasil Ujian</span></a>
                 </li>
                 <li>
-                    <a class="nav-submenu" data-toggle="nav-submenu" style="cursor: pointer;"><i class="si si-user"></i><span class="sidebar-mini-hide">Kelola Admin dan Peserta</span></a>
+                    <a class="nav-submenu" data-toggle="nav-submenu" style="cursor: pointer;"><i class="si si-user"></i><span class="sidebar-mini-hide">Kelola User</span></a>
                     <ul>
                         <li>
                             <a href="{{route('kelolaAdmin')}}">Admin</a>
