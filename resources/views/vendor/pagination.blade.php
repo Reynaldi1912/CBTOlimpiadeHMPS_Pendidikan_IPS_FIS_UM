@@ -1,7 +1,7 @@
 @if ($paginator->hasPages())
     <div class="container">
         <ul class="pagination justify-content-start">
-            <li class="page-item {{ ($paginator->currentPage() == 1) ? ' active' : (($existing_question->contains('id_exam_question' , $soal[0]->question_id)) ? 'exists' : '') }}">
+            <li class="page-item {{ ($paginator->currentPage() == 1) ? ' active' : (($existing_question->contains('id_exam_question' , $soal[0]->question_id)) ? (($existing_question->where('id_exam_question',$soal[0]->question_id)->contains('status' , 'terjawab')) ? 'exists' : 'ragu') : '') }}">
                 <a class="page-link" href="{{ $paginator->url(1) }}">1</a>
             </li>
             @for ($i = 2; $i <= $paginator->lastPage(); $i++)
@@ -9,7 +9,7 @@
                     </ul>
                     <ul class="pagination justify-content-start">
                 @endif
-                <li class="page-item {{ ($paginator->currentPage() == $i) ? ' active' : (($existing_question->contains('id_exam_question' , $soal[$i-1]->question_id)) ? 'exists' : '') }}">
+                <li class="page-item {{ ($paginator->currentPage() == $i) ? ' active' : (($existing_question->contains('id_exam_question' , $soal[$i-1]->question_id)) ? (($existing_question->where('id_exam_question',$soal[$i-1]->question_id)->contains('status' , 'terjawab')) ? 'exists' : 'ragu') : '') }}">
                     <a class="page-link" href="{{ $paginator->url($i) }}">{{ $i }}</a>
                 </li>
             @endfor

@@ -77,15 +77,7 @@
                     <a href="{{route('dashboardAdmin')}}" style="cursor: pointer;"><i class="si si-cup"></i><span class="sidebar-mini-hide">Dashboard</span></a>
                 </li>
                 <li>
-                    <a class="nav-submenu" data-toggle="nav-submenu" style="cursor: pointer;"><i class="si si-notebook"></i><span class="sidebar-mini-hide">Kelola Ujian</span></a>
-                    <ul>
-                        <li>
-                            <a href="{{route('ujianAdmin.index')}}">Jadwal Ujian</a>
-                        </li>
-                        <li>
-                            <a href="{{route('tambahPeserta')}}">Tambah Peserta ujian</a>
-                        </li>
-                    </ul>
+                    <a href="{{route('ujianAdmin.index')}}" style="cursor: pointer;"><i class="si si-notebook"></i><span class="sidebar-mini-hide">Kelola Ujian</span></a>
                 </li>
                 <li>
                     <a href="{{route('ujianAdmin.create')}}"><i class="si si-key" style="cursor: pointer;"></i><span class="sidebar-mini-hide">Token Ujian</span></a>

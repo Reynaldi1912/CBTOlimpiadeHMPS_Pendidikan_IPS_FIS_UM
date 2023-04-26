@@ -21,7 +21,8 @@ class UjianAdminController extends Controller
     }
     public function index()
     {
-        return view('admin.createUjian');
+        $exam = exam::all()->sortBy('id');
+        return view('admin.createUjian' , ['exam'=>$exam]);
     }
 
     /**
@@ -89,6 +90,18 @@ class UjianAdminController extends Controller
     public function edit($id)
     {
         //
+    }
+
+    public function updateJadwal(Request $request, $id){
+        $exam = exam::all()->where('id', $id)->first();
+        $exam->update([
+            'id'=> $id,
+            'title'=> $request->txtNamaUjian,
+            'description'=> $request->txtDeskripsiUjian,
+            'start_at'=> $request->txtMulaiUjian,
+            'duration'=> $request->txtDurasiUjian
+        ]);
+        return back()->with('warning','Jadwal Berhasil DiUpdate');
     }
 
     /**

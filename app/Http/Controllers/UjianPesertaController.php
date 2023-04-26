@@ -133,7 +133,7 @@ class UjianPesertaController extends Controller
             'finish' => 0
         ]);
 
-        return redirect()->route('tambahPeserta')->with('success','peserta berhasil ditambahkan');
+        return redirect()->route('ujianAdmin.index')->with('success','peserta berhasil ditambahkan');
     }
 
     /**
@@ -175,10 +175,6 @@ class UjianPesertaController extends Controller
             'listUjian'=>$listUjian[0],
             'id_ujian' => $listUjian[0]->id
         ]);
-    }
-    public function tambah_peserta_ujian(){
-        $data = exam::all();
-        return view('admin.tambahPesertaUjian' , ['data'=>$data]);
     }
     public function endpoint_data_peserta($id){
         echo json_encode(DB::table('vw_list_peserta_ujian')->where('id',$id)->get());

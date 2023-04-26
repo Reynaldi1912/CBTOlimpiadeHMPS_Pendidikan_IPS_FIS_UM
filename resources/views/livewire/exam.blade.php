@@ -54,14 +54,15 @@
             <br>
             <div class="container">
                 <div class="row">
+                    <input type="hidden" id="txtStatus" name="txtStatus">
                     <button class="btn btn-primary col-sm" id="prev-btn" type="button">Sebelumnya</button>
-                    <button class="btn btn-secondary col-sm" type="button">Ragu - ragu</button>
+                    <button class="btn btn-secondary col-sm" onclick="setRagu()" type="submit">Ragu - ragu</button>
                     <button class="btn btn-primary col-sm" id="next-btn" type="button">Selanjutnya</button>
                 </div>
             </div>
 
             <br><br>
-        <button class="btn btn-success btn-block" type="submit">Simpan Jawaban</button>
+        <button class="btn btn-success btn-block" onclick="setSimpan()" type="submit">Simpan Jawaban</button>
     </form>
     </div>
     <div class="col-sm-3">
@@ -76,5 +77,15 @@
     </div>
   </div>
 </div>
+
+<script>
+    function setRagu() {
+        document.getElementById("txtStatus").value = "1";
+    }
+
+    function setSimpan() {
+        document.getElementById("txtStatus").value = "0";
+    }
+</script>
 
 

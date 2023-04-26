@@ -20,7 +20,7 @@ class UjianMiddleware
     {
         $ujian_id = Session::get('ujian_id');
         if ($ujian_id) {
-            return redirect()->route('pengerjaan.kerjakanUjian'); 
+            return redirect()->route('pengerjaan.kerjakanUjian',1); 
         }
 
         return $next($request);

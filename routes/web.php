@@ -46,7 +46,6 @@ Route::group(['middleware' => ['ujian']], function () {
 Route::resource('answer', AnswerExamController::class);
 Route::get('/kerjakanUjian/{id}', [App\Http\Controllers\UjianPesertaController::class, 'kerjakanUjian'])->name('pengerjaan.kerjakanUjian');
 Route::get('/selesaikanUjian/{id}', [App\Http\Controllers\UjianPesertaController::class, 'selesaikanUjian'])->name('pengerjaan.selesaikanUjian');
-Route::get('/ujianAdmin/tambahPesertaUjian', [App\Http\Controllers\UjianPesertaController::class, 'tambah_peserta_ujian'])->name('tambahPeserta');
 //end jika keadaan mengerjakan
 
 Route::get('/endpoint_data_peserta/{id}', [App\Http\Controllers\UjianPesertaController::class, 'endpoint_data_peserta'])->name('endpoint_data_peserta');
@@ -54,6 +53,7 @@ Route::get('/endpoint_data_peserta/{id}', [App\Http\Controllers\UjianPesertaCont
 
 Route::resource('ujianAdmin', UjianAdminController::class);
 Route::post('ujianAdmin/storeToken', [UjianAdminController::class, 'storeToken'])->name('ujianAdmin.storeToken');
+Route::put('updateJadwal/{id}', [UjianAdminController::class, 'updateJadwal'])->name('updateJadwal');
 
 
 Auth::routes();
