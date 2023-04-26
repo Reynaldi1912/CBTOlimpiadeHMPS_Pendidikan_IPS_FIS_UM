@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UjianPesertaController;
 use App\Http\Controllers\UjianAdminController;
 use App\Http\Controllers\AnswerExamController;
+use App\Http\Controllers\HasilUjianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +26,6 @@ Route::get('/dashboardAdmin', function () {
     return view('admin.dashboard');
 })->name('dashboardAdmin');
 
-Route::get('/hasilUjian', function () {
-    return view('admin.hasilUjian');
-})->name('hasilUjian');
 
 Route::get('/kelolaAdmin', function () {
     return view('admin.kelolaAdmin');
@@ -50,7 +48,7 @@ Route::get('/selesaikanUjian/{id}', [App\Http\Controllers\UjianPesertaController
 
 Route::get('/endpoint_data_peserta/{id}', [App\Http\Controllers\UjianPesertaController::class, 'endpoint_data_peserta'])->name('endpoint_data_peserta');
 
-
+Route::resource('hasil-ujian', HasilUjianController::class);
 Route::resource('ujianAdmin', UjianAdminController::class);
 Route::post('ujianAdmin/storeToken', [UjianAdminController::class, 'storeToken'])->name('ujianAdmin.storeToken');
 Route::put('updateJadwal/{id}', [UjianAdminController::class, 'updateJadwal'])->name('updateJadwal');

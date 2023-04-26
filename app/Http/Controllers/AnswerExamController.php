@@ -41,8 +41,24 @@ class AnswerExamController extends Controller
         $soal = Question_Option::find($request->id_question);
         
         //Jika Jawaban yakin
-        if($request->txtStatus == 0){
-            if ($request->question_type == 'true_or_false') {
+        if($request->txtStatus == 0 ){
+            if ($request->question_type == 'true_or_false' && $request->multiple_choice) {
+                Exam_Answer::updateOrCreate(
+                    [   
+                        'id_user'=>Auth::user()->id,
+                        'exam_id' => $request->exam_id,
+                        'id_exam_question' => $request->id_question
+                    ]
+                    ,[
+                        'id_user'=>Auth::user()->id,
+                        'exam_id' => $request->exam_id,
+                        'id_exam_question' => $request->id_question,
+                        'answer_question_option_id' => $request->multiple_choice,
+                        'created_by' => Auth::user()->id,
+                        'ragu' => 0
+                    ]
+                );
+            } elseif ($request->question_type == 'multiple_choice' && $request->multiple_choice) {
                 Exam_Answer::updateOrCreate(
                     [   
                         'id_user'=>Auth::user()->id,
@@ -58,30 +74,14 @@ class AnswerExamController extends Controller
                         'ragu' => 0
                     ]
                 );
-            } elseif ($request->question_type == 'multiple_choice') {
-                Exam_Answer::updateOrCreate(
-                    [   
-                        'id_user'=>Auth::user()->id,
-                        'exam_id' => $request->exam_id,
-                        'id_exam_question' => $request->id_question
-                    ]
-                    ,[
-                        'id_user'=>Auth::user()->id,
-                        'exam_id' => $request->exam_id,
-                        'id_exam_question' => $request->id_question,
-                        'answer_question_option_id' =>$request->multiple_choice,
-                        'created_by' => Auth::user()->id,
-                        'ragu' => 0
-                    ]
-                );
-            }elseif ($request->question_type == 'complex_multiple_choice') {
-                for ($i=0; $i < sizeof($request->complex_multiple_box); $i++) { 
-                    $model = Exam_Answer::all()->where('id_exam_question',$request->id_question)->where('id_user',Auth::user()->id)->first();
-                    if($model){
-                        $model->delete();
+            }elseif ($request->question_type == 'complex_multiple_choice' && $request->complex_multiple_box) {
+                $model = Exam_Answer::all()->where('id_exam_question',$request->id_question)->where('id_user',Auth::user()->id);
+                if($model){
+                    foreach($model as $m) {
+                        $m->delete();
                     }
                 }
-    
+                
                 for ($i=0; $i < sizeof($request->complex_multiple_box); $i++) { 
                     Exam_Answer::Create(
                         [
@@ -94,7 +94,7 @@ class AnswerExamController extends Controller
                         ]
                     );
                 }
-            }elseif ($request->question_type == 'matching') {
+            }elseif ($request->question_type == 'matching' && $request->matching) {
                 for ($i=0; $i < sizeof($request->matching); $i++) { 
                     $model = Exam_Answer::all()->where('id_exam_question',$request->id_question)->where('id_user',Auth::user()->id)->first();
                     if($model){
@@ -115,10 +115,12 @@ class AnswerExamController extends Controller
                         ]
                     );
                 }
+            }else{
+                return back()->with('error','Jawab Terlebih Dahulu');
             }
         // Jika Jawaban Ragu Ragu
         }elseif($request->status == 0){
-            if ($request->question_type == 'true_or_false') {
+            if ($request->question_type == 'true_or_false' && $request->multiple_choice) {
                 Exam_Answer::updateOrCreate(
                     [   
                         'id_user'=>Auth::user()->id,
@@ -134,7 +136,7 @@ class AnswerExamController extends Controller
                         'ragu' => 1
                     ]
                 );
-            } elseif ($request->question_type == 'multiple_choice') {
+            } elseif ($request->question_type == 'multiple_choice' && $request->multiple_choice) {
                 Exam_Answer::updateOrCreate(
                     [   
                         'id_user'=>Auth::user()->id,
@@ -150,11 +152,11 @@ class AnswerExamController extends Controller
                         'ragu' => 1
                     ]
                 );
-            }elseif ($request->question_type == 'complex_multiple_choice') {
-                for ($i=0; $i < sizeof($request->complex_multiple_box); $i++) { 
-                    $model = Exam_Answer::all()->where('id_exam_question',$request->id_question)->where('id_user',Auth::user()->id)->first();
-                    if($model){
-                        $model->delete();
+            }elseif ($request->question_type == 'complex_multiple_choice' && $request->complex_multiple_box) {
+                $model = Exam_Answer::all()->where('id_exam_question',$request->id_question)->where('id_user',Auth::user()->id);
+                if($model){
+                    foreach($model as $m) {
+                        $m->delete();
                     }
                 }
     
@@ -170,7 +172,7 @@ class AnswerExamController extends Controller
                         ]
                     );
                 }
-            }elseif ($request->question_type == 'matching') {
+            }elseif ($request->question_type == 'matching' && $request->matching) {
                 for ($i=0; $i < sizeof($request->matching); $i++) { 
                     $model = Exam_Answer::all()->where('id_exam_question',$request->id_question)->where('id_user',Auth::user()->id)->first();
                     if($model){
@@ -191,6 +193,8 @@ class AnswerExamController extends Controller
                         ]
                     );
                 }
+            }else{
+                return back()->with('error','Jawab Terlebih Dahulu');
             }
         }
         

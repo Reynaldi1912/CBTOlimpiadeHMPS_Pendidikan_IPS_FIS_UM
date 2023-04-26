@@ -14,11 +14,14 @@
                 <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#modal-popout">Lihat Token</button>
             </div> -->
             <!-- END Pop Out Modal -->
+            <div class="block">
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-popout-token">Create Token</button>
+            </div>
         </div>
         <div class="block-content">
             <!-- Bootstrap Forms Validation -->
             <div class="row justify-content-center py-20">
-                <div class="col-xl-5" id="inputUjian">
+                <div class="col-xl-4" id="inputUjian">
                     <!-- jQuery Validation functionality is initialized in js/pages/be_forms_validation.min.js which was auto compiled from _es6/pages/be_forms_validation.js -->
                     <!-- For more info and examples you can check out https://github.com/jzaefferer/jquery-validation -->
                     <form action="{{route('ujianAdmin.store')}}" method="post">
@@ -54,7 +57,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-xl-7">
+                <div class="col-xl-8">
                 <div class="block">
                         <div class="block-content block-content-full">
                             <!-- DataTables functionality is initialized with .js-dataTable-full class in js/pages/be_tables_datatables.min.js which was auto compiled from _es6/pages/be_tables_datatables.js -->
@@ -65,8 +68,10 @@
                                         <th>Nama Ujian</th>
                                         <th class="d-none d-sm-table-cell">Deskripsi Ujian</th>
                                         <th class="d-none d-sm-table-cell" style="width: 15%;">Mulai Ujian</th>
-                                        <th class="text-center" style="width: 15%;">Durasi Ujian</th>
-                                        <th class="text-center" style="width: 15%;">Aksi</th>
+                                        <th class="text-center" style="width: 10%;">Durasi Ujian</th>
+                                        <th class="text-center" style="width: 15%;">Status</th>
+                                        <th class="text-center" style="width: 15%;">Token</th>
+                                        <th class="text-center" style="width: 20%;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -82,11 +87,34 @@
                                             {{$exam->start_at}}
                                         </td>
                                         <td>{{$exam->duration}} menit</td>
+                                        @if($exam->token)
+                                            <td>
+                                                <span class="badge badge-success">Aktif</span>
+                                            </td>
+                                        @else
+                                            <td><span class="badge badge-danger">Tidak Aktif</span></td>
+                                        @endif
+                                        <td>{{$exam->token}}</td>
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-sm btn-warning text-white" onclick="updateForm('{{$exam->id}}', '{{$exam->title}}', '{{$exam->description}}', '{{$exam->start_at}}', {{$exam->duration}})">
+                                            <button type="button" title="edit jadwal" class="btn btn-sm btn-warning text-white" onclick="updateForm('{{$exam->id}}', '{{$exam->title}}', '{{$exam->description}}', '{{$exam->start_at}}', {{$exam->duration}})">
                                                 <i class="fa fa-pencil"></i>
                                             </button>
-                                            <a class="btn btn-sm btn-success text-white btn-show-modal" title="tambah peserta" data-toggle="modal" data-target="#modal-popout"><i class="fa fa-eye"></i></a>
+                                            <a class="btn btn-sm btn-success text-white btn-show-modal" title="tambah peserta" data-toggle="modal" data-target="#modal-popout" title="lihat peserta"><i class="fa fa-eye"></i></a>
+                                            <form action="{{route('ujianAdmin.update',$exam->id)}}" method="post">
+                                                @csrf
+                                                @method('PATCH')
+                                                <input type="hidden" value="update" name="btn">
+                                                <button type="submit" class="btn btn-sm btn-info" title="update token"><i class="fa fa-refresh"></i></button>
+                                            </form>
+
+                                            <form action="{{route('ujianAdmin.update',$exam->id)}}" method="post">
+                                                @csrf
+                                                @method('PATCH')
+                                                <input type="hidden" value="delete" name="btn">
+                                                <button type="submit" class="btn btn-sm btn-danger show_confirm_delete" data-toggle="tooltip" title="Delete">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -150,6 +178,58 @@
 </div>
 <!-- END Pop Out Modal -->
 
+<div class="modal fade" id="modal-popout-token" tabindex="-1" role="dialog" aria-labelledby="modal-popout" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-popout" role="document">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent mb-0">
+                <div class="block-header bg-primary-dark">
+                    <h3 class="block-title">Buat Token</h3>
+                </div>
+                <div class="block">
+                        <div class="block-content">
+                            <!-- Bootstrap Forms Validation -->
+                            <div class="row justify-content-center py-20">
+                                <div class="col-xl-12" id="visibleToken">
+                                    <!-- jQuery Validation functionality is initialized in js/pages/be_forms_validation.min.js which was auto compiled from _es6/pages/be_forms_validation.js -->
+                                    <!-- For more info and examples you can check out https://github.com/jzaefferer/jquery-validation -->
+                                    <form action="{{route('ujianAdmin.storeToken')}}" method="post">
+                                        @csrf
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Token <span class="text-danger">*</span></label>
+                                            <div class="col-lg-8" id="theToken" style="display: none;">
+                                                <input class="input-group-text" id="maketoken" type="text" name="token" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-4 col-form-label">Pilih Jadwal <span class="text-danger">*</span></label>
+                                            <div class="col-lg-8">
+                                                <select class="form-control" id="example-select" name="jadwal_exam">
+                                                    @foreach($data as $key)
+                                                        <option value="{{$key->id}}">{{$key->title}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-lg-8 ml-auto">
+                                                <button onclick="visibleToken()" class="btn btn-alt-primary" type="button">Perlihatkan Token</button>
+                                                <button class="btn btn-alt-success" type="submit">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 $(document).ready(function (){
     $(".btn-show-modal").click(function () {
@@ -177,6 +257,27 @@ $(document).ready(function (){
         });
     });
 });
+
+function makeid(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    counter += 1;
+    }
+    document.getElementById("maketoken").value = result;
+}
+makeid(8);
+function visibleToken() {
+    var x = document.getElementById("theToken");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
 
 function updateForm(id , title , description , start_at , duration){
     console.log(start_at);

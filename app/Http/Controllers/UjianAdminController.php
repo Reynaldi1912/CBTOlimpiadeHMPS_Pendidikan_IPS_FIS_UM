@@ -22,7 +22,7 @@ class UjianAdminController extends Controller
     public function index()
     {
         $exam = exam::all()->sortBy('id');
-        return view('admin.createUjian' , ['exam'=>$exam]);
+        return view('admin.createUjian' , ['exam'=>$exam , 'data'=>$exam->where('token',null)]);
     }
 
     /**
@@ -32,11 +32,7 @@ class UjianAdminController extends Controller
      */
     public function create()
     {
-        $data = exam::all()->where('token',null);
-        $allData = exam::all();
-        return view('admin.buatToken' , ['data'=>$data , 'allData'=>$allData]);
        
-        
     }
 
     /**
@@ -64,9 +60,9 @@ class UjianAdminController extends Controller
             $exam->update([
                 'token' => $request->token,
             ]);
-            return redirect()->route('ujianAdmin.create')->with('success','Token Berhasil Dibuat untuk ujian '.$exam->title);
+            return redirect()->route('ujianAdmin.index')->with('success','Token Berhasil Dibuat untuk ujian '.$exam->title);
         } else {
-            return redirect()->route('ujianAdmin.create')->with('error','Tidak Ada Ujian Untuk Pengesetan Token');
+            return redirect()->route('ujianAdmin.index')->with('error','Tidak Ada Ujian Untuk Pengesetan Token');
         }
     }
 
@@ -121,17 +117,17 @@ class UjianAdminController extends Controller
             $exam->update([
                 'token' => null
             ]);
-            return redirect()->route('ujianAdmin.create')->with('success','Token Berhasil Dihapus');
+            return redirect()->route('ujianAdmin.index')->with('success','Token Berhasil Dihapus');
         }elseif($request->btn === 'update'){
             if($exam->token == null){
-                return redirect()->route('ujianAdmin.create')->with('error','Silahkan buat token terlebih dahulu');
+                return redirect()->route('ujianAdmin.index')->with('error','Silahkan buat token terlebih dahulu');
             }
             $randomString = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
             $randomString = substr(str_shuffle($randomString),0,8);            
             $exam->update([
                 'token' => $randomString
             ]);
-            return redirect()->route('ujianAdmin.create')->with('success','Token Berhasil Diubah '.$randomString);
+            return redirect()->route('ujianAdmin.index')->with('success','Token Berhasil Diubah '.$randomString);
             
         }
     }
