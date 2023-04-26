@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 26 Apr 2023 pada 17.24
+-- Waktu pembuatan: 26 Apr 2023 pada 17.34
 -- Versi server: 8.0.30
 -- Versi PHP: 7.3.33
 
@@ -43,8 +43,8 @@ CREATE TABLE `exams` (
 --
 
 INSERT INTO `exams` (`id`, `title`, `description`, `start_at`, `duration`, `token`, `created_at`, `updated_at`) VALUES
-(1, 'Babak Kualifikasi 1', 'uji coba ujian online model CAT', '2023-04-26 23:00:00', 300, 'QO5hiP7d', '2023-04-09 06:58:18', '2023-04-26 16:29:51'),
-(5, 'Babak 16 Besar', 'Babak Kualifikasi Adalah Babak Seleksi', '2023-04-25 22:38:00', 120, 'wQ1TJAGp', '2023-04-21 04:28:39', '2023-04-26 16:26:02');
+(1, 'Babak Kualifikasi 1', 'uji coba ujian online model CAT', '2023-04-26 23:00:00', 300, NULL, '2023-04-09 06:58:18', '2023-04-26 17:34:21'),
+(5, 'Babak 16 Besar', 'Babak Kualifikasi Adalah Babak Seleksi', '2023-04-25 22:38:00', 120, NULL, '2023-04-21 04:28:39', '2023-04-26 17:34:19');
 
 -- --------------------------------------------------------
 
@@ -66,20 +66,6 @@ CREATE TABLE `exam_answers` (
   `ragu` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data untuk tabel `exam_answers`
---
-
-INSERT INTO `exam_answers` (`id`, `id_user`, `exam_id`, `id_exam_question`, `answer_question_option_id`, `answer_right_option_id`, `created_at`, `updated_at`, `created_by`, `updated_by`, `ragu`) VALUES
-(107, 1, 1, 1, 1, NULL, '2023-04-26 09:58:42', '2023-04-26 10:23:48', 1, NULL, 0),
-(257, 1, 1, 4, 11, 17, '2023-04-26 10:23:27', '2023-04-26 10:23:27', 1, NULL, 0),
-(258, 1, 1, 4, 12, 15, '2023-04-26 10:23:27', '2023-04-26 10:23:27', 1, NULL, 0),
-(259, 1, 1, 4, 13, 18, '2023-04-26 10:23:27', '2023-04-26 10:23:27', 1, NULL, 0),
-(260, 1, 1, 4, 14, 16, '2023-04-26 10:23:27', '2023-04-26 10:23:27', 1, NULL, 0),
-(261, 1, 1, 3, 8, NULL, '2023-04-26 10:23:35', '2023-04-26 10:23:35', 1, NULL, 0),
-(262, 1, 1, 2, 3, NULL, '2023-04-26 10:23:42', '2023-04-26 10:23:42', 1, NULL, 0),
-(263, 1, 1, 2, 5, NULL, '2023-04-26 10:23:42', '2023-04-26 10:23:42', 1, NULL, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -95,14 +81,6 @@ CREATE TABLE `exam_attemps` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data untuk tabel `exam_attemps`
---
-
-INSERT INTO `exam_attemps` (`id`, `id_user`, `exam_id`, `total_attemp`, `finish`, `created_at`, `updated_at`) VALUES
-(12, 1, 1, 1, 1, '2023-04-26 02:21:23', '2023-04-26 17:23:56'),
-(13, 3, 1, 0, 0, '2023-04-26 12:59:02', '2023-04-26 12:59:02');
 
 -- --------------------------------------------------------
 
@@ -528,7 +506,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `exams`
 --
 ALTER TABLE `exams`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `exam_answers`
@@ -540,7 +518,7 @@ ALTER TABLE `exam_answers`
 -- AUTO_INCREMENT untuk tabel `exam_attemps`
 --
 ALTER TABLE `exam_attemps`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `exam_questions`

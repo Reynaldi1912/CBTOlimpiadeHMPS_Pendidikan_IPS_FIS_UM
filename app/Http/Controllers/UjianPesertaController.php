@@ -7,6 +7,7 @@ use App\Models\exam;
 use App\Models\User;
 use App\Models\exam_attemp;
 use App\Models\Exam_Answer;
+use App\Models\Exam_Question;
 use Auth;
 use DB;
 use Illuminate\Support\Facades\Session;
@@ -56,35 +57,40 @@ class UjianPesertaController extends Controller
      */
     public function store(Request $request)
     {
-        // ZYXUTgwk
+        $check_question = exam_question::all()->where('exam',$request->id_exam)->first();
         $token = exam::all()->where('id',$request->id_exam)->whereNotNull('token')->first();
-        if($token){
-            $isToken = exam::all()->where('id',$request->id_exam)->where('token',$request->token)->first();
-            if($isToken){
-                $attemp_token = exam_attemp::all()->where('exam_id',$request->id_exam)->where('id_user',Auth::user()->id)->first();
-                if($attemp_token){
-                    if($attemp_token->total_attemp >= 3){
-                        return redirect()->route('pengerjaan.index')->with('error','penggunaan token anda sudah melebhi 3x');;
+        if($check_question){
+            if($token){
+                $isToken = exam::all()->where('id',$request->id_exam)->where('token',$request->token)->first();
+                if($isToken){
+                    $attemp_token = exam_attemp::all()->where('exam_id',$request->id_exam)->where('id_user',Auth::user()->id)->first();
+                    if($attemp_token){
+                        if($attemp_token->total_attemp >= 3){
+                            return redirect()->route('pengerjaan.index')->with('error','penggunaan token anda sudah melebhi 3x');;
+                        }
+                        // Menyimpan data ujian pada session
+                        Session::put('ujian_id', $token->id);
+                        Session::put('waktu_mulai', now());
+                        Session::put('durasi', $token->duration);
+    
+                        $attemp_token->update([
+                            'exam_id' => $token->id,
+                            'total_attemp' => (int)$attemp_token->total_attemp + 1
+                        ]);
+                        return redirect()->route('pengerjaan.kerjakanUjian',$token->id);
+                    }else{
+                        return redirect()->route('pengerjaan.index')->with('error','peserta tidak ada dalam ujian');;
                     }
-                    // Menyimpan data ujian pada session
-                    Session::put('ujian_id', $token->id);
-                    Session::put('waktu_mulai', now());
-                    Session::put('durasi', $token->duration);
-
-                    $attemp_token->update([
-                        'exam_id' => $token->id,
-                        'total_attemp' => (int)$attemp_token->total_attemp + 1
-                    ]);
-                    return redirect()->route('pengerjaan.kerjakanUjian',$token->id);
                 }else{
-                    return redirect()->route('pengerjaan.index')->with('error','peserta tidak ada dalam ujian');;
+                    return redirect()->route('pengerjaan.index')->with('error','token ujian salah');;
                 }
             }else{
-                return redirect()->route('pengerjaan.index')->with('error','token ujian salah');;
+                return redirect()->route('pengerjaan.index')->with('error','token ujian belum di setting');;
             }
         }else{
-            return redirect()->route('pengerjaan.index')->with('error','token ujian belum di setting');;
+            return redirect()->route('pengerjaan.index')->with('error','tidak ada soal ujian');;
         }
+        
     }
 
     /**

@@ -112,7 +112,7 @@ class UjianAdminController extends Controller
         $exam = exam::all()->where('id', $id)->first();
         if($request->btn === 'delete'){
             if($exam->token == null){
-                return redirect()->route('ujianAdmin.create')->with('error','Tidak ada yang dihapus , token sudah kosong');
+                return redirect()->route('ujianAdmin.index')->with('error','Tidak ada yang dihapus , token sudah kosong');
             }
             $exam->update([
                 'token' => null
