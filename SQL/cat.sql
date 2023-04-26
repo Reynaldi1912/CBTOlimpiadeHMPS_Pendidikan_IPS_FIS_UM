@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 25 Apr 2023 pada 16.07
+-- Waktu pembuatan: 26 Apr 2023 pada 05.50
 -- Versi server: 8.0.30
 -- Versi PHP: 7.3.33
 
@@ -43,7 +43,7 @@ CREATE TABLE `exams` (
 --
 
 INSERT INTO `exams` (`id`, `title`, `description`, `start_at`, `duration`, `token`, `created_at`, `updated_at`) VALUES
-(1, 'Babak Kualifikasi', 'uji coba ujian oline model CAT', '2023-04-25 18:00:00', 500, 'QO5hiP7d', '2023-04-09 06:58:18', '2023-04-21 05:45:30'),
+(1, 'Babak Kualifikasi', 'uji coba ujian oline model CAT', '2023-04-26 09:00:00', 500, 'QO5hiP7d', '2023-04-09 06:58:18', '2023-04-21 05:45:30'),
 (5, 'Babak 16 Besar', 'Babak Kualifikasi Adalah Babak Seleksi', '2023-04-25 22:38:00', 120, 'ledOHEPA', '2023-04-21 04:28:39', '2023-04-25 16:02:44');
 
 -- --------------------------------------------------------
@@ -65,6 +65,20 @@ CREATE TABLE `exam_answers` (
   `updated_by` bigint UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data untuk tabel `exam_answers`
+--
+
+INSERT INTO `exam_answers` (`id`, `id_user`, `exam_id`, `id_exam_question`, `answer_question_option_id`, `answer_right_option_id`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(61, 1, 1, 1, 1, NULL, '2023-04-25 19:21:59', '2023-04-25 19:21:59', 1, NULL),
+(62, 1, 1, 2, 3, NULL, '2023-04-25 19:22:17', '2023-04-25 19:22:17', 1, NULL),
+(63, 1, 1, 2, 4, NULL, '2023-04-25 19:22:17', '2023-04-25 19:22:17', 1, NULL),
+(64, 1, 1, 3, 8, NULL, '2023-04-25 19:22:24', '2023-04-25 19:22:24', 1, NULL),
+(69, 1, 1, 4, 11, 17, '2023-04-25 19:23:05', '2023-04-25 19:23:05', 1, NULL),
+(70, 1, 1, 4, 12, 15, '2023-04-25 19:23:05', '2023-04-25 19:23:05', 1, NULL),
+(71, 1, 1, 4, 13, 18, '2023-04-25 19:23:05', '2023-04-25 19:23:05', 1, NULL),
+(72, 1, 1, 4, 14, 16, '2023-04-25 19:23:05', '2023-04-25 19:23:05', 1, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -80,6 +94,13 @@ CREATE TABLE `exam_attemps` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data untuk tabel `exam_attemps`
+--
+
+INSERT INTO `exam_attemps` (`id`, `id_user`, `exam_id`, `total_attemp`, `finish`, `created_at`, `updated_at`) VALUES
+(12, 1, 1, 1, 1, '2023-04-26 02:21:23', '2023-04-26 02:23:12');
 
 -- --------------------------------------------------------
 
@@ -285,11 +306,13 @@ CREATE TABLE `vw_answer_question` (
 ,`answer_right_option_id` int
 ,`exam_id` int
 ,`id_question` int
+,`id_user` bigint unsigned
 ,`name` varchar(255)
 ,`option_text` text
 ,`point` varchar(5)
 ,`question` text
 ,`question_type` varchar(50)
+,`total_option` bigint
 );
 
 -- --------------------------------------------------------
@@ -329,6 +352,19 @@ CREATE TABLE `vw_list_soal_existing` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in struktur untuk tampilan `vw_nilai_peserta`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `vw_nilai_peserta` (
+`exam_id` int
+,`id_question` int
+,`id_user` bigint unsigned
+,`nilai` decimal(26,1)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Stand-in struktur untuk tampilan `vw_question_exam`
 -- (Lihat di bawah untuk tampilan aktual)
 --
@@ -353,7 +389,7 @@ CREATE TABLE `vw_question_exam` (
 --
 DROP TABLE IF EXISTS `vw_answer_question`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_answer_question`  AS SELECT `b`.`name` AS `name`, `c`.`exam_id` AS `exam_id`, `c`.`id` AS `id_question`, `c`.`question` AS `question`, `d`.`title` AS `question_type`, `a`.`answer_question_option_id` AS `answer_question_option_id`, `a`.`answer_right_option_id` AS `answer_right_option_id`, `e`.`option_text` AS `option_text`, (case when (`e`.`value` = 1) then 'BENAR' when (`e`.`value` = 0) then (case when (`e`.`var1` is not null) then (case when (`e`.`var1` = `a`.`answer_right_option_id`) then 'BENAR' when (`e`.`var1` <> `a`.`answer_right_option_id`) then 'SALAH' end) when (`e`.`var1` is null) then 'SALAH' end) end) AS `point` FROM ((((`exam_answers` `a` left join `users` `b` on((`a`.`id_user` = `b`.`id`))) left join `exam_questions` `c` on((`a`.`id_exam_question` = `c`.`id`))) left join `question_type` `d` on((`c`.`question_type_id` = `d`.`id`))) left join `question_options` `e` on((`a`.`answer_question_option_id` = `e`.`id`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_answer_question`  AS SELECT `b`.`id` AS `id_user`, `b`.`name` AS `name`, `c`.`exam_id` AS `exam_id`, `c`.`id` AS `id_question`, `c`.`question` AS `question`, (select count(0) AS `total` from `question_options` where (`question_options`.`exam_question_id` = `c`.`id`)) AS `total_option`, `d`.`title` AS `question_type`, `a`.`answer_question_option_id` AS `answer_question_option_id`, `a`.`answer_right_option_id` AS `answer_right_option_id`, `e`.`option_text` AS `option_text`, (case when (`e`.`value` = 1) then 'BENAR' when (`e`.`value` = 0) then (case when (`e`.`var1` is not null) then (case when (`e`.`var1` = `a`.`answer_right_option_id`) then 'BENAR' when (`e`.`var1` <> `a`.`answer_right_option_id`) then 'SALAH' end) when (`e`.`var1` is null) then 'SALAH' end) end) AS `point` FROM ((((`exam_answers` `a` left join `users` `b` on((`a`.`id_user` = `b`.`id`))) left join `exam_questions` `c` on((`a`.`id_exam_question` = `c`.`id`))) left join `question_type` `d` on((`c`.`question_type_id` = `d`.`id`))) left join `question_options` `e` on((`a`.`answer_question_option_id` = `e`.`id`))) ;
 
 -- --------------------------------------------------------
 
@@ -372,6 +408,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `vw_list_soal_existing`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_list_soal_existing`  AS SELECT `a`.`id_user` AS `id_user`, `a`.`id_exam_question` AS `id_exam_question`, (case when (`a`.`answer_question_option_id` is not null) then 'terjawab' end) AS `status` FROM ((`exam_answers` `a` left join (select `question_options`.`exam_question_id` AS `exam_question_id`,count(`question_options`.`exam_question_id`) AS `total_option` from `question_options` group by `question_options`.`exam_question_id`) `b` on((`a`.`id_exam_question` = `b`.`exam_question_id`))) left join (select `a`.`id` AS `id`,`a`.`exam_id` AS `exam_id`,`a`.`question` AS `question`,`a`.`question_type_id` AS `question_type_id`,`a`.`created_at` AS `created_at`,`a`.`updated_at` AS `updated_at`,`b`.`title` AS `title` from (`exam_questions` `a` left join `question_type` `b` on((`a`.`question_type_id` = `b`.`id`)))) `c` on((`a`.`id_exam_question` = `c`.`id`))) GROUP BY `a`.`id_user`, `a`.`id_exam_question`, `status` ORDER BY `a`.`id_exam_question` ASC ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `vw_nilai_peserta`
+--
+DROP TABLE IF EXISTS `vw_nilai_peserta`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_nilai_peserta`  AS SELECT `c`.`id_user` AS `id_user`, max(`c`.`exam_id`) AS `exam_id`, `c`.`id_question` AS `id_question`, round(sum(`c`.`Nilai`),1) AS `nilai` FROM (select `a`.`id_user` AS `id_user`,`a`.`exam_id` AS `exam_id`,`a`.`id_question` AS `id_question`,(case when ((`a`.`question_type` = 'true_or_false') or (`a`.`question_type` = 'multiple_choice')) then (case when (`a`.`point` = 'benar') then 2 when (`a`.`point` = 'salah') then 0 end) when (`a`.`question_type` = 'complex_multiple_choice') then (case when (`a`.`point` = 'benar') then ((2 / `a`.`total_option`) * 2) end) when (`a`.`question_type` = 'matching') then (case when (`a`.`point` = 'benar') then ((2 / `a`.`total_option`) * 2) end) else 0 end) AS `Nilai` from `vw_answer_question` `a`) AS `c` GROUP BY `c`.`id_question`, `c`.`id_user` ;
 
 -- --------------------------------------------------------
 
@@ -462,13 +507,13 @@ ALTER TABLE `exams`
 -- AUTO_INCREMENT untuk tabel `exam_answers`
 --
 ALTER TABLE `exam_answers`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT untuk tabel `exam_attemps`
 --
 ALTER TABLE `exam_attemps`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `exam_questions`
