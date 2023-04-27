@@ -8,7 +8,11 @@
             <input type="hidden" name="id_question" value="{{$soal->question_id}}">
             <input type="hidden" name="question_type" value="{{$soal->question_type}}">
             <span>type : {{$soal->question_type}}</span>
-            <h5>{{ $soal->question }}</h5>
+            <h5>
+                <?php
+                    echo $soal->question;
+                ?>
+            </h5>
             @if($soal->question_type == 'matching')  
                 <table class="table">
                     <tbody>
@@ -16,7 +20,11 @@
                         @if($option->type_matching == 'left')
                             <tr>
                                 <input type="hidden" name="left_matching[]" value="{{$option->id}}">
-                                <td>{{$option->option_text}}</td>
+                                <td>
+                                    <?php
+                                        echo $option->option_text;
+                                    ?>
+                                </td>
                                 <td>
                                     <select class="form-control" name="matching[]">
                                         @foreach($soal->jawaban->where('type_matching', 'right') as $option_right)
@@ -38,15 +46,21 @@
                 @if($soal->question_type == 'true_or_false' || $soal->question_type == 'multiple_choice')
                     <label class="css-control css-control-primary css-radio">
                         <input type="radio" class="css-control-input" name="multiple_choice" value="{{ $option->id}}" @if($existing_answer->contains('answer_question_option_id', $option->id)) checked @endif>
-                        <span class="css-control-indicator"></span> {{ $option->option_text }} 
+                        <span class="css-control-indicator"></span> 
+                        <?php
+                            echo strip_tags($option->option_text, "<img>");
+                        ?> 
                     </label>
                     <br>
                 @elseif($soal->question_type == 'complex_multiple_choice')
                 <label class="css-control css-control-primary css-checkbox">
                     <input type="checkbox" class="css-control-input" name="complex_multiple_box[]" value="{{ $option->id}}" @if($existing_answer->contains('answer_question_option_id', $option->id)) checked @endif>
-                    <span class="css-control-indicator"></span> {{ $option->option_text }}
+                    <span class="css-control-indicator"></span> 
+                    <?php
+                        echo strip_tags($option->option_text, "<img>");
+                    ?>
                 </label>
-                <br>
+                <br><br>
                 @endif
             @endforeach
         @endforeach

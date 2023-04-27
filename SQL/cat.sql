@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 26 Apr 2023 pada 17.34
+-- Waktu pembuatan: 27 Apr 2023 pada 18.39
 -- Versi server: 8.0.30
 -- Versi PHP: 7.3.33
 
@@ -43,7 +43,7 @@ CREATE TABLE `exams` (
 --
 
 INSERT INTO `exams` (`id`, `title`, `description`, `start_at`, `duration`, `token`, `created_at`, `updated_at`) VALUES
-(1, 'Babak Kualifikasi 1', 'uji coba ujian online model CAT', '2023-04-26 23:00:00', 300, NULL, '2023-04-09 06:58:18', '2023-04-26 17:34:21'),
+(1, 'Babak Kualifikasi 1', 'uji coba ujian online model CAT', '2023-04-27 23:00:00', 300, 'Yx9If40F', '2023-04-09 06:58:18', '2023-04-27 16:36:20'),
 (5, 'Babak 16 Besar', 'Babak Kualifikasi Adalah Babak Seleksi', '2023-04-25 22:38:00', 120, NULL, '2023-04-21 04:28:39', '2023-04-26 17:34:19');
 
 -- --------------------------------------------------------
@@ -66,6 +66,31 @@ CREATE TABLE `exam_answers` (
   `ragu` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data untuk tabel `exam_answers`
+--
+
+INSERT INTO `exam_answers` (`id`, `id_user`, `exam_id`, `id_exam_question`, `answer_question_option_id`, `answer_right_option_id`, `created_at`, `updated_at`, `created_by`, `updated_by`, `ragu`) VALUES
+(264, 1, 1, 16, 45, NULL, '2023-04-27 09:57:59', '2023-04-27 11:28:27', 1, NULL, 0),
+(265, 1, 1, 15, 43, NULL, '2023-04-27 09:58:07', '2023-04-27 09:58:30', 1, NULL, 0),
+(266, 1, 1, 1, 1, NULL, '2023-04-27 11:13:48', '2023-04-27 11:13:48', 1, NULL, 0),
+(267, 1, 1, 2, 3, NULL, '2023-04-27 11:13:55', '2023-04-27 11:13:55', 1, NULL, 0),
+(268, 1, 1, 2, 5, NULL, '2023-04-27 11:13:55', '2023-04-27 11:13:55', 1, NULL, 0),
+(269, 1, 1, 3, 8, NULL, '2023-04-27 11:14:01', '2023-04-27 11:14:01', 1, NULL, 0),
+(270, 1, 1, 4, 11, 17, '2023-04-27 11:14:27', '2023-04-27 11:14:27', 1, NULL, 0),
+(271, 1, 1, 4, 12, 15, '2023-04-27 11:14:27', '2023-04-27 11:14:27', 1, NULL, 0),
+(272, 1, 1, 4, 13, 18, '2023-04-27 11:14:27', '2023-04-27 11:14:27', 1, NULL, 0),
+(273, 1, 1, 4, 14, 16, '2023-04-27 11:14:27', '2023-04-27 11:14:27', 1, NULL, 0),
+(276, 1, 1, 26, 76, NULL, '2023-04-27 11:15:22', '2023-04-27 11:30:58', 1, NULL, 0),
+(281, 1, 1, 27, 77, NULL, '2023-04-27 11:23:33', '2023-04-27 11:23:33', 1, NULL, 0),
+(282, 1, 1, 27, 78, NULL, '2023-04-27 11:23:33', '2023-04-27 11:23:33', 1, NULL, 0),
+(283, 1, 1, 27, 80, NULL, '2023-04-27 11:23:33', '2023-04-27 11:23:33', 1, NULL, 0),
+(296, 1, 1, 25, 73, 71, '2023-04-27 11:29:22', '2023-04-27 11:29:22', 1, NULL, 0),
+(297, 1, 1, 25, 74, 72, '2023-04-27 11:29:22', '2023-04-27 11:29:22', 1, NULL, 0),
+(310, 1, 1, 28, 81, NULL, '2023-04-27 11:33:36', '2023-04-27 11:33:36', 1, NULL, 0),
+(311, 1, 1, 28, 82, NULL, '2023-04-27 11:33:36', '2023-04-27 11:33:36', 1, NULL, 0),
+(312, 1, 1, 28, 83, NULL, '2023-04-27 11:33:36', '2023-04-27 11:33:36', 1, NULL, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -81,6 +106,13 @@ CREATE TABLE `exam_attemps` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data untuk tabel `exam_attemps`
+--
+
+INSERT INTO `exam_attemps` (`id`, `id_user`, `exam_id`, `total_attemp`, `finish`, `created_at`, `updated_at`) VALUES
+(15, 1, 1, 1, 1, '2023-04-27 16:36:34', '2023-04-27 18:33:39');
 
 -- --------------------------------------------------------
 
@@ -111,7 +143,8 @@ INSERT INTO `exam_questions` (`id`, `exam_id`, `question`, `question_type_id`, `
 (11, 5, 'Laravel terupdate saat ini', 1, '2023-04-25 15:30:01', '2023-04-25 15:30:01'),
 (12, 5, 'MPL adalah sebuah tournament mobile legend', 3, '2023-04-25 15:30:46', '2023-04-25 15:30:46'),
 (13, 5, 'Apakah babi bisa belok mendadak saat berlari', 3, '2023-04-25 15:31:17', '2023-04-25 15:31:17'),
-(14, 5, 'Siapakah Nama Presiden Pertama Indonesia', 1, '2023-04-25 15:31:46', '2023-04-25 15:31:46');
+(14, 5, 'Siapakah Nama Presiden Pertama Indonesia', 1, '2023-04-25 15:31:46', '2023-04-25 15:31:46'),
+(28, 1, '<p>Manakah Merk Motor ?</p>', 2, '2023-04-27 11:32:14', '2023-04-27 11:32:14');
 
 -- --------------------------------------------------------
 
@@ -194,7 +227,7 @@ INSERT INTO `question_options` (`id`, `exam_question_id`, `option_text`, `value`
 (8, 3, 'SSD', 1, NULL, NULL, '2023-04-09 07:10:59', '2023-04-09 07:10:59'),
 (9, 3, 'SHD', 0, NULL, NULL, '2023-04-09 07:10:59', '2023-04-09 07:10:59'),
 (10, 3, 'DDS', 0, NULL, NULL, '2023-04-09 07:10:59', '2023-04-09 07:10:59'),
-(11, 4, 'Asus', 0, 'left', 17, '2023-04-09 07:15:03', '2023-04-09 07:15:03'),
+(11, 4, '<p>Asus</p>', 0, 'left', 17, '2023-04-09 07:15:03', '2023-04-09 07:15:03'),
 (12, 4, 'Lenovo', 0, 'left', 15, '2023-04-09 07:15:03', '2023-04-09 07:15:03'),
 (13, 4, 'Acer', 0, 'left', 18, '2023-04-09 07:15:03', '2023-04-09 07:15:03'),
 (14, 4, 'Dell', 0, 'left', 16, '2023-04-09 07:15:03', '2023-04-09 07:15:03'),
@@ -512,19 +545,19 @@ ALTER TABLE `exams`
 -- AUTO_INCREMENT untuk tabel `exam_answers`
 --
 ALTER TABLE `exam_answers`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=264;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=313;
 
 --
 -- AUTO_INCREMENT untuk tabel `exam_attemps`
 --
 ALTER TABLE `exam_attemps`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `exam_questions`
 --
 ALTER TABLE `exam_questions`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT untuk tabel `failed_jobs`
@@ -542,7 +575,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT untuk tabel `question_options`
 --
 ALTER TABLE `question_options`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT untuk tabel `question_type`

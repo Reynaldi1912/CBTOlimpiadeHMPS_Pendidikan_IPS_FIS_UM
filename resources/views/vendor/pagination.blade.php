@@ -5,7 +5,7 @@
                 <a class="page-link" href="{{ $paginator->url(1) }}">1</a>
             </li>
             @for ($i = 2; $i <= $paginator->lastPage(); $i++)
-                @if($i == 11 || $i % 11 == 0)
+                @if($i == 7 || $i % 7 == 0)
                     </ul>
                     <ul class="pagination justify-content-start">
                 @endif
