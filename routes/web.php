@@ -5,6 +5,7 @@ use App\Http\Controllers\UjianPesertaController;
 use App\Http\Controllers\UjianAdminController;
 use App\Http\Controllers\AnswerExamController;
 use App\Http\Controllers\HasilUjianController;
+use App\Http\Controllers\QuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,7 @@ Route::get('/selesaikanUjian/{id}', [App\Http\Controllers\UjianPesertaController
 
 Route::get('/endpoint_data_peserta/{id}', [App\Http\Controllers\UjianPesertaController::class, 'endpoint_data_peserta'])->name('endpoint_data_peserta');
 
+Route::resource('question-admin', QuestionController::class);
 Route::resource('hasil-ujian', HasilUjianController::class);
 Route::resource('ujianAdmin', UjianAdminController::class);
 Route::post('ujianAdmin/storeToken', [UjianAdminController::class, 'storeToken'])->name('ujianAdmin.storeToken');

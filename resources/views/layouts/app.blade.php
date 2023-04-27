@@ -40,6 +40,10 @@
         <link rel="stylesheet" href="/codebase/js/plugins/slick/slick-theme.css">
         <link rel="stylesheet" href="/codebase/js/plugins/datatables/dataTables.bootstrap4.css">
 
+        <!-- Page JS Plugins CSS -->
+        <link rel="stylesheet" href="/codebase/js/plugins/summernote/summernote-bs4.css">
+        <link rel="stylesheet" href="/codebase/js/plugins/simplemde/simplemde.min.css">
+
         <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js'></script>
         <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
 
@@ -146,11 +150,17 @@
         <script src="/codebase/js/plugins/flatpickr/flatpickr.min.js"></script>
 
         <script src="/codebase/js/pages/be_forms_plugins.min.js"></script>
+
+        <script src="/codebase/js/plugins/summernote/summernote-bs4.min.js"></script>
+        <script src="/codebase/js/plugins/ckeditor/ckeditor.js"></script>
+        <script src="/codebase/js/plugins/simplemde/simplemde.min.js"></script>
         
         <script src="/codebase/js/plugins/jquery-ui/jquery-ui.min.js"></script>
         <script src="/codebase/js/plugins/moment/moment.min.js"></script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+        <script>jQuery(function(){ Codebase.helpers(['summernote', 'ckeditor', 'simplemde']); });</script>
+
         <script type="text/javascript">
  
             $('.show_confirm_delete').click(function(event) {

@@ -83,10 +83,10 @@
                     <a class="nav-submenu" data-toggle="nav-submenu" style="cursor: pointer;"><i class="si si-lock"></i><span class="sidebar-mini-hide">Kelola Soal</span></a>
                     <ul>
                         <li>
-                            <a href="#">Bank Soal</a>
+                            <a href="{{route('question-admin.index')}}">Bank Soal</a>
                         </li>
                         <li>
-                            <a href="#">Tambah Soal</a>
+                            <a href="{{route('question-admin.index')}}">Tambah Soal</a>
                         </li>
                     </ul>
                 </li>
