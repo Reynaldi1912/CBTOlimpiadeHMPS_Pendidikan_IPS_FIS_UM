@@ -41,10 +41,7 @@
                             </td>
                             <td class="text-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-secondary" data-toggle="tooltip" title="Edit">
-                                        <i class="fa fa-pencil"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-secondary" data-toggle="tooltip" title="Edit">
+                                    <a href="/jawabanPeserta"><button type="button" class="btn btn-sm btn-secondary" data-toggle="tooltip" title="Edit">
                                         <i class="fa fa-eye"></i>
                                     </button>
                                 </div>
@@ -59,6 +56,34 @@
     <!-- END Full Table -->
 </div>
 <!-- END Page Content -->
+
+
+<!-- Pop Out Modal -->
+<div class="modal fade" id="edit-nilai" tabindex="-1" role="dialog" aria-labelledby="modal-popout" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-popout" role="document">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent mb-0">
+                <div class="block-header bg-primary-dark">
+                    <h3 class="block-title">Masukkan Nilai</h3>
+                </div>
+                <div class="block-content">
+                <form action="be_forms_elements_bootstrap.html" method="post" onsubmit="return false;">
+                    <div class="form-group">
+                        <label for="example-nf-email">Nilai</label>
+                        <input type="value" class="form-control" id="example-nf-email" name="example-nf-email" placeholder="Masukkan Nilai.." require>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-alt-success" data-dismiss="modal">
+                            <i class="fa fa-check"></i> Submit
+                        </button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Pop Out Modal -->
 
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 @endsection

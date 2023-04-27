@@ -59,7 +59,8 @@ class UjianPesertaController extends Controller
     {
         $check_question = exam_question::all()->where('exam',$request->id_exam)->first();
         $token = exam::all()->where('id',$request->id_exam)->whereNotNull('token')->first();
-        if($check_question){
+        // echo $request->id_exam; die();
+        // if($check_question){
             if($token){
                 $isToken = exam::all()->where('id',$request->id_exam)->where('token',$request->token)->first();
                 if($isToken){
@@ -87,9 +88,9 @@ class UjianPesertaController extends Controller
             }else{
                 return redirect()->route('pengerjaan.index')->with('error','token ujian belum di setting');;
             }
-        }else{
-            return redirect()->route('pengerjaan.index')->with('error','tidak ada soal ujian');;
-        }
+        // }else{
+        //     return redirect()->route('pengerjaan.index')->with('error','tidak ada soal ujian');;
+        // }
         
     }
 
