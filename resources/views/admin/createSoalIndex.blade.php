@@ -93,8 +93,13 @@
                         <hr>
                         <div class="block-header block-header-default">
                             <h3 class="block-title">Option Jawaban</h3>
-                            <div class="block">
-                                <button class="btn btn-success btn-sm" onclick="plusOption();" type="button"><i class="fa fa-plus"></i></button>
+                            <div class="row">
+                                <div class="col-9">
+                                    <input type="number" class="form-control" name="numberLooping">
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-success" onclick="plusOption();" type="button"><i class="fa fa-plus"></i></button>
+                                </div>
                             </div>
                         </div>  
                         <div id="content">
@@ -146,7 +151,6 @@
 <!-- END From Right Modal -->
 
 <script>
-    var number = 1;
 
     $(document).ready(function() {
         $('#summernote').summernote();
@@ -154,15 +158,17 @@
 
     function getType(){
         var question_type_id = $('select[name="question_type"]').val();
-        if(question_type_id == 1){
-            var updateForm = document.getElementById("content");
+        var updateForm = document.getElementById("content");
+        if(question_type_id == 1 || question_type_id == 2){
             updateForm.innerHTML =  
                                     '<div class="row">'+
                                         '<div class="col-1">'+
-                                            '<label class="css-control css-control-primary css-switch">'+
-                                                '<input type="checkbox" class="css-control-input">'+
-                                                '<span class="css-control-indicator"></span> Jawaban Benar'+
-                                            '</label>'+
+                                            '<div class="block-content block-content-full">'+
+                                                '<label class="css-control css-control-primary css-switch">'+
+                                                    '<input type="checkbox" class="css-control-input">'+
+                                                    '<span class="css-control-indicator"></span> Jawaban Benar'+
+                                                '</label>'+
+                                            '</div>'+
                                         '</div>'+
                                         '<div class="col-11">'+
                                             '<div class="block-content block-content-full">'+
@@ -174,17 +180,50 @@
                                     '</div>'
                                     ;
             $('#summernote1').summernote();
+        }else if(question_type_id == 3){
+            updateForm.innerHTML =      
+                                    '<div class="block-content block-content-full">'+
+                                        '<label class="css-control css-control-lg css-control-primary css-radio">'+
+                                            '<input type="radio" class="css-control-input" name="status" checked="">'+
+                                            ' <span class="css-control-indicator"></span> Benar'+
+                                        '</label>'+
+                                        '<label class="css-control css-control-lg css-control-primary css-radio">'+
+                                            '<input type="radio" class="css-control-input" name="status">'+
+                                            '<span class="css-control-indicator"></span> Salah'+
+                                        '</label>'+
+                                    '</div>';
+        }else if(question_type_id == 4){
+            updateForm.innerHTML =                                    
+                                    '<div class="row">'+
+                                        '<div class="col-8">'+
+                                            '<div class="block-content block-content-full">'+
+                                                '<textarea id="summernote1" name="option_answer[]"></textarea>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class="col-4">'+
+                                            '<div class="block-content block-content-full">'+
+                                                '<textarea type="text" class="form-control" row="30" col="15"></textarea>'+
+                                            '</div>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div id="optionPlus">'+
+                                    '</div>';
+            $('#summernote1').summernote();
         }
     }
 
     function plusOption(){
         var question_type_id = $('select[name="question_type"]').val();
-        if(question_type_id == 1){
+        var numberLooping = $('input[name="numberLooping"]').val();
+
+        if(question_type_id == 1 || question_type_id == 2){
             var updateForm = document.getElementById("optionPlus");
-            updateForm.innerHTML +=  
-                                    '<div class="row" id="option'+(number+1)+'">'+
+            updateForm.innerHTML = '';
+            for (let index = 0; index < parseInt(numberLooping); index++) {
+                updateForm.innerHTML +=  
+                                    '<div class="row" id="option'+(index+2)+'">'+
                                         '<div class="col-1">'+
-                                            '<button class="btn btn-danger btn-sm" type="button" onclick="deleteRow('+(number+1)+')"><i class="fa fa-trash"></i></button>'+
+                                            '<button class="btn btn-danger btn-sm" type="button" onclick="deleteRow('+(index+2)+')"><i class="fa fa-trash"></i></button>'+
                                         '</div>'+
                                         '<div class="col-1">'+
                                             '<label class="css-control css-control-primary css-switch">'+
@@ -194,13 +233,44 @@
                                         '</div>'+
                                         '<div class="col-10">'+
                                             '<div class="block-content block-content-full">'+
-                                                '<textarea id="summernote'+(number+1)+'" name="option_answer[]"></textarea>'+
+                                                '<textarea id="summernote'+(index+2)+'" name="option_answer[]"></textarea>'+
                                             '</div>'+
                                         '</div>'+
                                     '</div>'
                                     ;
-            $('#summernote'+(number+1)+'').summernote();
-            number = number + 1;
+            }
+            
+            for (let index = 0; index < parseInt(numberLooping); index++) {
+                $('#summernote'+(index+2)+'').summernote();                
+            }
+        }else if(question_type_id == 4){
+            var updateForm = document.getElementById("optionPlus");
+            var updateForm = document.getElementById("optionPlus");
+            updateForm.innerHTML = '';
+            for (let index = 0; index < parseInt(numberLooping); index++) {
+                updateForm.innerHTML += 
+                                        '<div class="row" id="option'+(index+2)+'">'+
+                                            '<div class="col-1">'+
+                                                '<div class="block-content block-content-full">'+
+                                                    '<button class="btn btn-danger btn-sm" type="button" onclick="deleteRow('+(index+2)+')"><i class="fa fa-trash"></i></button>'+
+                                                '</div>'+
+                                            '</div>'+
+                                            '<div class="col-7">'+
+                                                '<div class="block-content block-content-full">'+
+                                                    '<textarea id="summernote'+(index+2)+'" name="option_answer[]"></textarea>'+
+                                                '</div>'+
+                                            '</div>'+
+                                            '<div class="col-4">'+
+                                                '<div class="block-content block-content-full">'+
+                                                    '<textarea type="text" class="form-control" row="30" col="15"></textarea>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>';
+
+            }
+            for (let index = 0; index < parseInt(numberLooping); index++) {
+                $('#summernote'+(index+2)+'').summernote();                
+            }
         }
     }
 
