@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 27 Apr 2023 pada 18.39
+-- Waktu pembuatan: 27 Apr 2023 pada 18.55
 -- Versi server: 8.0.30
 -- Versi PHP: 7.3.33
 
@@ -38,14 +38,6 @@ CREATE TABLE `exams` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data untuk tabel `exams`
---
-
-INSERT INTO `exams` (`id`, `title`, `description`, `start_at`, `duration`, `token`, `created_at`, `updated_at`) VALUES
-(1, 'Babak Kualifikasi 1', 'uji coba ujian online model CAT', '2023-04-27 23:00:00', 300, 'Yx9If40F', '2023-04-09 06:58:18', '2023-04-27 16:36:20'),
-(5, 'Babak 16 Besar', 'Babak Kualifikasi Adalah Babak Seleksi', '2023-04-25 22:38:00', 120, NULL, '2023-04-21 04:28:39', '2023-04-26 17:34:19');
-
 -- --------------------------------------------------------
 
 --
@@ -66,31 +58,6 @@ CREATE TABLE `exam_answers` (
   `ragu` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data untuk tabel `exam_answers`
---
-
-INSERT INTO `exam_answers` (`id`, `id_user`, `exam_id`, `id_exam_question`, `answer_question_option_id`, `answer_right_option_id`, `created_at`, `updated_at`, `created_by`, `updated_by`, `ragu`) VALUES
-(264, 1, 1, 16, 45, NULL, '2023-04-27 09:57:59', '2023-04-27 11:28:27', 1, NULL, 0),
-(265, 1, 1, 15, 43, NULL, '2023-04-27 09:58:07', '2023-04-27 09:58:30', 1, NULL, 0),
-(266, 1, 1, 1, 1, NULL, '2023-04-27 11:13:48', '2023-04-27 11:13:48', 1, NULL, 0),
-(267, 1, 1, 2, 3, NULL, '2023-04-27 11:13:55', '2023-04-27 11:13:55', 1, NULL, 0),
-(268, 1, 1, 2, 5, NULL, '2023-04-27 11:13:55', '2023-04-27 11:13:55', 1, NULL, 0),
-(269, 1, 1, 3, 8, NULL, '2023-04-27 11:14:01', '2023-04-27 11:14:01', 1, NULL, 0),
-(270, 1, 1, 4, 11, 17, '2023-04-27 11:14:27', '2023-04-27 11:14:27', 1, NULL, 0),
-(271, 1, 1, 4, 12, 15, '2023-04-27 11:14:27', '2023-04-27 11:14:27', 1, NULL, 0),
-(272, 1, 1, 4, 13, 18, '2023-04-27 11:14:27', '2023-04-27 11:14:27', 1, NULL, 0),
-(273, 1, 1, 4, 14, 16, '2023-04-27 11:14:27', '2023-04-27 11:14:27', 1, NULL, 0),
-(276, 1, 1, 26, 76, NULL, '2023-04-27 11:15:22', '2023-04-27 11:30:58', 1, NULL, 0),
-(281, 1, 1, 27, 77, NULL, '2023-04-27 11:23:33', '2023-04-27 11:23:33', 1, NULL, 0),
-(282, 1, 1, 27, 78, NULL, '2023-04-27 11:23:33', '2023-04-27 11:23:33', 1, NULL, 0),
-(283, 1, 1, 27, 80, NULL, '2023-04-27 11:23:33', '2023-04-27 11:23:33', 1, NULL, 0),
-(296, 1, 1, 25, 73, 71, '2023-04-27 11:29:22', '2023-04-27 11:29:22', 1, NULL, 0),
-(297, 1, 1, 25, 74, 72, '2023-04-27 11:29:22', '2023-04-27 11:29:22', 1, NULL, 0),
-(310, 1, 1, 28, 81, NULL, '2023-04-27 11:33:36', '2023-04-27 11:33:36', 1, NULL, 0),
-(311, 1, 1, 28, 82, NULL, '2023-04-27 11:33:36', '2023-04-27 11:33:36', 1, NULL, 0),
-(312, 1, 1, 28, 83, NULL, '2023-04-27 11:33:36', '2023-04-27 11:33:36', 1, NULL, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -107,13 +74,6 @@ CREATE TABLE `exam_attemps` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data untuk tabel `exam_attemps`
---
-
-INSERT INTO `exam_attemps` (`id`, `id_user`, `exam_id`, `total_attemp`, `finish`, `created_at`, `updated_at`) VALUES
-(15, 1, 1, 1, 1, '2023-04-27 16:36:34', '2023-04-27 18:33:39');
-
 -- --------------------------------------------------------
 
 --
@@ -128,23 +88,6 @@ CREATE TABLE `exam_questions` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data untuk tabel `exam_questions`
---
-
-INSERT INTO `exam_questions` (`id`, `exam_id`, `question`, `question_type_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 'apakah benar bumi itu bulat ?', 3, '2023-04-09 07:01:39', '2023-04-09 07:01:39'),
-(2, 1, 'manakah yang termasuk komponen pc ?', 2, '2023-04-09 07:02:16', '2023-04-09 07:02:16'),
-(3, 1, 'berikut komponen yang digunakan untuk menambahkan kapasitas penyimpanan komputer ?', 1, '2023-04-09 07:03:04', '2023-04-09 07:03:04'),
-(4, 1, 'jodohkan merk laptop berikut ini dengan series gaming nya ?', 4, '2023-04-09 07:03:58', '2023-04-09 07:03:58'),
-(9, 5, 'Siapakah Presiden Saat ini ?', 1, '2023-04-25 15:28:16', '2023-04-25 15:28:16'),
-(10, 5, 'Manakah yang termasuk hewan-hewan purba , kecuali', 2, '2023-04-25 15:29:18', '2023-04-25 15:29:18'),
-(11, 5, 'Laravel terupdate saat ini', 1, '2023-04-25 15:30:01', '2023-04-25 15:30:01'),
-(12, 5, 'MPL adalah sebuah tournament mobile legend', 3, '2023-04-25 15:30:46', '2023-04-25 15:30:46'),
-(13, 5, 'Apakah babi bisa belok mendadak saat berlari', 3, '2023-04-25 15:31:17', '2023-04-25 15:31:17'),
-(14, 5, 'Siapakah Nama Presiden Pertama Indonesia', 1, '2023-04-25 15:31:46', '2023-04-25 15:31:46'),
-(28, 1, '<p>Manakah Merk Motor ?</p>', 2, '2023-04-27 11:32:14', '2023-04-27 11:32:14');
 
 -- --------------------------------------------------------
 
@@ -211,51 +154,6 @@ CREATE TABLE `question_options` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data untuk tabel `question_options`
---
-
-INSERT INTO `question_options` (`id`, `exam_question_id`, `option_text`, `value`, `type_matching`, `var1`, `created_at`, `updated_at`) VALUES
-(1, 1, 'benar', 1, NULL, NULL, '2023-04-09 07:06:09', '2023-04-09 07:06:09'),
-(2, 1, 'salah', 0, NULL, NULL, '2023-04-09 07:06:09', '2023-04-09 07:06:09'),
-(3, 2, 'SSD', 1, NULL, NULL, '2023-04-09 07:08:56', '2023-04-09 07:08:56'),
-(4, 2, 'Professor', 0, NULL, NULL, '2023-04-09 07:08:56', '2023-04-09 07:08:56'),
-(5, 2, 'RAM', 1, NULL, NULL, '2023-04-09 07:08:56', '2023-04-09 07:08:56'),
-(6, 2, 'Pipa', 0, NULL, NULL, '2023-04-09 07:08:56', '2023-04-09 07:08:56'),
-(7, 3, 'HDDS', 0, NULL, NULL, '2023-04-09 07:10:59', '2023-04-09 07:10:59'),
-(8, 3, 'SSD', 1, NULL, NULL, '2023-04-09 07:10:59', '2023-04-09 07:10:59'),
-(9, 3, 'SHD', 0, NULL, NULL, '2023-04-09 07:10:59', '2023-04-09 07:10:59'),
-(10, 3, 'DDS', 0, NULL, NULL, '2023-04-09 07:10:59', '2023-04-09 07:10:59'),
-(11, 4, '<p>Asus</p>', 0, 'left', 17, '2023-04-09 07:15:03', '2023-04-09 07:15:03'),
-(12, 4, 'Lenovo', 0, 'left', 15, '2023-04-09 07:15:03', '2023-04-09 07:15:03'),
-(13, 4, 'Acer', 0, 'left', 18, '2023-04-09 07:15:03', '2023-04-09 07:15:03'),
-(14, 4, 'Dell', 0, 'left', 16, '2023-04-09 07:15:03', '2023-04-09 07:15:03'),
-(15, 4, 'LEGION', 0, 'right', NULL, '2023-04-09 07:15:03', '2023-04-09 07:15:03'),
-(16, 4, 'Alienware', 0, 'right', NULL, '2023-04-09 07:15:03', '2023-04-09 07:15:03'),
-(17, 4, 'ROG / TUF', 0, 'right', NULL, '2023-04-09 07:15:03', '2023-04-09 07:15:03'),
-(18, 4, 'Predator', 0, 'right', NULL, '2023-04-09 07:15:03', '2023-04-09 07:15:03'),
-(19, 9, 'BJ Habibie', 0, NULL, NULL, '2023-04-25 15:32:50', '2023-04-25 15:32:50'),
-(20, 9, 'Soeharto', 0, NULL, NULL, '2023-04-25 15:33:00', '2023-04-25 15:33:00'),
-(21, 9, 'Megawati', 0, NULL, NULL, '2023-04-25 15:33:08', '2023-04-25 15:33:08'),
-(22, 9, 'SBY', 0, NULL, NULL, '2023-04-25 15:33:16', '2023-04-25 15:33:16'),
-(23, 9, 'Jokowi', 1, NULL, NULL, '2023-04-25 15:33:23', '2023-04-25 15:33:23'),
-(24, 10, 'Kucing Anggora', 0, NULL, NULL, '2023-04-25 15:33:42', '2023-04-25 15:33:42'),
-(25, 10, 'T-Rex', 1, NULL, NULL, '2023-04-25 15:33:48', '2023-04-25 15:33:48'),
-(26, 10, 'Kambing Etawa', 0, NULL, NULL, '2023-04-25 15:34:02', '2023-04-25 15:34:02'),
-(27, 10, 'T-Rex v2', 1, NULL, NULL, '2023-04-25 15:34:42', '2023-04-25 15:34:42'),
-(28, 11, 'Laravel 8', 0, NULL, NULL, '2023-04-25 15:34:55', '2023-04-25 15:34:55'),
-(29, 11, 'Laravel 9', 0, NULL, NULL, '2023-04-25 15:35:02', '2023-04-25 15:35:02'),
-(30, 11, 'Laravel 10', 1, NULL, NULL, '2023-04-25 15:35:12', '2023-04-25 15:35:12'),
-(31, 11, 'Laravel 11', 0, NULL, NULL, '2023-04-25 15:35:28', '2023-04-25 15:35:28'),
-(32, 12, 'Benar', 1, NULL, NULL, '2023-04-25 15:35:56', '2023-04-25 15:35:56'),
-(33, 12, 'Salah ', 0, NULL, NULL, '2023-04-25 15:36:06', '2023-04-25 15:36:06'),
-(34, 13, 'Bisa', 0, NULL, NULL, '2023-04-25 15:36:16', '2023-04-25 15:36:16'),
-(35, 13, 'Tidak', 1, NULL, NULL, '2023-04-25 15:36:23', '2023-04-25 15:36:23'),
-(36, 14, 'Ir Soekarno', 1, NULL, NULL, '2023-04-25 15:36:40', '2023-04-25 15:36:40'),
-(37, 14, 'Abdurahman Wahid', 0, '', NULL, '2023-04-25 15:37:00', '2023-04-25 15:37:00'),
-(38, 14, 'Puan Maharani', 0, NULL, NULL, '2023-04-25 15:37:13', '2023-04-25 15:37:13'),
-(39, 14, 'Megawati ', 0, NULL, NULL, '2023-04-25 15:37:42', '2023-04-25 15:37:42');
 
 -- --------------------------------------------------------
 
@@ -445,7 +343,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_nilai_akhir_peserta`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_nilai_akhir_peserta`  AS SELECT `b`.`name` AS `name`, `a`.`id_user` AS `id_user`, `a`.`exam_id` AS `exam_id`, `c`.`title` AS `title`, sum(`a`.`nilai`) AS `nilai`, (select (count(`f`.`id`) * 2) from `exam_questions` `f` where (`f`.`exam_id` = 1) group by `f`.`exam_id`) AS `total_nilai` FROM ((`vw_nilai_peserta` `a` left join `users` `b` on((`a`.`id_user` = `b`.`id`))) left join `exams` `c` on((`a`.`exam_id` = `c`.`id`))) GROUP BY `a`.`id_user`, `a`.`exam_id` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_nilai_akhir_peserta`  AS SELECT `b`.`name` AS `name`, `a`.`id_user` AS `id_user`, `a`.`exam_id` AS `exam_id`, `c`.`title` AS `title`, sum(`a`.`nilai`) AS `nilai`, (select (count(`f`.`id`) * 2) from `exam_questions` `f` where (`f`.`exam_id` = `a`.`exam_id`) group by `f`.`exam_id`) AS `total_nilai` FROM ((`vw_nilai_peserta` `a` left join `users` `b` on((`a`.`id_user` = `b`.`id`))) left join `exams` `c` on((`a`.`exam_id` = `c`.`id`))) GROUP BY `a`.`id_user`, `a`.`exam_id` ;
 
 -- --------------------------------------------------------
 
@@ -539,25 +437,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `exams`
 --
 ALTER TABLE `exams`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `exam_answers`
 --
 ALTER TABLE `exam_answers`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=313;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `exam_attemps`
 --
 ALTER TABLE `exam_attemps`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `exam_questions`
 --
 ALTER TABLE `exam_questions`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `failed_jobs`
@@ -575,7 +473,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT untuk tabel `question_options`
 --
 ALTER TABLE `question_options`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `question_type`
