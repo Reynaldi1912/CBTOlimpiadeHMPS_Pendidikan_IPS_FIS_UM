@@ -1,5 +1,15 @@
 <div class="container">
   <div class="row">
+    <div class="col-sm-3">
+        <div class="block">
+            <div class="block-header block-header-default text-center">
+                <h3 class="block-title">Nomor Soal</h3>
+            </div>
+            <div class="block-content">
+                {{ $soals->links('vendor.pagination', ['existing_question' => $existing_question , 'soal' => $list_soal , 'id'=>$id]) }}
+            </div>
+        </div>
+    </div>
     <div class="col-sm-9">
         @foreach($soals as $soal)
         <form action="{{route('answer.store')}}" method="post">
@@ -67,27 +77,23 @@
 
             <br>
             <div class="container">
-                <div class="row">
+                <div class="row text-center">
+                </div>
+            </div>
+            <div class="text-center row align-items-center">
+                <div class="col-10">
                     <input type="hidden" id="txtStatus" name="txtStatus">
-                    <button class="btn btn-primary col-sm" id="prev-btn" type="button">Sebelumnya</button>
-                    <button class="btn btn-secondary col-sm" onclick="setRagu()" type="submit">Ragu - ragu</button>
-                    <button class="btn btn-primary col-sm" id="next-btn" type="button">Selanjutnya</button>
+                    <button class="btn btn-primary" id="prev-btn" type="button">Sebelumnya</button>
+                    <button class="btn btn-secondary" onclick="setRagu()" type="submit">Ragu - ragu</button>
+                    <button class="btn btn-primary" id="next-btn" type="button">Selanjutnya</button>
                 </div>
             </div>
 
             <br><br>
-        <button class="btn btn-success btn-block" onclick="setSimpan()" type="submit">Simpan Jawaban</button>
+            <div class="row justify-content-end">
+                <button class="btn btn-success btn-block col-3" onclick="setSimpan()" type="submit">Simpan Jawaban</button>
+            </div>
     </form>
-    </div>
-    <div class="col-sm-3">
-        <div class="block">
-            <div class="block-header block-header-default text-center">
-                <h3 class="block-title">Nomor Soal</h3>
-            </div>
-            <div class="block-content">
-                {{ $soals->links('vendor.pagination', ['existing_question' => $existing_question , 'soal' => $list_soal , 'id'=>$id]) }}
-            </div>
-        </div>
     </div>
   </div>
 </div>
