@@ -9,8 +9,8 @@
     <form action="{{route('question-admin.store')}}" method="post">
     @csrf
         <div class="block-content">
-            <input type="hidden" name="exam_id" id="exam_id" value="{{$id_exam->id}}">
-            <label for="">Type Soal</label>
+            <input type="hidden" name="exam_id" id="exam_id" value="{{$id_exam->id}}" required>
+            <label for="">Type Soal <span class="text-danger">*</span></label>
             <select name="question_type" class="form-control mb-5" onchange="getType();">
                 <option value="0"></option>
                 @foreach($question_type as $key)
@@ -18,14 +18,14 @@
                 @endforeach
             </select>
                 <div class="block-header block-header-default">
-                    <h3 class="block-title">Pertanyaan</h3>
+                    <h3 class="block-title">Pertanyaan <span class="text-danger">*</span></h3>
                 </div>                   
                 <div class="block-content block-content-full">
-                    <textarea id="summernote" name="editordata"></textarea>
+                    <textarea id="summernote" name="editordata" required></textarea>
                 </div>
                 <hr>
                 <div class="block-header block-header-default">
-                    <h3 class="block-title">Option Jawaban</h3>
+                    <h3 class="block-title">Option Jawaban <span class="text-danger">*</span></h3>
                     <div class="row">
                         <div class="col-9">
                             <input type="number" class="form-control" name="numberLooping">
@@ -62,7 +62,7 @@
                                         '<div class="col-3">'+
                                             '<div class="block-content block-content-full">'+
                                                 '<select class="form-control" name="true_answer[]">'+
-                                                    '<option value="1">Benar</option>'+
+                                                    '<option value="1" selected>Benar</option>'+
                                                     '<option value="0">Salah</option>'+
                                                 '</select>'+
                                             '</div>'+
@@ -106,7 +106,7 @@
                                             ' <span class="css-control-indicator"></span> Benar'+
                                         '</label>'+
                                         '<label class="css-control css-control-lg css-control-primary css-radio">'+
-                                            '<input type="radio" class="css-control-input" name="status" value="0">'+
+                                            '<input type="radio" class="css-control-input" name="status" value="0" require>'+
                                             '<span class="css-control-indicator"></span> Salah'+
                                         '</label>'+
                                     '</div>';

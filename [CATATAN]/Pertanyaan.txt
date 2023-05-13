@@ -1,3 +1,13 @@
-1. Nanti di pengumumannya kan berupa tabel, nah nanti kolomnya ada apa aja?
-2. bagaimana dengan masalah tipe soal? apakah sudah ada kepastian?
-3. fitur kira kira kek gini "ngirim gambar", apa ada tambahan lagi?
+Sistem penilaian Pilihan Ganda Kompleks:
+Kondisi Pilihan Jawaban 4 (Keterangan jawaban yang benar ada 2):
+Jika, menjawab benar 1, menjawab salah 1, nilai menjadi 0.5
+Jika, menjawab benar 1 saja, nilai menjadi 1
+Jika, menjawab benar 1, salah 2, nilai menjadi 0
+Jika, menjawab benar 2, nilai menjadi 2
+Jika, dijawab semua, nilai menjadi 1
+
+Kondisi Pilihan Jawaban 5 (Keterangan jawaban yang benar ada 3):
+Jika, menjawab benar 3, nilai menjadi 2
+Jika, menjawab 2 salah, nilai menjadi 0.8
+Jika, menjawab benar 2, salah 1, nilai menjadi 1.2
+Jika, menjawab benar 1, salah 2, nilai menjadi 0

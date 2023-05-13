@@ -126,6 +126,7 @@
                                             <div class="form-material floating">
                                                 <input type="password" class="form-control" id="login-password" name="password">
                                                 <label for="login-password">Password</label>
+                                                <input type="checkbox" onclick="myFunction()">Show Password
                                             </div>
                                         </div>
                                     </div>
@@ -179,5 +180,17 @@
 
         <!-- Page JS Code -->
         <script src="/codebase/js/pages/op_auth_signin.min.js"></script>
+
+        
+        <script>
+            function myFunction() {
+            var x = document.getElementById("login-password");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+            }
+        </script>
     </body>
 </html>

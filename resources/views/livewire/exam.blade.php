@@ -1,4 +1,3 @@
-<div class="container">
   <div class="row">
     <div class="col-sm-3">
         <div class="block">
@@ -80,23 +79,27 @@
                 <div class="row text-center">
                 </div>
             </div>
-            <div class="text-center row align-items-center">
-                <div class="col-10">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-8 d-flex justify-content-between">
                     <input type="hidden" id="txtStatus" name="txtStatus">
                     <button class="btn btn-primary" id="prev-btn" type="button"><i class="si si-action-undo"> </i>Sebelumnya</button>
-                    <button class="btn btn-secondary" onclick="setRagu()" type="submit">Ragu - ragu</button>
+                    <div class="row d-flex justify-content-center">
+                        <button class="btn btn-secondary" onclick="setRagu()" type="submit">Ragu - ragu</button>/
+                        <button class="btn btn-success" onclick="setSimpan()" type="submit">Simpan Jawaban</button>
+                    </div>
                     <button class="btn btn-primary" id="next-btn" type="button">Selanjutnya <i class="si si-action-redo"></i></button>
                 </div>
             </div>
 
             <br><br>
-            <div class="row justify-content-end">
-                <button class="btn btn-success btn-block col-3" onclick="setSimpan()" type="submit">Simpan Jawaban</button>
+            <div class="container">
+                <div class="row justify-content-end">
+                    <button class="btn btn-success btn-block col-5" onclick="setSimpan()" type="submit">Simpan Jawaban</button>
+                </div>
             </div>
     </form>
     </div>
   </div>
-</div>
 
 <script>
     function setRagu() {

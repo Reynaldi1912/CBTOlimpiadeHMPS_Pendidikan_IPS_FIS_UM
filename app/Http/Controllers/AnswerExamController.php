@@ -193,7 +193,11 @@ class AnswerExamController extends Controller
                         ]
                     );
                 }
-            }else{
+            } 
+            // elseif($request->status == 0){
+                
+            // }
+            else{
                 return back()->with('error','Jawab Terlebih Dahulu');
             }
         }
