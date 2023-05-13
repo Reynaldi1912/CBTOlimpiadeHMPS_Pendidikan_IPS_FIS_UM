@@ -83,9 +83,9 @@
             <div class="text-center row align-items-center">
                 <div class="col-10">
                     <input type="hidden" id="txtStatus" name="txtStatus">
-                    <button class="btn btn-primary" id="prev-btn" type="button">Sebelumnya</button>
+                    <button class="btn btn-primary" id="prev-btn" type="button"><i class="si si-action-undo"> </i>Sebelumnya</button>
                     <button class="btn btn-secondary" onclick="setRagu()" type="submit">Ragu - ragu</button>
-                    <button class="btn btn-primary" id="next-btn" type="button">Selanjutnya</button>
+                    <button class="btn btn-primary" id="next-btn" type="button">Selanjutnya <i class="si si-action-redo"></i></button>
                 </div>
             </div>
 
@@ -107,5 +107,3 @@
         document.getElementById("txtStatus").value = "0";
     }
 </script>
-
-
