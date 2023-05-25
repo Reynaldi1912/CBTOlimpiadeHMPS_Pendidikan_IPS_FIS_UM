@@ -80,15 +80,7 @@
                     <a href="{{route('ujianAdmin.index')}}" style="cursor: pointer;"><i class="si si-notebook"></i><span class="sidebar-mini-hide">Kelola Ujian</span></a>
                 </li>
                 <li>
-                    <a class="nav-submenu" data-toggle="nav-submenu" style="cursor: pointer;"><i class="si si-lock"></i><span class="sidebar-mini-hide">Kelola Soal</span></a>
-                    <ul>
-                        <li>
-                            <a href="{{route('question-admin.index')}}">Bank Soal</a>
-                        </li>
-                        <li>
-                            <a href="{{route('question-admin.index')}}">Tambah Soal</a>
-                        </li>
-                    </ul>
+                    <a href="{{route('question-admin.index')}}" style="cursor: pointer;"><i class="si si-lock"></i><span class="sidebar-mini-hide">Soal</span></a>
                 </li>
                 <li>
                     <a href="{{route('hasil-ujian.index')}}" style="cursor: pointer;"><i class="si si-badge"></i><span class="sidebar-mini-hide">Hasil Ujian</span></a>

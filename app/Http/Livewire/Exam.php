@@ -32,7 +32,7 @@ class Exam extends Component
             'id' => $soals[0]->id,
             'existing_answer' => $exist_answer,
             'existing_question' => $list_number,
-            'list_soal' => $list_soal
+            'list_soal' => $list_soal,
         ]);
     }
 }

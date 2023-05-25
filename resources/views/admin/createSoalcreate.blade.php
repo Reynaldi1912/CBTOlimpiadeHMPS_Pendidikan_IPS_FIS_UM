@@ -90,7 +90,7 @@
                                         '</div>'+
                                         '<div class="col-9">'+
                                             '<div class="block-content block-content-full">'+
-                                                '<textarea id="summernote1" name="option_answer[]"></textarea>'+
+                                                '<textarea id="summernote1" name="option_answer[]" required></textarea>'+
                                             '</div>'+
                                         '</div>'+
                                     '</div>'+

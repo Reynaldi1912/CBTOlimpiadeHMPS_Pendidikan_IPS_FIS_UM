@@ -7,12 +7,7 @@
 <div class="content">
     <div class="block">
         <div class="block-header block-header-default">
-            <h3 class="block-title">Create <small>Ujian</small></h3>
-            <!-- Pop Out Modal -->
-            <div class="block">
-                <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#modal-popout">Lihat Token</button>
-            </div>
-            <!-- END Pop Out Modal -->
+            <h3 class="block-title">Create <small>Soal</small></h3>
         </div>
         <div class="block-content">
             <!-- Bootstrap Forms Validation -->
@@ -34,19 +29,19 @@
                             <?php
                                 $i = 1;
                             ?>
-                            @foreach($exam as $exam)
+                            @foreach($exam as $exams)
                             <tr>
                                 <td class="text-center">{{$i++}}</td>
-                                <td class="font-w600">{{$exam->title}}</td>
-                                <td class="d-none d-sm-table-cell">{{$exam->duration}}</td>
+                                <td class="font-w600">{{$exams->title}}</td>
+                                <td class="d-none d-sm-table-cell">{{$exams->duration}}</td>
                                 <td class="d-none d-sm-table-cell">
-                                   {{$total_question->where('exam_id',$exam->id)->count()}}
+                                   {{$total_question->where('exam_id',$exams->id)->count()}}
                                 </td>
                                 <td class="text-center">
-                                    <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#modal-fromright" title="View Customer">
+                                    <button type="button" class="btn btn-sm btn-info open-modal" data-toggle="modal" data-target="#modal-fromright" data-examid="{{$exams->id}}">
                                         <i class="fa fa-eye"></i>
                                     </button>
-                                    <a type="button" class="btn btn-sm btn-success" href="{{route('question-admin.show',$exam->id)}}" >
+                                    <a type="button" class="btn btn-sm btn-success" href="{{route('question-admin.show',$exams->id)}}" >
                                         <i class="fa fa-plus"></i>
                                     </a>
                                 </td>
@@ -54,7 +49,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div> 
+                </div>
             </div>
         </div>
     </div>
@@ -62,7 +57,8 @@
 
 
 <!-- From Right Modal -->
-<div class="modal fade" id="modal-fromright" tabindex="-1" role="dialog" aria-labelledby="modal-fromright" aria-hidden="true">
+@foreach($exam as $examData)
+<div class="modal fade" id="modal-fromright-{{$examData->id}}" tabindex="-1" role="dialog" aria-labelledby="modal-fromright-{{$examData->id}}" aria-hidden="true">
     <div class="modal-dialog modal-dialog-fromright modal-lg" role="document">
         <div class="modal-content">
             <div class="block block-themed block-transparent mb-0">
@@ -75,14 +71,42 @@
                     </div>
                 </div>
                 <div class="block-content">
-                    <form action="" method="post">
-                        @csrf
-                        <label for="">Pertanyaan</label>
-                            <select class="form-control" name="true_answer[]">
-                                <option value="1">Benar</option>
-                                <option value="0">Salah</option'>
-                            </select>
-                    </form>
+                    <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
+                        <thead>
+                            <tr>
+                                <th class="text-center"></th>
+                                <th>Soal</th>
+                                <th class="d-none d-sm-table-cell" style="width: 15%;">Type</th>
+                                <th class="text-center" style="width: 15%;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                $i = 1;
+                            ?>
+                            @foreach($exam_question->where('id', $examData->id) as $data)
+                            <tr>
+                                <td>
+                                    {{$i++}}
+                                </td>
+                                <td>
+                                    <?php
+                                    echo $data->question
+                                    ?>
+                                </td>
+                                <td>{{$data->question_type}}</td>
+                                <td>
+                                    <a type="button" class="btn btn-sm btn-success" href="#">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a type="button" class="btn btn-sm btn-danger" href="#">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="modal-footer">
@@ -94,5 +118,20 @@
         </div>
     </div>
 </div>
+@endforeach
 
+
+
+<script>
+    $(document).ready(function() {
+        $('.open-modal').click(function() {
+            var examId = $(this).data('examid'); // Mengambil parameter examid dari tombol yang diklik
+            var modalId = '#modal-fromright-' + examId; // Membuat ID modal sesuai dengan parameter examid
+            // Lakukan operasi lain dengan parameter yang diambil, misalnya melakukan permintaan Ajax untuk mengambil data terkait
+
+            // Buka modal yang sesuai
+            $(modalId).modal('show');
+        });
+    });
+</script>
 @endsection

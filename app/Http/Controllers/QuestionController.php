@@ -22,7 +22,8 @@ class QuestionController extends Controller
         $exam = exam::all();
         $total_question = exam_question::all();
         $question_type = question_type::all();
-        return view('admin.createSoalIndex' , ['exam'=>$exam , 'total_question'=>$total_question,'question_type'=>$question_type]);
+        $examQuestion = DB::table('vw_question_exam')->get();
+        return view('admin.createSoalIndex' , ['exam'=>$exam , 'total_question'=>$total_question,'question_type'=>$question_type , 'exam_question'=>$examQuestion]);
     }
 
     /**
@@ -141,6 +142,16 @@ class QuestionController extends Controller
             }
           
             return back();
+        }elseif ($question_type_id == 5 || $question_type_id == 6) {
+            $examQuestion = exam_question::create([
+                'exam_id' => $request->exam_id,
+                'question' => $request->editordata,
+                'question_type_id' => $question_type_id
+            ]);
+            
+            $examQuestionId = $examQuestion->id;
+
+            return back();
         }
 
     }
@@ -192,3 +203,4 @@ class QuestionController extends Controller
         //
     }
 }
+
