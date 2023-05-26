@@ -24,30 +24,35 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/dashboardAdmin', function () {
-    return view('admin.dashboard');
-})->name('dashboardAdmin');
-
 //jika keadaan mengerjakan
-Route::group(['middleware' => ['ujian']], function () {
-    Route::resource('pengerjaan', UjianPesertaController::class);
-    Route::get('/dashboardPeserta', function () {return view('peserta.dashboard');})->name('dashboardPeserta');    
-    Route::get('/profilPeserta', function () {return view('peserta.profilPeserta');})->name('profilPeserta');  
+
+Route::middleware(['auth', 'role:peserta'])->group(function () {
+    Route::resource('answer', AnswerExamController::class);
+    Route::get('/kerjakanUjian/{id}', [App\Http\Controllers\UjianPesertaController::class, 'kerjakanUjian'])->name('pengerjaan.kerjakanUjian');
+    Route::get('/selesaikanUjian/{id}', [App\Http\Controllers\UjianPesertaController::class, 'selesaikanUjian'])->name('pengerjaan.selesaikanUjian');
+    //end jika keadaan mengerjakan
+    Route::group(['middleware' => ['ujian']], function () {
+        Route::resource('pengerjaan', UjianPesertaController::class);
+        Route::get('/dashboardPeserta', function () {return view('peserta.dashboard');})->name('dashboardPeserta');    
+        Route::get('/profilPeserta', function () {return view('peserta.profilPeserta');})->name('profilPeserta');  
+    });
 });
-Route::resource('answer', AnswerExamController::class);
-Route::get('/kerjakanUjian/{id}', [App\Http\Controllers\UjianPesertaController::class, 'kerjakanUjian'])->name('pengerjaan.kerjakanUjian');
-Route::get('/selesaikanUjian/{id}', [App\Http\Controllers\UjianPesertaController::class, 'selesaikanUjian'])->name('pengerjaan.selesaikanUjian');
-//end jika keadaan mengerjakan
 
-Route::get('/endpoint_data_peserta/{id}', [App\Http\Controllers\UjianPesertaController::class, 'endpoint_data_peserta'])->name('endpoint_data_peserta');
-Route::get('/endpoint_question/{id}', [App\Http\Controllers\QuestionController::class, 'show_question'])->name('endpoint_question');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/dashboardAdmin', function () {
+        return view('admin.dashboard');
+    })->name('dashboardAdmin');
 
-Route::resource('question-admin', QuestionController::class);
-Route::resource('hasil-ujian', HasilUjianController::class);
-Route::resource('ujianAdmin', UjianAdminController::class);
-Route::resource('user', UserController::class);
-Route::post('ujianAdmin/storeToken', [UjianAdminController::class, 'storeToken'])->name('ujianAdmin.storeToken');
-Route::put('updateJadwal/{id}', [UjianAdminController::class, 'updateJadwal'])->name('updateJadwal');
+    Route::get('/endpoint_data_peserta/{id}', [App\Http\Controllers\UjianPesertaController::class, 'endpoint_data_peserta'])->name('endpoint_data_peserta');
+    Route::get('/endpoint_question/{id}', [App\Http\Controllers\QuestionController::class, 'show_question'])->name('endpoint_question');
+
+    Route::resource('question-admin', QuestionController::class);
+    Route::resource('hasil-ujian', HasilUjianController::class);
+    Route::resource('ujianAdmin', UjianAdminController::class);
+    Route::resource('user', UserController::class);
+    Route::post('ujianAdmin/storeToken', [UjianAdminController::class, 'storeToken'])->name('ujianAdmin.storeToken');
+    Route::put('updateJadwal/{id}', [UjianAdminController::class, 'updateJadwal'])->name('updateJadwal');
+});
 
 Auth::routes();
 Route::post('/login_peserta', [App\Http\Controllers\Auth\LoginController::class, 'login_peserta'])->name('login_peserta');

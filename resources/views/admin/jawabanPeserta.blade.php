@@ -168,6 +168,11 @@
                         <td class="d-none d-sm-table-cell">
                             @if($soal->question_type == 'long_desc' || $soal->question_type == 'short_desc')
                             @else
+                                @if(count($nilai->where('id_question', $soal->id_question)) == 0)
+                                    <span class="badge badge-warning">
+                                        0.0
+                                    </span>
+                                @else
                                     @foreach($nilai->where('id_question', $soal->id_question) as $nl)
                                         @if($nl->nilai <= 0)
                                         <span class="badge badge-danger">
@@ -179,6 +184,7 @@
                                             </span>
                                         @endif
                                     @endforeach
+                                @endif
                             @endif
                         </td>
                     </tr>

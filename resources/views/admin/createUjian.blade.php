@@ -51,6 +51,21 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label class="col-lg-4 col-form-label">Benar / Salah <span class="text-danger">*</span></label>
+                            <div class="col-lg-4">
+                                <select name="txtStatusBenar" id="" class="form-control">
+                                    <option value="2">2</option>
+                                    <option value="1">1</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4">
+                                <select name="txtStatusSalah" id="" class="form-control">
+                                    <option value="0">0</option>
+                                    <option value="-1">-1</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <div class="col-lg-8 ml-auto">
                                 <button class="btn btn-alt-success btn-block" type="submit">Simpan</button>
                             </div>
@@ -310,6 +325,21 @@ function updateForm(id , title , description , start_at , duration){
                             "<label class='col-lg-4 col-form-label'>Durasi Ujian <span class='text-danger'>*</span></label>"+
                             "<div class='col-lg-8'>"+
                                " <input type='number' class='form-control' name='txtDurasiUjian' required value="+duration+">"+
+                            "</div>"+
+                        "</div>"+
+                        "<div class='form-group row'>"+
+                            "<label class='col-lg-4 col-form-label'>Benar / Salah <span class='text-danger'>*</span></label>"+
+                            "<div class='col-lg-4'>"+
+                                "<select name='txtStatusBenar' class='form-control'>"+
+                                    "<option value='2'>2</option>"+
+                                    "<option value='1'>1</option>"+
+                                "</select>"+
+                            "</div>"+
+                            "<div class='col-lg-4'>"+
+                                "<select name='txtStatusSalah' class='form-control'>"+
+                                    "<option value='0'>0</option>"+
+                                    "<option value='-1'>-1</option>"+
+                                "</select>"+
                             "</div>"+
                         "</div>"+
                         "<div class='form-group row'>"+

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\exam_answer;
+use App\Models\exam_question;
+
 class HasilUjianController extends Controller
 {
     /**
@@ -20,7 +22,8 @@ class HasilUjianController extends Controller
     public function index()
     {
         $nilai = DB::table('vw_nilai_akhir_peserta')->get();
-        return view('admin.hasilUjian' , ['nilai'=>$nilai]);
+        $soal = exam_question::all();
+        return view('admin.hasilUjian' , ['nilai'=>$nilai , 'soal'=>$soal]);
     }
 
     /**

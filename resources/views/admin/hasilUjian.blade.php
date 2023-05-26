@@ -36,7 +36,7 @@
                             <td class="font-w600">{{$nilai->name}}</td>
                             <td>{{$nilai->title}}</td>
                             <td>SMP Muhammadiyah 1 Malang</td>
-                            <td>{{$nilai->total_nilai / 2}} Soal</td>
+                            <td>{{count($soal->where('exam_id',$nilai->exam_id))}} Soal</td>
                             <td>
                                 <span class="badge badge-primary">{{$nilai->nilai}} / {{$nilai->total_nilai}}</span>
                             </td>
