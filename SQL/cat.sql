@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 27 Apr 2023 pada 18.55
+-- Waktu pembuatan: 26 Bulan Mei 2023 pada 11.24
 -- Versi server: 8.0.30
--- Versi PHP: 7.3.33
+-- Versi PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -38,6 +38,13 @@ CREATE TABLE `exams` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data untuk tabel `exams`
+--
+
+INSERT INTO `exams` (`id`, `title`, `description`, `start_at`, `duration`, `token`, `created_at`, `updated_at`) VALUES
+(1, 'Babak Awal', 'sdjshds', '2023-05-25 22:00:00', 20000, 'CeaTArvm', '2023-05-14 11:02:44', '2023-05-25 15:33:53');
+
 -- --------------------------------------------------------
 
 --
@@ -49,14 +56,28 @@ CREATE TABLE `exam_answers` (
   `id_user` bigint UNSIGNED NOT NULL,
   `exam_id` int NOT NULL,
   `id_exam_question` int NOT NULL,
-  `answer_question_option_id` int NOT NULL,
+  `answer_question_option_id` int DEFAULT NULL,
   `answer_right_option_id` int DEFAULT NULL,
+  `answer_desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` bigint UNSIGNED DEFAULT NULL,
   `updated_by` bigint UNSIGNED DEFAULT NULL,
   `ragu` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data untuk tabel `exam_answers`
+--
+
+INSERT INTO `exam_answers` (`id`, `id_user`, `exam_id`, `id_exam_question`, `answer_question_option_id`, `answer_right_option_id`, `answer_desc`, `created_at`, `updated_at`, `created_by`, `updated_by`, `ragu`) VALUES
+(1, 1, 1, 1, NULL, NULL, 'test', '2023-05-25 09:31:01', '2023-05-25 09:56:04', 1, NULL, 0),
+(4, 1, 1, 4, 1, NULL, NULL, '2023-05-26 00:03:49', '2023-05-26 00:03:49', 1, NULL, 0),
+(5, 1, 1, 6, 7, NULL, NULL, '2023-05-26 01:02:04', '2023-05-26 02:47:28', 1, NULL, 0),
+(8, 1, 1, 10, 16, 14, NULL, '2023-05-26 01:15:48', '2023-05-26 01:15:48', 1, NULL, 0),
+(9, 1, 1, 10, 17, 15, NULL, '2023-05-26 01:15:48', '2023-05-26 01:15:48', 1, NULL, 0),
+(13, 1, 1, 7, 8, NULL, NULL, '2023-05-26 02:47:58', '2023-05-26 02:47:58', 1, NULL, 0),
+(14, 1, 1, 7, 9, NULL, NULL, '2023-05-26 02:47:58', '2023-05-26 02:47:58', 1, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -74,6 +95,13 @@ CREATE TABLE `exam_attemps` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data untuk tabel `exam_attemps`
+--
+
+INSERT INTO `exam_attemps` (`id`, `id_user`, `exam_id`, `total_attemp`, `finish`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 2, 0, '2023-05-25 15:34:09', '2023-05-26 07:03:39');
+
 -- --------------------------------------------------------
 
 --
@@ -89,6 +117,17 @@ CREATE TABLE `exam_questions` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data untuk tabel `exam_questions`
+--
+
+INSERT INTO `exam_questions` (`id`, `exam_id`, `question`, `question_type_id`, `created_at`, `updated_at`) VALUES
+(1, 1, '<p>Jelaskan Apa Itu Candi ?</p>', 5, '2023-05-25 08:30:08', '2023-05-25 08:30:08'),
+(4, 1, '<p>2+2</p>', 1, '2023-05-25 09:40:32', '2023-05-25 09:40:32'),
+(6, 1, '<p>APAKAH BENAR ?</p>', 3, '2023-05-26 01:00:37', '2023-05-26 01:00:37'),
+(7, 1, 'nama Kota', 2, '2023-05-26 01:01:27', '2023-05-26 01:01:27'),
+(10, 1, '<p>Matching kan</p>', 4, '2023-05-26 01:15:32', '2023-05-26 01:15:32');
+
 -- --------------------------------------------------------
 
 --
@@ -97,11 +136,11 @@ CREATE TABLE `exam_questions` (
 
 CREATE TABLE `failed_jobs` (
   `id` bigint UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -113,7 +152,7 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `migrations` (
   `id` int UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -133,8 +172,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -154,6 +193,26 @@ CREATE TABLE `question_options` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data untuk tabel `question_options`
+--
+
+INSERT INTO `question_options` (`id`, `exam_question_id`, `option_text`, `value`, `type_matching`, `var1`, `created_at`, `updated_at`) VALUES
+(1, 4, '<p>4</p>', 1, NULL, NULL, '2023-05-25 09:40:32', '2023-05-25 09:40:32'),
+(2, 4, '<p>5</p>', 0, NULL, NULL, '2023-05-25 09:40:32', '2023-05-25 09:40:32'),
+(3, 4, '<p>6</p>', 0, NULL, NULL, '2023-05-25 09:40:32', '2023-05-25 09:40:32'),
+(4, 4, '<p>7</p>', 0, NULL, NULL, '2023-05-25 09:40:32', '2023-05-25 09:40:32'),
+(6, 6, 'Benar', 1, NULL, NULL, '2023-05-26 01:00:37', '2023-05-26 01:00:37'),
+(7, 6, 'Salah', 0, NULL, NULL, '2023-05-26 01:00:37', '2023-05-26 01:00:37'),
+(8, 7, '<p>Jakarta</p>', 1, NULL, NULL, '2023-05-26 01:01:27', '2023-05-26 01:01:27'),
+(9, 7, '<p>Surabaya</p>', 1, NULL, NULL, '2023-05-26 01:01:27', '2023-05-26 01:01:27'),
+(10, 7, '<p>Sulawesi</p>', 0, NULL, NULL, '2023-05-26 01:01:27', '2023-05-26 01:01:27'),
+(11, 7, '<p>Kalimantan</p>', 0, NULL, NULL, '2023-05-26 01:01:27', '2023-05-26 01:01:27'),
+(14, 10, 'ROG dsdjsdbhsgshdshdjvgshvhgs', 0, 'right', NULL, '2023-05-26 01:15:32', '2023-05-26 01:15:32'),
+(15, 10, 'PREDATOR', 0, 'right', NULL, '2023-05-26 01:15:32', '2023-05-26 01:15:32'),
+(16, 10, '<p>ASUS</p>', 0, 'left', 14, '2023-05-26 01:15:32', '2023-05-26 01:15:32'),
+(17, 10, 'ACER', 0, 'left', 15, '2023-05-26 01:15:32', '2023-05-26 01:15:32');
 
 -- --------------------------------------------------------
 
@@ -176,7 +235,9 @@ INSERT INTO `question_type` (`id`, `title`, `created_at`, `updated_at`) VALUES
 (1, 'multiple_choice', '2023-04-09 06:44:47', '2023-04-09 06:44:47'),
 (2, 'complex_multiple_choice', '2023-04-09 06:44:47', '2023-04-09 06:44:47'),
 (3, 'true_or_false', '2023-04-09 06:44:47', '2023-04-09 06:44:47'),
-(4, 'matching', '2023-04-09 06:44:47', '2023-04-09 06:44:47');
+(4, 'matching', '2023-04-09 06:44:47', '2023-04-09 06:44:47'),
+(5, 'long_desc', '2023-05-25 14:30:51', '2023-05-25 14:30:51'),
+(6, 'short_desc', '2023-05-25 14:31:03', '2023-05-25 14:31:03');
 
 -- --------------------------------------------------------
 
@@ -186,13 +247,13 @@ INSERT INTO `question_type` (`id`, `title`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `users` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -204,7 +265,9 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `role`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'reynaldi ramadhani eka purnomo', 'reynaldi19', 'reynaldi@gmail.com', 'peserta', NULL, '$2y$10$Ky6a6kiVNoIuTOAdQJinXeNb6cMxikWDjt8I..FWeg6Jfg4P0hr9O', NULL, '2023-04-09 05:19:35', '2023-04-09 05:19:35'),
 (2, 'Admin', 'admin', 'admin@gmail.com', 'admin', NULL, '$2y$10$pgVkrnR78.jXnKIWxWGrwu05WiiDPIItiwQzx1s0N7MisScu0gnYS', NULL, '2023-04-21 05:52:18', '2023-04-21 05:52:18'),
-(3, 'zidane', 'zidanesanjaya', 'zidane@gmail.com', 'peserta', NULL, '$2y$10$m1E1d2/Dnu.xN94pz24Lh.Oxub8zTayif7vRs4jAJHkGZHE0HiBy2', NULL, '2023-04-23 07:57:57', '2023-04-23 07:57:57');
+(3, 'zidane', 'zidanesanjaya', 'zidane@gmail.com', 'peserta', NULL, '$2y$10$m1E1d2/Dnu.xN94pz24Lh.Oxub8zTayif7vRs4jAJHkGZHE0HiBy2', NULL, '2023-04-23 07:57:57', '2023-04-23 07:57:57'),
+(5, 'Sifago Zettiar', 'SFG21', 'sfg@gmail.com', 'peserta', NULL, '$2y$10$hVT8ZAe57lJks.eM4i8oq.b4tR2QzHQhwke6gjwiAlaF/4/gx3aBG', NULL, '2023-05-26 10:55:42', '2023-05-26 10:55:42'),
+(6, 'admin reynaldi', 'adminrey', 'adminrey@gmail.com', 'admin', NULL, '$2y$10$bmCU.xITLBg5c9w/CHBdIOrXtmee9g/HwiFs889Ub2El490Og4XX2', NULL, '2023-05-26 11:04:11', '2023-05-26 11:04:11');
 
 -- --------------------------------------------------------
 
@@ -269,6 +332,7 @@ CREATE TABLE `vw_list_soal_existing` (
 --
 CREATE TABLE `vw_nilai_akhir_peserta` (
 `exam_id` int
+,`id` bigint unsigned
 ,`id_user` bigint unsigned
 ,`name` varchar(255)
 ,`nilai` decimal(48,1)
@@ -334,7 +398,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_list_soal_existing`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_list_soal_existing`  AS SELECT `a`.`id_user` AS `id_user`, max(`a`.`ragu`) AS `value_ragu`, `a`.`id_exam_question` AS `id_exam_question`, (case when ((`a`.`answer_question_option_id` is not null) and (`a`.`ragu` = 1)) then 'ragu' when ((`a`.`answer_question_option_id` is not null) and (`a`.`ragu` = 0)) then 'terjawab' end) AS `status` FROM ((`exam_answers` `a` left join (select `question_options`.`exam_question_id` AS `exam_question_id`,count(`question_options`.`exam_question_id`) AS `total_option` from `question_options` group by `question_options`.`exam_question_id`) `b` on((`a`.`id_exam_question` = `b`.`exam_question_id`))) left join (select `a`.`id` AS `id`,`a`.`exam_id` AS `exam_id`,`a`.`question` AS `question`,`a`.`question_type_id` AS `question_type_id`,`a`.`created_at` AS `created_at`,`a`.`updated_at` AS `updated_at`,`b`.`title` AS `title` from (`exam_questions` `a` left join `question_type` `b` on((`a`.`question_type_id` = `b`.`id`)))) `c` on((`a`.`id_exam_question` = `c`.`id`))) GROUP BY `a`.`id_user`, `a`.`id_exam_question`, `status` ORDER BY `a`.`id_exam_question` ASC ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_list_soal_existing`  AS SELECT `a`.`id_user` AS `id_user`, max(`a`.`ragu`) AS `value_ragu`, `a`.`id_exam_question` AS `id_exam_question`, (case when (((`a`.`answer_question_option_id` is not null) or (`a`.`answer_desc` is not null)) and (`a`.`ragu` = 1)) then 'ragu' when (((`a`.`answer_question_option_id` is not null) or (`a`.`answer_desc` is not null)) and (`a`.`ragu` = 0)) then 'terjawab' end) AS `status` FROM ((`exam_answers` `a` left join (select `question_options`.`exam_question_id` AS `exam_question_id`,count(`question_options`.`exam_question_id`) AS `total_option` from `question_options` group by `question_options`.`exam_question_id`) `b` on((`a`.`id_exam_question` = `b`.`exam_question_id`))) left join (select `a`.`id` AS `id`,`a`.`exam_id` AS `exam_id`,`a`.`question` AS `question`,`a`.`question_type_id` AS `question_type_id`,`a`.`created_at` AS `created_at`,`a`.`updated_at` AS `updated_at`,`b`.`title` AS `title` from (`exam_questions` `a` left join `question_type` `b` on((`a`.`question_type_id` = `b`.`id`)))) `c` on((`a`.`id_exam_question` = `c`.`id`))) GROUP BY `a`.`id_user`, `a`.`id_exam_question`, `status` ORDER BY `a`.`id_exam_question` ASC ;
 
 -- --------------------------------------------------------
 
@@ -343,7 +407,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_nilai_akhir_peserta`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_nilai_akhir_peserta`  AS SELECT `b`.`name` AS `name`, `a`.`id_user` AS `id_user`, `a`.`exam_id` AS `exam_id`, `c`.`title` AS `title`, sum(`a`.`nilai`) AS `nilai`, (select (count(`f`.`id`) * 2) from `exam_questions` `f` where (`f`.`exam_id` = `a`.`exam_id`) group by `f`.`exam_id`) AS `total_nilai` FROM ((`vw_nilai_peserta` `a` left join `users` `b` on((`a`.`id_user` = `b`.`id`))) left join `exams` `c` on((`a`.`exam_id` = `c`.`id`))) GROUP BY `a`.`id_user`, `a`.`exam_id` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_nilai_akhir_peserta`  AS SELECT row_number() OVER (ORDER BY `a`.`id_user`,`a`.`exam_id` ) AS `id`, `b`.`name` AS `name`, `a`.`id_user` AS `id_user`, `a`.`exam_id` AS `exam_id`, `c`.`title` AS `title`, sum(`a`.`nilai`) AS `nilai`, (select (count(`f`.`id`) * 2) from `exam_questions` `f` where (`f`.`exam_id` = `a`.`exam_id`) group by `f`.`exam_id`) AS `total_nilai` FROM ((`vw_nilai_peserta` `a` left join `users` `b` on((`a`.`id_user` = `b`.`id`))) left join `exams` `c` on((`a`.`exam_id` = `c`.`id`))) GROUP BY `a`.`id_user`, `a`.`exam_id` ;
 
 -- --------------------------------------------------------
 
@@ -437,25 +501,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `exams`
 --
 ALTER TABLE `exams`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `exam_answers`
 --
 ALTER TABLE `exam_answers`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `exam_attemps`
 --
 ALTER TABLE `exam_attemps`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `exam_questions`
 --
 ALTER TABLE `exam_questions`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `failed_jobs`
@@ -473,19 +537,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT untuk tabel `question_options`
 --
 ALTER TABLE `question_options`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT untuk tabel `question_type`
 --
 ALTER TABLE `question_type`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
