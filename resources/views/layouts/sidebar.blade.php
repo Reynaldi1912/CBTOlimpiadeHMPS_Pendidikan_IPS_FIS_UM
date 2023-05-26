@@ -89,10 +89,10 @@
                     <a class="nav-submenu" data-toggle="nav-submenu" style="cursor: pointer;"><i class="si si-user"></i><span class="sidebar-mini-hide">Kelola User</span></a>
                     <ul>
                         <li>
-                            <a href="{{route('kelolaAdmin')}}">Admin</a>
+                            <a href="{{route('user.index')}}">Admin</a>
                         </li>
                         <li>
-                            <a href="{{route('kelolaPeserta')}}">Peserta</a>
+                            <a href="{{route('user.create')}}">Peserta</a>
                         </li>
                     </ul>
                 </li>

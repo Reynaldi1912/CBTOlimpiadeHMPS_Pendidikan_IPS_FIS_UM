@@ -6,6 +6,7 @@ use App\Http\Controllers\UjianAdminController;
 use App\Http\Controllers\AnswerExamController;
 use App\Http\Controllers\HasilUjianController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,15 +28,6 @@ Route::get('/dashboardAdmin', function () {
     return view('admin.dashboard');
 })->name('dashboardAdmin');
 
-
-Route::get('/kelolaAdmin', function () {
-    return view('admin.kelolaAdmin');
-})->name('kelolaAdmin');
-
-Route::get('/kelolaPeserta', function () {
-    return view('admin.kelolaPeserta');
-})->name('kelolaPeserta');
-
 //jika keadaan mengerjakan
 Route::group(['middleware' => ['ujian']], function () {
     Route::resource('pengerjaan', UjianPesertaController::class);
@@ -53,6 +45,7 @@ Route::get('/endpoint_question/{id}', [App\Http\Controllers\QuestionController::
 Route::resource('question-admin', QuestionController::class);
 Route::resource('hasil-ujian', HasilUjianController::class);
 Route::resource('ujianAdmin', UjianAdminController::class);
+Route::resource('user', UserController::class);
 Route::post('ujianAdmin/storeToken', [UjianAdminController::class, 'storeToken'])->name('ujianAdmin.storeToken');
 Route::put('updateJadwal/{id}', [UjianAdminController::class, 'updateJadwal'])->name('updateJadwal');
 

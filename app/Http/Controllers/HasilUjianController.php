@@ -12,6 +12,11 @@ class HasilUjianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        date_default_timezone_set('Asia/Jakarta');
+    }
     public function index()
     {
         $nilai = DB::table('vw_nilai_akhir_peserta')->get();
