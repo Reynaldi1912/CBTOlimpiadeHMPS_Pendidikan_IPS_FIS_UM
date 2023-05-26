@@ -68,90 +68,121 @@
             <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
                 <thead>
                     <tr>
-                        <th class="text-center" style="width: 5%;">No.</th>
-                        <th>Soal</th>
+                        <th class="text-center">No.</th>
+                        <th style="width: 20%;">Soal</th>
+                        <th>Type</th>
+                        <th class="d-none d-sm-table-cell" style="width: 30%;">Option</th>
                         <th class="d-none d-sm-table-cell" style="width: 30%;">Jawaban</th>
-                        <th class="d-none d-sm-table-cell" style="width: 10%;">Benar/Salah</th>
-                        <th class="d-none d-sm-table-cell" style="width: 10%;">Nilai</th>
+                        <th class="d-none d-sm-table-cell">Nilai</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <?php
+                        $i = 1;
+                    ?>
+                @foreach($soal as $soal)
                     <tr>
-                        <td class="text-center">1</td>
-                        <td class="font-w600">Lori Grant</td>
-                        <td class="d-none d-sm-table-cell">Pilihan Ganda</td>
+                        <td class="text-center">{{$i++}}</td>
+                        <td class="font-w600">
+                            <?php
+                                echo $soal->question
+                            ?>
+                        </td>
+                        <td>{{$soal->question_type}}</td>
                         <td class="d-none d-sm-table-cell">
-                            <span class="badge badge-success">Benar</span>
+                            <ul>
+                            @php
+                                $alreadyDisplayed = array();
+                            @endphp
+                            @foreach($option->where('exam_question_id' , $soal->id_question) as $option_answer)
+                                @if (!in_array($option_answer->exam_question_id, $alreadyDisplayed))
+                                    @if($option_answer->question_type == 'matching')
+                                        @foreach($option_matching->where('exam_question_id' , $soal->id_question) as $matching_ops)
+                                            <div class="row text-success">
+                                                <div class="col">
+                                                @php
+                                                    echo $matching_ops->option_text_left;
+                                                @endphp
+                                                </div>
+                                                /
+                                                <div class="col">
+                                                @php
+                                                    echo $matching_ops->option_text;
+                                                @endphp
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        @endforeach
+                                        @php
+                                            $alreadyDisplayed[] = $option_answer->exam_question_id;
+                                        @endphp
+                                    @else
+                                        @if($option_answer->value == 1)
+                                            <li class="text-success font-weight-bold">
+                                                    <?php
+                                                        echo $option_answer->option_text
+                                                    ?>
+                                            </li>
+                                        @elseif($option_answer->value == 0)
+                                            <li>
+                                                <?php
+                                                    echo $option_answer->option_text
+                                                ?>
+                                            </li>
+                                        @endif
+                                    @endif
+                                @endif
+                            @endforeach
+                            </ul>
                         </td>
                         <td class="d-none d-sm-table-cell">
-                            <span class="badge badge-success">+2</span>
+                        @foreach($jawaban->where('id_exam_question',$soal->id_question) as $item)
+                            @if($item->answer_question_option_id == null && $item->answer_right_option_id == null && $item->answer_desc !=null)
+                                {{$item->answer_desc}}
+                            @elseif($item->answer_question_option_id != null && $item->answer_right_option_id == null && $item->answer_desc ==null)
+                            <ul>
+                                <li>
+                                    <?php
+                                        echo $item->option_text_answer
+                                    ?>
+                                </li>
+                            </ul>
+                            @elseif($item->answer_question_option_id != null && $item->answer_right_option_id != null && $item->answer_desc ==null)
+                                <div class="row p-5">
+                                    <div class="col">
+                                        <?php
+                                            echo $item->option_text_answer;
+                                        ?>
+                                    </div>
+                                    /
+                                    <div class="col">
+                                        <?php
+                                            echo $item->option_text_right_answer ;
+                                        ?>
+                                    </div>
+                                </div>
+                                <hr>
+                            @endif
+                        @endforeach
+                        </td>
+                        <td class="d-none d-sm-table-cell">
+                            @if($soal->question_type == 'long_desc' || $soal->question_type == 'short_desc')
+                            @else
+                                    @foreach($nilai->where('id_question', $soal->id_question) as $nl)
+                                        @if($nl->nilai <= 0)
+                                        <span class="badge badge-danger">
+                                            {{$nl->nilai}}
+                                        </span>
+                                        @else
+                                            <span class="badge badge-success">
+                                                {{$nl->nilai}}
+                                            </span>
+                                        @endif
+                                    @endforeach
+                            @endif
                         </td>
                     </tr>
-                    <tr>
-                        <td class="text-center">2</td>
-                        <td class="font-w600">Jose Mills</td>
-                        <td class="d-none d-sm-table-cell">
-                            <ul>
-                                <li>Pilihan Ganda Kompleks 1</li>
-                                <li>Pilihan Ganda Kompleks 1</li>
-                                <li>Pilihan Ganda Kompleks 1</li>
-                                <li>Pilihan Ganda Kompleks 1</li>
-                            </ul>
-                        </td>
-                        <td class="d-none d-sm-table-cell">
-                            <span class="badge badge-danger">Salah</span>
-                        </td>
-                        <td class="d-none d-sm-table-cell">
-                            <span class="badge badge-danger">-1</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">3</td>
-                        <td class="font-w600">Marie Duncan</td>
-                        <td class="d-none d-sm-table-cell">
-                            <ul>
-                                <button class="btn btn-outline-primary min-width-125" disabled >1</button>
-                                <button class="btn btn-outline-primary min-width-125" disabled >1</button>
-                            </ul>
-                            <ul>
-                                <button class="btn btn-outline-secondary min-width-125" disabled >2</button>
-                                <button class="btn btn-outline-secondary min-width-125" disabled >2</button>
-                            </ul>
-                            <ul>
-                                <button class="btn btn-outline-success min-width-125" disabled >3</button>
-                                <button class="btn btn-outline-success min-width-125" disabled >3</button>
-                            </ul>
-                            <ul>
-                                <button class="btn btn-outline-info min-width-125" disabled >4</button>
-                                <button class="btn btn-outline-info min-width-125" disabled >4</button>
-                            </ul>
-                            <ul>
-                                <button class="btn btn-outline-warning min-width-125" disabled >5</button>
-                                <button class="btn btn-outline-warning min-width-125" disabled >5</button>
-                            </ul>
-                            <ul>
-                                <button class="btn btn-outline-danger min-width-125" disabled >6</button>
-                                <button class="btn btn-outline-danger min-width-125" disabled >6</button>
-                            </ul>
-                        </td>
-                        <td class="d-none d-sm-table-cell">
-                            <span class="badge badge-danger">Salah</span>
-                        </td>
-                        <td class="d-none d-sm-table-cell">
-                            <span class="badge badge-secondary">0</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">4</td>
-                        <td class="font-w600">Brian Stevens</td>
-                        <td class="d-none d-sm-table-cell">Uraian</td>
-                        <td class="d-none d-sm-table-cell">
-                            <span class="badge badge-success">Benar</span>
-                        </td>
-                        <td class="d-none d-sm-table-cell">
-                            <span class="badge badge-success">+2</span>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

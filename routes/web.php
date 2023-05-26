@@ -48,15 +48,13 @@ Route::get('/selesaikanUjian/{id}', [App\Http\Controllers\UjianPesertaController
 //end jika keadaan mengerjakan
 
 Route::get('/endpoint_data_peserta/{id}', [App\Http\Controllers\UjianPesertaController::class, 'endpoint_data_peserta'])->name('endpoint_data_peserta');
+Route::get('/endpoint_question/{id}', [App\Http\Controllers\QuestionController::class, 'show_question'])->name('endpoint_question');
 
 Route::resource('question-admin', QuestionController::class);
 Route::resource('hasil-ujian', HasilUjianController::class);
 Route::resource('ujianAdmin', UjianAdminController::class);
 Route::post('ujianAdmin/storeToken', [UjianAdminController::class, 'storeToken'])->name('ujianAdmin.storeToken');
 Route::put('updateJadwal/{id}', [UjianAdminController::class, 'updateJadwal'])->name('updateJadwal');
-Route::get('/jawabanPeserta', function () {
-    return view('admin.jawabanPeserta');
-})->name('jawabanPeserta');
 
 Auth::routes();
 Route::post('/login_peserta', [App\Http\Controllers\Auth\LoginController::class, 'login_peserta'])->name('login_peserta');

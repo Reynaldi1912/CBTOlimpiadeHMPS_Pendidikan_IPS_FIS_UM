@@ -76,8 +76,9 @@
                             <tr>
                                 <th class="text-center"></th>
                                 <th>Soal</th>
+                                <th class="d-none d-sm-table-cell" style="width: 40%;">Option</th>
                                 <th class="d-none d-sm-table-cell" style="width: 15%;">Type</th>
-                                <th class="text-center" style="width: 15%;">Aksi</th>
+                                <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -94,14 +95,54 @@
                                     echo $data->question
                                     ?>
                                 </td>
+                                <td>
+                                    @if($data->question_type == 'multiple_choice' || $data->question_type == 'complex_multiple_choice' || $data->question_type == 'true_or_false')
+                                    <ol type="a">
+                                        @foreach($option_answer->where('exam_question_id' , $data->question_id) as $option)
+                                            @if($option->value == 1)
+                                                <li class="text-success font-weight-bold">
+                                                        <?php
+                                                            echo $option->option_text
+                                                        ?>
+                                                </li>
+                                            @elseif($option->value == 0)
+                                                <li>
+                                                    <?php
+                                                        echo $option->option_text
+                                                    ?>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ol>
+                                    @elseif($data->question_type == 'matching')
+                                        @foreach($option_matching->where('exam_question_id',$data->question_id) as $op)
+                                            <div class="row">
+                                                <div class="col text-primary">
+                                                    @php
+                                                        echo $op->option_text_left;
+                                                    @endphp
+                                                </div>
+                                                /
+                                                <div class="col text-success">
+                                                    @php
+                                                        echo $op->option_text;
+                                                    @endphp
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        @endforeach
+                                    @endif
+                                </td>
                                 <td>{{$data->question_type}}</td>
                                 <td>
-                                    <a type="button" class="btn btn-sm btn-success" href="#">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                    <a type="button" class="btn btn-sm btn-danger" href="#">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
+                                    <form action="{{ route('question-admin.destroy', $data->question_id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        
+                                        <button type="submit" class="btn btn-sm btn-danger show_confirm_delete">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
@@ -110,17 +151,15 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
+                <!-- <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-alt-success" data-dismiss="modal">
                     <i class="fa fa-check"></i> Perfect
-                </button>
+                </button> -->
             </div>
         </div>
     </div>
 </div>
 @endforeach
-
-
 
 <script>
     $(document).ready(function() {

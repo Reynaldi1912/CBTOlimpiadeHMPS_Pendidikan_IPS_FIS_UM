@@ -27,6 +27,7 @@
                         <?php
                             $i = 1;
                         ?>
+                        
                         @foreach($nilai as $nilai)
                         <tr>
                             <td class="text-center">
@@ -41,7 +42,7 @@
                             </td>
                             <td class="text-center">
                                 <div class="btn-group">
-                                    <a href="/jawabanPeserta"><button type="button" class="btn btn-sm btn-secondary" data-toggle="tooltip" title="Edit">
+                                    <a href="{{route('hasil-ujian.show',$nilai->id)}}"><button type="button" class="btn btn-sm btn-secondary" data-toggle="tooltip" title="Edit">
                                         <i class="fa fa-eye"></i>
                                     </button>
                                 </div>
