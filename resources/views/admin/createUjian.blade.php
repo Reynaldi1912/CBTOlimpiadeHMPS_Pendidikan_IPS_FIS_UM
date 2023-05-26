@@ -33,9 +33,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-lg-4 col-form-label">Deskripsi Ujian</label>
+                            <label class="col-lg-4 col-form-label">Deskripsi Ujian <span class="text-danger">*</span></label>
                             <div class="col-lg-8">
-                                <textarea name="txtDeskripsiUjian" class="form-control" id="" cols="30" rows="10"></textarea>
+                                <textarea name="txtDeskripsiUjian" class="form-control" id="" cols="30" rows="10" required></textarea>
                             </div>
                         </div>
                         <div class="form-group row">

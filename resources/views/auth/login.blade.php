@@ -126,11 +126,6 @@
                                                 <i class="si si-login mr-10"></i> Sign In
                                             </button>
                                         </div>
-                                        <div class="col-12 mb-10">
-                                            <a class="btn btn-block btn-noborder btn-rounded btn-alt-secondary" href="{{ url('/register') }}">
-                                                <i class="fa fa-plus text-muted mr-5"></i> New Account
-                                            </a>
-                                        </div>
                                     </div>
                                 </form>
                             </div>

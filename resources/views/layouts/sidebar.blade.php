@@ -23,12 +23,19 @@
                 <!-- END Close Sidebar -->
 
                 <!-- Logo -->
+                @if(Auth::user()->role=='admin')
                 <div class="content-header-item">
-                    <a class="link-effect font-w700" href="index.html">
-                        <i class="si si-fire text-primary"></i>
-                        <span class="font-size-xl text-dual-primary-dark">HMPS</span><span class="font-size-xl text-primary">IPS</span>
+                    <a class="link-effect font-w700">
+                        <span class="font-size-xl text-dual-primary-dark">HMPS</span><span class="font-size-xl text-primary"> IPS</span>
                     </a>
                 </div>
+                @elseif(Auth::user()->role=='peserta')
+                <div class="content-header-item">
+                    <a class="link-effect font-w700">
+                        <span class="font-size-xl text-dual-primary-dark">Halaman</span><span class="font-size-xl text-primary"> Peserta</span>
+                    </a>
+                </div>
+                @endif
                 <!-- END Logo -->
             </div>
             <!-- END Normal Mode -->
@@ -45,23 +52,12 @@
 
             <!-- Visible only in normal mode -->
             <div class="sidebar-mini-hidden-b text-center">
-                <a class="img-link" href="be_pages_generic_profile.html">
+                <a class="img-link">
                     <img class="img-avatar" src="/codebase/media/avatars/avatar15.jpg" alt="">
                 </a>
                 <ul class="list-inline mt-10">
                     <li class="list-inline-item">
-                        <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase" href="be_pages_generic_profile.html">{{ Auth::user()->username }}</a>
-                    </li>
-                    <li class="list-inline-item">
-                        <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                        <a class="link-effect text-dual-primary-dark" data-toggle="layout" data-action="sidebar_style_inverse_toggle" href="javascript:void(0)">
-                            <i class="si si-drop"></i>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a class="link-effect text-dual-primary-dark" href="op_auth_signin.html">
-                            <i class="si si-logout"></i>
-                        </a>
+                        <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase">{{ Auth::user()->username }}</a>
                     </li>
                 </ul>
             </div>
