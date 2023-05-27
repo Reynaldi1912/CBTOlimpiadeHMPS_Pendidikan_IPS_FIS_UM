@@ -42,7 +42,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard-admin', [App\Http\Controllers\HomeController::class, 'dashboardAdmin'])->name('dashboard_admin');
     Route::get('/endpoint_data_peserta/{id}', [App\Http\Controllers\UjianPesertaController::class, 'endpoint_data_peserta'])->name('endpoint_data_peserta');
     Route::get('/endpoint_question/{id}', [App\Http\Controllers\QuestionController::class, 'show_question'])->name('endpoint_question');
-    Route::get('/endpoint_user/{id}', [App\Http\Controllers\userController::class, 'getUser'])->name('endpoint_user');
+    Route::get('/endpoint_user/{id}', [App\Http\Controllers\UserController::class, 'getUser'])->name('endpoint_user');
 
     Route::resource('question-admin', QuestionController::class);
     Route::resource('hasil-ujian', HasilUjianController::class);
