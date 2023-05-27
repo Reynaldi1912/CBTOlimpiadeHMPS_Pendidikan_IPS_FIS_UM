@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 26 Bulan Mei 2023 pada 17.26
+-- Waktu pembuatan: 27 Bulan Mei 2023 pada 09.26
 -- Versi server: 8.0.30
 -- Versi PHP: 7.4.3
 
@@ -36,6 +36,7 @@ CREATE TABLE `exams` (
   `nilai_benar` int NOT NULL,
   `nilai_salah` int NOT NULL,
   `token` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `tampil` tinyint(1) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -107,6 +108,23 @@ CREATE TABLE `failed_jobs` (
   `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `hasil_akhir_ujian`
+--
+
+CREATE TABLE `hasil_akhir_ujian` (
+  `id` int NOT NULL,
+  `id_user` bigint UNSIGNED NOT NULL,
+  `exam_id` int NOT NULL,
+  `nilai_akhir` float NOT NULL,
+  `nilai_max` float NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -209,9 +227,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `role`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'reynaldi ramadhani eka purnomo', 'reynaldi19', 'reynaldi@gmail.com', 'peserta', NULL, '$2y$10$Ky6a6kiVNoIuTOAdQJinXeNb6cMxikWDjt8I..FWeg6Jfg4P0hr9O', NULL, '2023-04-09 05:19:35', '2023-04-09 05:19:35'),
 (2, 'Admin', 'admin', 'admin@gmail.com', 'admin', NULL, '$2y$10$pgVkrnR78.jXnKIWxWGrwu05WiiDPIItiwQzx1s0N7MisScu0gnYS', NULL, '2023-04-21 05:52:18', '2023-04-21 05:52:18'),
-(3, 'zidane', 'zidanesanjaya', 'zidane@gmail.com', 'peserta', NULL, '$2y$10$m1E1d2/Dnu.xN94pz24Lh.Oxub8zTayif7vRs4jAJHkGZHE0HiBy2', NULL, '2023-04-23 07:57:57', '2023-04-23 07:57:57'),
-(5, 'Sifago Zettiar', 'SFG21', 'sfg@gmail.com', 'peserta', NULL, '$2y$10$hVT8ZAe57lJks.eM4i8oq.b4tR2QzHQhwke6gjwiAlaF/4/gx3aBG', NULL, '2023-05-26 10:55:42', '2023-05-26 10:55:42'),
-(6, 'admin reynaldi', 'adminrey', 'adminrey@gmail.com', 'admin', NULL, '$2y$10$bmCU.xITLBg5c9w/CHBdIOrXtmee9g/HwiFs889Ub2El490Og4XX2', NULL, '2023-05-26 11:04:11', '2023-05-26 11:04:11');
+(3, 'zidane', 'zidanesanjaya', 'zidane@gmail.com', 'peserta', NULL, '$2y$10$m1E1d2/Dnu.xN94pz24Lh.Oxub8zTayif7vRs4jAJHkGZHE0HiBy2', NULL, '2023-04-23 07:57:57', '2023-04-23 07:57:57');
 
 -- --------------------------------------------------------
 
@@ -220,17 +236,17 @@ INSERT INTO `users` (`id`, `name`, `username`, `email`, `role`, `email_verified_
 -- (Lihat di bawah untuk tampilan aktual)
 --
 CREATE TABLE `vw_answer_question` (
-`answer_question_option_id` int
-,`answer_right_option_id` int
+`id_user` bigint unsigned
+,`name` varchar(255)
 ,`exam_id` int
 ,`id_question` int
-,`id_user` bigint unsigned
-,`name` varchar(255)
+,`question` text
+,`total_option` bigint
+,`question_type` varchar(50)
+,`answer_question_option_id` int
+,`answer_right_option_id` int
 ,`option_text` text
 ,`point` varchar(5)
-,`question` text
-,`question_type` varchar(50)
-,`total_option` bigint
 );
 
 -- --------------------------------------------------------
@@ -240,19 +256,19 @@ CREATE TABLE `vw_answer_question` (
 -- (Lihat di bawah untuk tampilan aktual)
 --
 CREATE TABLE `vw_list_peserta_ujian` (
-`created_at` timestamp
-,`description` text
-,`duration` int
-,`finish` tinyint(1)
+`id_attemps` int
 ,`id` int
-,`id_attemps` int
+,`title` varchar(100)
+,`description` text
+,`start_at` datetime
+,`duration` int
+,`token` text
 ,`id_user` bigint unsigned
 ,`name` varchar(255)
-,`start_at` datetime
-,`title` varchar(100)
-,`token` text
-,`total_attemp` int
+,`created_at` timestamp
 ,`updated_at` timestamp
+,`total_attemp` int
+,`finish` tinyint(1)
 );
 
 -- --------------------------------------------------------
@@ -262,10 +278,10 @@ CREATE TABLE `vw_list_peserta_ujian` (
 -- (Lihat di bawah untuk tampilan aktual)
 --
 CREATE TABLE `vw_list_soal_existing` (
-`id_exam_question` int
-,`id_user` bigint unsigned
-,`status` varchar(8)
+`id_user` bigint unsigned
 ,`value_ragu` int
+,`id_exam_question` int
+,`status` varchar(8)
 );
 
 -- --------------------------------------------------------
@@ -275,12 +291,12 @@ CREATE TABLE `vw_list_soal_existing` (
 -- (Lihat di bawah untuk tampilan aktual)
 --
 CREATE TABLE `vw_nilai_akhir_peserta` (
-`exam_id` int
-,`id` bigint unsigned
-,`id_user` bigint unsigned
+`id` bigint unsigned
 ,`name` varchar(255)
-,`nilai` decimal(65,1)
+,`id_user` bigint unsigned
+,`exam_id` int
 ,`title` varchar(100)
+,`nilai` decimal(65,1)
 ,`total_nilai` bigint
 );
 
@@ -291,9 +307,9 @@ CREATE TABLE `vw_nilai_akhir_peserta` (
 -- (Lihat di bawah untuk tampilan aktual)
 --
 CREATE TABLE `vw_nilai_peserta` (
-`exam_id` int
+`id_user` bigint unsigned
+,`exam_id` int
 ,`id_question` int
-,`id_user` bigint unsigned
 ,`nilai` decimal(44,1)
 );
 
@@ -304,17 +320,17 @@ CREATE TABLE `vw_nilai_peserta` (
 -- (Lihat di bawah untuk tampilan aktual)
 --
 CREATE TABLE `vw_question_exam` (
-`created_at` timestamp
-,`description` text
-,`duration` int
-,`id` int
-,`question` text
-,`question_id` int
-,`question_type` varchar(50)
-,`start_at` datetime
+`id` int
 ,`title` varchar(100)
+,`description` text
+,`start_at` datetime
+,`duration` int
 ,`token` text
+,`created_at` timestamp
 ,`updated_at` timestamp
+,`question_id` int
+,`question` text
+,`question_type` varchar(50)
 );
 
 -- --------------------------------------------------------
@@ -360,7 +376,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vw_nilai_peserta`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_nilai_peserta`  AS SELECT `c`.`id_user` AS `id_user`, max(`c`.`exam_id`) AS `exam_id`, `c`.`id_question` AS `id_question`, (case when (round(sum(`c`.`Nilai`),1) > 2) then 2 when (round(sum(`c`.`Nilai`),1) < -(1)) then -(1) else round(sum(`c`.`Nilai`),1) end) AS `nilai` FROM (select `a`.`id_user` AS `id_user`,`a`.`exam_id` AS `exam_id`,`a`.`id_question` AS `id_question`,(case when ((`a`.`question_type` = 'true_or_false') or (`a`.`question_type` = 'multiple_choice')) then (case when (`a`.`point` = 'benar') then `e`.`nilai_benar` when (`a`.`point` = 'salah') then `e`.`nilai_salah` end) when (`a`.`question_type` = 'complex_multiple_choice') then (case when (`a`.`point` = 'benar') then ((`e`.`nilai_benar` / `a`.`total_option`) * 2) when (`a`.`point` = 'salah') then ((`e`.`nilai_benar` / `a`.`total_option`) * -(`e`.`nilai_salah`)) end) when (`a`.`question_type` = 'matching') then (case when (`a`.`point` = 'benar') then ((`e`.`nilai_benar` / `a`.`total_option`) * 2) when (`a`.`point` = 'salah') then ((`e`.`nilai_benar` / `a`.`total_option`) * -(`e`.`nilai_salah`)) end) else 0 end) AS `Nilai` from (`vw_answer_question` `a` left join `exams` `e` on((`a`.`exam_id` = `e`.`id`)))) AS `c` GROUP BY `c`.`id_question`, `c`.`id_user` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_nilai_peserta`  AS SELECT `c`.`id_user` AS `id_user`, max(`c`.`exam_id`) AS `exam_id`, `c`.`id_question` AS `id_question`, (case when (round(sum(`c`.`Nilai`),1) > `c`.`nilai_benar`) then `c`.`nilai_benar` when (round(sum(`c`.`Nilai`),1) < `c`.`nilai_salah`) then -(`c`.`nilai_salah`) else round(sum(`c`.`Nilai`),1) end) AS `nilai` FROM (select `a`.`id_user` AS `id_user`,`a`.`exam_id` AS `exam_id`,`e`.`nilai_benar` AS `nilai_benar`,`e`.`nilai_salah` AS `nilai_salah`,`a`.`id_question` AS `id_question`,(case when ((`a`.`question_type` = 'true_or_false') or (`a`.`question_type` = 'multiple_choice')) then (case when (`a`.`point` = 'benar') then `e`.`nilai_benar` when (`a`.`point` = 'salah') then `e`.`nilai_salah` end) when (`a`.`question_type` = 'complex_multiple_choice') then (case when (`a`.`point` = 'benar') then ((`e`.`nilai_benar` / `a`.`total_option`) * 2) when (`a`.`point` = 'salah') then ((`e`.`nilai_benar` / `a`.`total_option`) * -(`e`.`nilai_salah`)) end) when (`a`.`question_type` = 'matching') then (case when (`a`.`point` = 'benar') then ((`e`.`nilai_benar` / `a`.`total_option`) * 2) when (`a`.`point` = 'salah') then ((`e`.`nilai_benar` / `a`.`total_option`) * -(`e`.`nilai_salah`)) end) else 0 end) AS `Nilai` from (`vw_answer_question` `a` left join `exams` `e` on((`a`.`exam_id` = `e`.`id`)))) AS `c` GROUP BY `c`.`id_question`, `c`.`id_user` ;
 
 -- --------------------------------------------------------
 
@@ -405,6 +421,12 @@ ALTER TABLE `exam_questions`
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indeks untuk tabel `hasil_akhir_ujian`
+--
+ALTER TABLE `hasil_akhir_ujian`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `migrations`
@@ -470,6 +492,12 @@ ALTER TABLE `exam_questions`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `hasil_akhir_ujian`
+--
+ALTER TABLE `hasil_akhir_ujian`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
