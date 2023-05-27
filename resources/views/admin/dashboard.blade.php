@@ -11,7 +11,7 @@
                                     <div class="float-right mt-15 d-none d-sm-block">
                                         <i class="si si-user fa-2x text-primary-light"></i>
                                     </div>
-                                    <div class="font-size-h3 font-w600 text-primary" data-toggle="countTo" data-speed="1000" data-to="1500">0</div>
+                                    <div class="font-size-h3 font-w600 text-primary" data-toggle="countTo" data-speed="1000" data-to="{{sizeof($data->where('role','admin'))}}">0</div>
                                     <div class="font-size-sm font-w600 text-uppercase text-muted">Admin</div>
                                 </div>
                             </a>
@@ -22,7 +22,7 @@
                                     <div class="float-right mt-15 d-none d-sm-block">
                                         <i class="fa fa-users fa-2x text-earth-light"></i>
                                     </div>
-                                    <div class="font-size-h3 font-w600 text-earth"><span data-toggle="countTo" data-speed="1000" data-to="780">0</span></div>
+                                    <div class="font-size-h3 font-w600 text-earth"><span data-toggle="countTo" data-speed="1000" data-to="{{sizeof($data->where('role','peserta'))}}">0</span></div>
                                     <div class="font-size-sm font-w600 text-uppercase text-muted">Peserta</div>
                                 </div>
                             </a>

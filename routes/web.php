@@ -33,16 +33,13 @@ Route::middleware(['auth', 'role:peserta'])->group(function () {
     //end jika keadaan mengerjakan
     Route::group(['middleware' => ['ujian']], function () {
         Route::resource('pengerjaan', UjianPesertaController::class);
-        Route::get('/dashboardPeserta', function () {return view('peserta.dashboard');})->name('dashboardPeserta');    
         Route::get('/profilPeserta', function () {return view('peserta.profilPeserta');})->name('profilPeserta');  
     });
+    Route::get('/dashboard-user', [App\Http\Controllers\HomeController::class, 'dashboardUser'])->name('dashboard_user');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/dashboardAdmin', function () {
-        return view('admin.dashboard');
-    })->name('dashboardAdmin');
-
+    Route::get('/dashboard-admin', [App\Http\Controllers\HomeController::class, 'dashboardAdmin'])->name('dashboard_admin');
     Route::get('/endpoint_data_peserta/{id}', [App\Http\Controllers\UjianPesertaController::class, 'endpoint_data_peserta'])->name('endpoint_data_peserta');
     Route::get('/endpoint_question/{id}', [App\Http\Controllers\QuestionController::class, 'show_question'])->name('endpoint_question');
 

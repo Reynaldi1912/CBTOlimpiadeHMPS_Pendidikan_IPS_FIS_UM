@@ -70,7 +70,7 @@
         <div class="content-side content-side-full">
             <ul class="nav-main">
                 <li>
-                    <a href="{{route('dashboardAdmin')}}" style="cursor: pointer;"><i class="si si-cup"></i><span class="sidebar-mini-hide">Dashboard</span></a>
+                    <a href="{{route('dashboard_admin')}}" style="cursor: pointer;"><i class="si si-cup"></i><span class="sidebar-mini-hide">Dashboard</span></a>
                 </li>
                 <li>
                     <a href="{{route('ujianAdmin.index')}}" style="cursor: pointer;"><i class="si si-notebook"></i><span class="sidebar-mini-hide">Kelola Ujian</span></a>
@@ -100,7 +100,7 @@
         <div class="content-side content-side-full">
             <ul class="nav-main">
                 <li>
-                    <a href="{{route('dashboardPeserta')}}" style="cursor: pointer;"><i class="si si-cup"></i><span class="sidebar-mini-hide">Dashboard</span></a>
+                    <a href="{{route('dashboard_user')}}" style="cursor: pointer;"><i class="si si-cup"></i><span class="sidebar-mini-hide">Dashboard</span></a>
                 </li>
                 <li>
                     <a href="{{route('pengerjaan.index')}}"><i class="si si-lock" style="cursor: pointer;"></i><span class="sidebar-mini-hide">Ujian Peserta</span></a>

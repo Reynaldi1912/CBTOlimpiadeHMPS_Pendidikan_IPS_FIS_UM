@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth;
+use DB;
 class HomeController extends Controller
 {
     /**
@@ -23,6 +24,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if(Auth::user()->role == 'admin'){
+            return redirect()->route('dashboard_admin');
+        }elseif(Auth::user()->role == 'peserta'){
+            return redirect()->route('dashboard_user');
+        }
+    }
+    public function dashboardAdmin(){
+        $data = DB::table('users')->get();
+        return view('admin.dashboard' , ['data'=>$data]);
+    }
+    public function dashboardUser(){
+        return view('peserta.dashboard');
     }
 }
