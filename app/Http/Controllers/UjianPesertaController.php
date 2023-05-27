@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Exam;
 use App\Models\User;
-use App\Models\Exam_attemp;
+use App\Models\Exam_Attemp;
 use App\Models\Exam_Answer;
 use App\Models\Exam_Question;
 use Auth;

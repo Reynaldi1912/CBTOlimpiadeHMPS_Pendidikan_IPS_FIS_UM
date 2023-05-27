@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Exam;
-use App\Models\Exam_question;
+use App\Models\Exam_Question;
 use App\Models\Question_Option;
 use App\Models\Question_Type;
 use DB;
