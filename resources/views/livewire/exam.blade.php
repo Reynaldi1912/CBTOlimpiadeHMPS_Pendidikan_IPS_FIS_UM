@@ -25,7 +25,7 @@
                 ?>
             </h5>
             @if($soal->question_type == 'long_desc')
-            <Textarea class="form-control" name="answer" rows="5" maxlength="200">@if($existing_answer->where('id_exam_question',$soal->question_id)->first() != null){{$existing_answer->where('id_exam_question',$soal->question_id)->first()->answer_desc}}@endif</Textarea>
+            <Textarea class="form-control" name="answer" rows="5" >@if($existing_answer->where('id_exam_question',$soal->question_id)->first() != null){{$existing_answer->where('id_exam_question',$soal->question_id)->first()->answer_desc}}@endif</Textarea>
             @endif
             @if($soal->question_type == 'short_desc')
             <Textarea class="form-control" name="answer" rows="5" maxlength="200">@if($existing_answer->where('id_exam_question',$soal->question_id)->first() != null){{$existing_answer->where('id_exam_question',$soal->question_id)->first()->answer_desc}}@endif</Textarea>

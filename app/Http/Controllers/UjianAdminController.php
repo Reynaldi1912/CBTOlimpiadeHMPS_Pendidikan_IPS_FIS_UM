@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\exam;
 use Illuminate\Support\Facades\Session;
+use App\Models\exam_attemp;
+use App\Models\user;
 
 
 class UjianAdminController extends Controller
@@ -78,6 +80,16 @@ class UjianAdminController extends Controller
     {
         
     }
+    public function tambahPeserta(Request $request , $id){
+        exam_attemp::create([
+            'id_user'=> $request->id_user,
+            'exam_id' => $id,
+            'total_attemp' => 0,
+            'finish' => 0
+        ]);
+
+        return redirect()->route('ujianAdmin.index')->with('success','peserta berhasil ditambahkan');
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -87,7 +99,10 @@ class UjianAdminController extends Controller
      */
     public function edit($id)
     {
-        //
+        $existing_peserta = exam_attemp::all()->where('exam_id',$id);
+        $exam = exam::find($id);
+        $list_peserta = user::all()->where('role','peserta');
+        return view('admin.tambahPesertaUjianPage' , ['list_peserta'=>$list_peserta , 'existing_peserta'=>$existing_peserta , 'exam'=>$exam]);
     }
 
     public function updateJadwal(Request $request, $id){

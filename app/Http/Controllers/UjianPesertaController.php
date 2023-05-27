@@ -118,10 +118,7 @@ class UjianPesertaController extends Controller
      */
     public function edit($id)
     {
-        $existing_peserta = exam_attemp::all()->where('exam_id',$id);
-        $exam = exam::find($id);
-        $list_peserta = user::all()->where('role','peserta');
-        return view('admin.tambahPesertaUjianPage' , ['list_peserta'=>$list_peserta , 'existing_peserta'=>$existing_peserta , 'exam'=>$exam]);
+        
     }
 
     /**
@@ -133,14 +130,7 @@ class UjianPesertaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        exam_attemp::create([
-            'id_user'=> $request->id_user,
-            'exam_id' => $id,
-            'total_attemp' => 0,
-            'finish' => 0
-        ]);
-
-        return redirect()->route('ujianAdmin.index')->with('success','peserta berhasil ditambahkan');
+        
     }
 
     /**

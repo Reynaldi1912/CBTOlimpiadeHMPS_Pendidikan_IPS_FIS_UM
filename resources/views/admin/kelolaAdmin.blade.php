@@ -8,7 +8,7 @@
     <div class="block">
         <div class="block-header block-header-default">
             <h3 class="block-title">Daftar Admin</h3>
-            <button type="button" class="btn btn-alt-success mr-5 mb-5" data-toggle="modal" data-target="#tambah-admin">
+            <button type="button" class="btn btn-alt-success mr-5 mb-5" data-toggle="modal" data-target="#tambah-admin" data-item-id="0" data-item-status="tambah">
                 <i class="fa fa-plus mr-5"></i>Tambah Admin
             </button>
         </div>
@@ -37,12 +37,17 @@
                             </td>
                             <td class="text-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#edit-admin" title="Edit">
+                                    <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#edit-admin" title="Edit" data-item-id="{{$dt->id}}" data-item-status="edit">
                                         <i class="fa fa-pencil"></i>
                                     </button>
-                                    <button type="button" class="btn btn-sm btn-secondary" data-toggle="tooltip" title="Delete">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
+                                    <form action="{{route('user.destroy' , $dt->id)}}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="status" value="admin">
+                                        <button type="button" class="btn btn-sm btn-secondary show_confirm_delete" data-toggle="tooltip" title="Delete">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
@@ -71,35 +76,32 @@
                         <!-- Default Elements -->
                         <div class="block">
                                 <div class="block-content">
-                                    <form action="be_forms_elements_bootstrap.html" method="post" enctype="multipart/form-data" onsubmit="return false;">
+                                    <form id="myFormUpdate" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PATCH')
                                         <div class="form-group row">
                                             <label class="col-12">Role</label>
                                             <div class="col-md-9">
                                                 <div class="form-control-plaintext">Admin</div>
+                                                <input type="hidden" name="status" value="admin">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-12" for="example-text-input">Nama</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control" id="example-nama-input" name="example-nama-input" placeholder="Nama..">
+                                                <input type="text" class="form-control" id="name" name="name" placeholder="Nama..">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-12" for="example-text-input">Username</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control" id="example-username-input" name="example-username-input" placeholder="Username..">
+                                                <input type="text" class="form-control" id="username" name="username" placeholder="Username..">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-12" for="example-email-input">Email</label>
                                             <div class="col-md-9">
-                                                <input type="email" class="form-control" id="example-email-input" name="example-email-input" placeholder="Email..">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-12" for="example-password-input">Password</label>
-                                            <div class="col-md-9">
-                                                <input type="password" class="form-control" id="example-password-input" name="example-password-input" placeholder="Password..">
+                                                <input type="email" class="form-control" id="email" name="email" placeholder="Email..">
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -189,4 +191,32 @@
         <!-- END Pop In Modal Tambah Admin -->
 </div>
 <!-- END Page Content -->
+<!-- JavaScript untuk menangani klik tombol dan permintaan AJAX -->
+<script>
+  $(document).ready(function() {
+    $('button[data-toggle="modal"]').click(function() {
+      var itemId = $(this).data('item-id');
+      var status = $(this).data('item-status');
+
+      if(status == 'edit'){
+        $.ajax({
+            url: '/endpoint_user/' + itemId,
+            method: 'GET',
+            success: function(response) {
+                var obj = JSON.parse(response);
+                document.getElementById('myFormUpdate').action = '/user/'+itemId;
+                document.getElementById('name').value = obj.name;
+                document.getElementById('username').value = obj.username;
+                document.getElementById('email').value = obj.email;
+
+            $('#myModal').modal('show');
+            },
+            error: function(xhr) {
+            // Tangani kesalahan jika ada
+            }
+        });
+        }
+    });
+  });
+</script>
 @endsection

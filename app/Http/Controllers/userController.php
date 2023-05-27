@@ -35,6 +35,9 @@ class userController extends Controller
         return view('admin.kelolaPeserta' , ['data'=>$data]);
     }
 
+    public function getUser($id){
+        echo json_encode(User::all()->where('id',$id)->first());
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -94,7 +97,22 @@ class userController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $status = $request->status;
+        $user = User::all()->where('id',$id)->first();
+        if($status == 'admin'){
+            $user->update([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email
+            ]);
+        }elseif($status == 'peserta'){
+            $user->update([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email
+            ]);
+        }
+        return back()->with('success','Data Berhasil Diubah');
     }
 
     /**
@@ -103,8 +121,15 @@ class userController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request , $id)
     {
-        //
+        $status = $request->status;
+        $user = User::all()->where('id',$id)->first();
+        if($status == 'admin'){
+            $user->delete();
+        }elseif($status == 'peserta'){
+            $user->delete();
+        }
+        return back()->with('warning','Data Berhasil Dihapus');
     }
 }

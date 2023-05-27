@@ -31,7 +31,7 @@
                             @if($existing_peserta->contains('id_user', $data->id))
                                 <button class="btn btn-secondary" title="tambah peserta"><i class="fa fa-plus"></i></button>
                             @else
-                                <form action="{{route('pengerjaan.update',$exam)}}" method="post">
+                                <form action="{{route('ujianAdmin.tambahPeserta',$exam)}}" method="post">
                                     @csrf
                                     @method('PUT')
                                     <input type="hidden" name="id_user" value="{{$data->id}}">

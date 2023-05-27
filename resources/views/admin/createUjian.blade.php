@@ -249,7 +249,7 @@
 $(document).ready(function (){
     $(".btn-show-modal").click(function () {
         var id = $(this).closest("tr").data("id");
-        document.getElementById("addPeserta").href = "/pengerjaan/"+id+"/edit";
+        document.getElementById("addPeserta").href = "/ujianAdmin/"+id+"/edit";
         var results = document.getElementById("content");
         $.getJSON("/endpoint_data_peserta/"+id, function(result){
             let outerDiv = "";
