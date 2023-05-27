@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\exam;
-use App\Models\exam_question;
-use App\Models\question_option;
-use App\Models\question_type;
+use App\Models\Exam;
+use App\Models\Exam_question;
+use App\Models\Question_Option;
+use App\Models\Question_Type;
 use DB;
 
 class QuestionController extends Controller

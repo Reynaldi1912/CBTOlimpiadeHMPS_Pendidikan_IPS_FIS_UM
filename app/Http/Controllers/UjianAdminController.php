@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\exam;
+use App\Models\Exam;
 use Illuminate\Support\Facades\Session;
-use App\Models\exam_attemp;
-use App\Models\user;
+use App\Models\Exam_attemp;
+use App\Models\User;
 use App\Models\Hasil_Akhir_Ujian;
 
 use DB;

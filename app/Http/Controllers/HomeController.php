@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
-use App\Models\exam;
-use App\Models\hasil_akhir_ujian;
+use App\Models\Exam;
+use App\Models\Hasil_Akhir_Ujian;
 
 class HomeController extends Controller
 {
