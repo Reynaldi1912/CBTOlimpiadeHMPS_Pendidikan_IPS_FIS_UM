@@ -24,7 +24,7 @@
                                         <i class="fa fa-check text-danger-light"></i>
                                     </div>
                                     <div class="font-size-h3 font-w600 text-white">SELAMAT</div>
-                                    <div class="font-size-sm font-w600 text-uppercase text-danger-light">Anda Lolos dengan Nilai</div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-danger-light">Anda Lolos</div>
                                 </div>
                             </a>
                         </div>
