@@ -28,21 +28,21 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'role:peserta'])->group(function () {
     Route::resource('answer', AnswerExamController::class);
-    Route::get('/kerjakanUjian/{id}', [App\Http\Controllers\UjianPesertaController::class, 'kerjakanUjian'])->name('pengerjaan.kerjakanUjian');
-    Route::get('/selesaikanUjian/{id}', [App\Http\Controllers\UjianPesertaController::class, 'selesaikanUjian'])->name('pengerjaan.selesaikanUjian');
+    Route::get('/kerjakanUjian/{id}', [UjianPesertaController::class, 'kerjakanUjian'])->name('pengerjaan.kerjakanUjian');
+    Route::get('/selesaikanUjian/{id}', [UjianPesertaController::class, 'selesaikanUjian'])->name('pengerjaan.selesaikanUjian');
     //end jika keadaan mengerjakan
     Route::group(['middleware' => ['ujian']], function () {
         Route::resource('pengerjaan', UjianPesertaController::class);
         Route::get('/profilPeserta', function () {return view('peserta.profilPeserta');})->name('profilPeserta');  
     });
-    Route::get('/dashboard-user', [App\Http\Controllers\HomeController::class, 'dashboardUser'])->name('dashboard_user');
+    Route::get('/dashboard-user', [HomeController::class, 'dashboardUser'])->name('dashboard_user');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/dashboard-admin', [App\Http\Controllers\HomeController::class, 'dashboardAdmin'])->name('dashboard_admin');
-    Route::get('/endpoint_data_peserta/{id}', [App\Http\Controllers\UjianPesertaController::class, 'endpoint_data_peserta'])->name('endpoint_data_peserta');
-    Route::get('/endpoint_question/{id}', [App\Http\Controllers\QuestionController::class, 'show_question'])->name('endpoint_question');
-    Route::get('/endpoint_user/{id}', [App\Http\Controllers\UserController::class, 'getUser'])->name('endpoint_user');
+    Route::get('/dashboard-admin', [HomeController::class, 'dashboardAdmin'])->name('dashboard_admin');
+    Route::get('/endpoint_data_peserta/{id}', [UjianPesertaController::class, 'endpoint_data_peserta'])->name('endpoint_data_peserta');
+    Route::get('/endpoint_question/{id}', [QuestionController::class, 'show_question'])->name('endpoint_question');
+    Route::get('/endpoint_user/{id}', [UserController::class, 'getUser'])->name('endpoint_user');
 
     Route::resource('question-admin', QuestionController::class);
     Route::resource('hasil-ujian', HasilUjianController::class);
@@ -56,7 +56,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('tambah-peserta-ujian/{id}', [UjianAdminController::class, 'tambahPeserta'])->name('ujianAdmin.tambahPeserta');
     Route::post('ujianAdmin/storeToken', [UjianAdminController::class, 'storeToken'])->name('ujianAdmin.storeToken');
     Route::put('updateJadwal/{id}', [UjianAdminController::class, 'updateJadwal'])->name('updateJadwal');
-    Route::post('update-pengumuman/{id}', [App\Http\Controllers\HomeController::class, 'updatePengumuman'])->name('update-pengumuman');
+    Route::post('update-pengumuman/{id}', [HomeController::class, 'updatePengumuman'])->name('update-pengumuman');
 });
 
 Auth::routes();
@@ -65,5 +65,5 @@ Route::get('/login_admin', function () {
     return view('auth.admin.adminLogin');
 })->name('login_admin');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
