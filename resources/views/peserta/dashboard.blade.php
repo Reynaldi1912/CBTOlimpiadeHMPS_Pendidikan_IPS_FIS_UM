@@ -11,7 +11,7 @@
                                     <div class="item item-2x item-circle bg-black-op-10 mx-auto mb-20">
                                         <i class="fa fa-close text-danger-light"></i>
                                     </div>
-                                    <div class="font-size-h3 font-w600 text-white">MAAF</div>
+                                    <div class="font-size-h3 font-w600 text-white">MOHON MAAF</div>
                                     <div class="font-size-sm font-w600 text-uppercase text-danger-light">Anda Belum Lolos</div>
                                 </div>
                             </a>
@@ -24,7 +24,7 @@
                                         <i class="fa fa-check text-danger-light"></i>
                                     </div>
                                     <div class="font-size-h3 font-w600 text-white">SELAMAT</div>
-                                    <div class="font-size-sm font-w600 text-uppercase text-danger-light">Anda Lolos dengan Nilai {{$hasil->nilai_akhir}}</div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-danger-light">Anda Lolos dengan Nilai</div>
                                 </div>
                             </a>
                         </div>
