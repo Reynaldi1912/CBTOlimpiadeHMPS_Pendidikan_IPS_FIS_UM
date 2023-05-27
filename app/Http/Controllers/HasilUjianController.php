@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\Models\Exam_answer;
-use App\Models\Exam_question;
+use App\Models\Exam_Answer;
+use App\Models\Exam_Question;
 use App\Models\Exam;
 use App\Models\Hasil_Akhir_Ujian;
 use App\Models\User;
