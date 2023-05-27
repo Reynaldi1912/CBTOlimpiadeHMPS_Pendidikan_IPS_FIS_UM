@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UjianPesertaController;
 use App\Http\Controllers\UjianAdminController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AnswerExamController;
 use App\Http\Controllers\HasilUjianController;
 use App\Http\Controllers\QuestionController;
