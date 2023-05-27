@@ -3,28 +3,33 @@
 @section('content')
                 <!-- Page Content -->
                 <div class="content">
-                    <div class="col-md-12">
-                        <a class="block block-transparent">
-                            <div class="block-content block-content-full bg-danger text-center">
-                                <div class="item item-2x item-circle bg-black-op-10 mx-auto mb-20">
-                                    <i class="fa fa-close text-danger-light"></i>
+                @if($hasil != null)
+                    @if($hasil->status == 0)
+                        <div class="col-md-12">
+                            <a class="block block-transparent">
+                                <div class="block-content block-content-full bg-danger text-center">
+                                    <div class="item item-2x item-circle bg-black-op-10 mx-auto mb-20">
+                                        <i class="fa fa-close text-danger-light"></i>
+                                    </div>
+                                    <div class="font-size-h3 font-w600 text-white">MAAF</div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-danger-light">Anda Belum Lolos</div>
                                 </div>
-                                <div class="font-size-h3 font-w600 text-white">MAAF</div>
-                                <div class="font-size-sm font-w600 text-uppercase text-danger-light">Anda Belum Lolos</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-12">
-                        <a class="block block-transparent">
-                            <div class="block-content block-content-full bg-success text-center">
-                                <div class="item item-2x item-circle bg-black-op-10 mx-auto mb-20">
-                                    <i class="fa fa-check text-danger-light"></i>
+                            </a>
+                        </div>
+                        @elseif($hasil->status ==1)
+                        <div class="col-md-12">
+                            <a class="block block-transparent">
+                                <div class="block-content block-content-full bg-success text-center">
+                                    <div class="item item-2x item-circle bg-black-op-10 mx-auto mb-20">
+                                        <i class="fa fa-check text-danger-light"></i>
+                                    </div>
+                                    <div class="font-size-h3 font-w600 text-white">SELAMAT</div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-danger-light">Anda Lolos dengan Nilai {{$hasil->nilai_akhir}}</div>
                                 </div>
-                                <div class="font-size-h3 font-w600 text-white">SELAMAT</div>
-                                <div class="font-size-sm font-w600 text-uppercase text-danger-light">Anda Lolos dengan Nilai {{80}}</div>
-                            </div>
-                        </a>
-                    </div>
+                            </a>
+                        </div>
+                    @endif
+                @endif
                     <div class="row invisible" data-toggle="appear">
                         <!-- Row #2 -->
                         <div class="col-md-12">

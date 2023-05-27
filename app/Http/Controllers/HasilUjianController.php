@@ -37,6 +37,20 @@ class HasilUjianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function update_lolos($id){
+        $hasil_akhir = hasil_akhir_ujian::all()->where('id',$id)->first();
+        if($hasil_akhir->status == false){
+            $hasil_akhir->update([
+                'status' => true
+            ]);
+        }else{
+            $hasil_akhir->update([
+                'status' => false
+            ]);
+        }
+
+        return back()->with('warning','berhasil merubah status peserta');
+    }
     public function create()
     {
         //

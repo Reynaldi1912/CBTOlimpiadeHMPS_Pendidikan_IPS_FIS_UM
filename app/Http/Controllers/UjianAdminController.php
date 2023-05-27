@@ -52,7 +52,8 @@ class UjianAdminController extends Controller
             'start_at' => $request->txtMulaiUjian,
             'duration' => $request->txtDurasiUjian,
             'nilai_benar' => $request->txtStatusBenar,
-            'nilai_salah' => $request->txtStatusSalah
+            'nilai_salah' => $request->txtStatusSalah,
+            'tampil' => false
         ]);
 
         return redirect()->route('ujianAdmin.index')->with('success','Jadwal Ujian Baru Berhasil Dibuat');
@@ -115,7 +116,7 @@ class UjianAdminController extends Controller
             'start_at'=> $request->txtMulaiUjian,
             'duration'=> $request->txtDurasiUjian,
             'nilai_benar' => $request->txtStatusBenar,
-            'nilai_salah' => $request->txtStatusSalah
+            'nilai_salah' => $request->txtStatusSalah,
         ]);
         return back()->with('warning','Jadwal Berhasil DiUpdate');
     }

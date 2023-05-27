@@ -7,12 +7,16 @@
     <div class="block">
         <div class="block-header block-header-default row text-center">
             <div class="col text-left">
-                <h3 class="block-title">Hasil Ujian</h3>
+                <span class="text-bold"><b>Perlihatkan Pengumuman : </b></span>
+                <select name="selectedExam" class="form-control" onchange="updatePengumuman(this.value);">
+                    <option value="0" data-url="{{route('update-pengumuman', ['id' => 0])}}">Jangan Perlihatkan</option>
+                    @foreach($exam as $exam_detail)
+                        <option value="{{$exam_detail->id}}" data-url="{{route('update-pengumuman', ['id' => $exam_detail->id])}}" @if($exam_detail->tampil == 1) selected @endif>{{$exam_detail->title}}</option>
+                    @endforeach
+                </select>
+
             </div>
-            <div class="col">
-            <span>Perlihatkan Hasil Ke Peserta &nbsp</span><br>
-            <input type="checkbox" data-toggle="toggle" data-onstyle="dark"> &nbsp
-            </div>
+            <div class="col"></div>
             <div class="col">
             <form action="{{route('ujianAdmin.input_semua_nilai')}}" method="post">
                 @csrf
@@ -83,7 +87,17 @@
                                 <div class="btn-group">
                                     <a href="{{route('hasil-ujian.show',$nilai->id)}}"><button type="button" class="btn btn-sm btn-secondary" data-toggle="tooltip" title="Edit">
                                         <i class="fa fa-eye"></i>
-                                    </button>
+                                    </button> &nbsp
+                                    @if($hasil_akhir_ujian->where('id_user',$nilai->id_user)->where('exam_id',$nilai->exam_id)->first())
+                                        <form action="{{route('ujianAdmin.update_lolos',$hasil_akhir_ujian->where('id_user',$nilai->id_user)->where('exam_id',$nilai->exam_id)->first()->id)}}" method="post">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-warning" data-toggle="tooltip" title="Ganti Status Lolos">
+                                                <i class="fa fa-refresh"></i>
+                                            </button>
+                                        </form>
+                                    @else
+                                        -
+                                    @endif
                                 </div>
                             </td>
                         </tr>
@@ -124,6 +138,30 @@
     </div>
 </div>
 <!-- END Pop Out Modal -->
+<script>
+function updatePengumuman(selectedValue) {
+    var select = document.getElementsByName('selectedExam')[0]; // Mengakses elemen <select> berdasarkan nama
+    var selectedOption = select.querySelector("option[value='" + selectedValue + "']"); // Memperoleh opsi yang dipilih
+    var url = selectedOption.getAttribute('data-url');
+    var tampil = selectedOption.value;
+
+    // Mengirim permintaan AJAX
+    var xhr = new XMLHttpRequest();
+    xhr.open('post', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');    
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log('Pengumuman diperbarui!');
+        }
+    };
+    xhr.send('tampil=' + tampil);
+}
+
+
+
+</script>
+
 
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 @endsection
