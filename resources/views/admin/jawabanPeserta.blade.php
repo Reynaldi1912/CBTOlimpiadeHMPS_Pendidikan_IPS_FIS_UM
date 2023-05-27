@@ -56,14 +56,25 @@
     <!-- Dynamic Table Full -->
     <div class="block">
         <div class="block-header block-header-default">
-            <h3 class="block-title">Jawaban <small>Peserta</small></h3>
-            <input class="input-group-text min-min-width-20" type="text" readonly placeholder="80/100">
-            <div class="container">
-                <button type="button" class="btn btn-success min-width-125" data-toggle="modal" data-target="#edit-nilai" title="Edit">Rubah Nilai Peserta</button>
+            <div class="row">
+                <div class="col">
+                    <h3 class="block-title"><small>Nilai Otomatis</small></h3>
+                    <input class="form-control" type="text" readonly placeholder="{{$nilai_sementara->nilai}} | {{$nilai_sementara->total_nilai}}">
+                </div>
+                <div class="col">
+                    <h3 class="block-title"><small>Nilai Akhir</small></h3>
+                    <input class="form-control" type="text" readonly placeholder="{{$nilai_akhir ? $nilai_akhir->nilai_akhir : 0}}">
+                </div>
+                <div class="col">
+                    <h3 class="block-title"></h3>
+                    <button type="button" class="btn btn-success min-width-125" data-toggle="modal" data-target="#edit-nilai" title="Edit">Rubah Nilai Peserta</button>
+                </div>
             </div>
+            
             <a href="/hasil-ujian"><button type="button" class="btn btn-outline-danger min-width-125" data-toggle="click-ripple">Kembali</button></a>
         </div>
         <div class="block-content block-content-full">
+            <h4><small><span class="text-uppercase">{{$user->name}}</span></small></h4>
             <!-- DataTables functionality is initialized with .js-dataTable-full class in js/pages/be_tables_datatables.min.js which was auto compiled from _es6/pages/be_tables_datatables.js -->
             <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
                 <thead>
@@ -206,13 +217,17 @@
                     <h3 class="block-title">Masukkan Nilai</h3>
                 </div>
                 <div class="block-content">
-                <form action="be_forms_elements_bootstrap.html" method="post" onsubmit="return false;">
+                <form action="{{route('ujianAdmin.input_nilai_akhir')}}" method="post" >
+                    @csrf
                     <div class="form-group">
                         <label for="example-nf-email">Nilai</label>
-                        <input type="value" class="form-control" id="example-nf-email" name="example-nf-email" placeholder="Masukkan Nilai.." require>
+                        <input type="hidden" value="{{$nilai_sementara->id_user}}" name="id_user">
+                        <input type="hidden" value="{{$nilai_sementara->exam_id}}" name="exam_id">
+                        <input type="hidden" value="{{$nilai_sementara->total_nilai}}" name="total_nilai">
+                        <input type="value" class="form-control" id="nilai_akhir" value="{{$nilai_sementara->nilai}}" name="nilai" placeholder="Masukkan Nilai.." required>
                     </div>
                     <div class="form-group">
-                        <button type="button" class="btn btn-alt-success" data-dismiss="modal">
+                        <button type="submit" class="btn btn-alt-success">
                             <i class="fa fa-check"></i> Submit
                         </button>
                     </div>

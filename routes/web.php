@@ -49,6 +49,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('ujianAdmin', UjianAdminController::class);
     Route::resource('user', UserController::class);
 
+    Route::post('input_semua_nilai', [UjianAdminController::class, 'input_semua_nilai'])->name('ujianAdmin.input_semua_nilai');
+    Route::post('input_nilai_akhir', [UjianAdminController::class, 'input_nilai_akhir'])->name('ujianAdmin.input_nilai_akhir');
+
     Route::put('tambah-peserta-ujian/{id}', [UjianAdminController::class, 'tambahPeserta'])->name('ujianAdmin.tambahPeserta');
     Route::post('ujianAdmin/storeToken', [UjianAdminController::class, 'storeToken'])->name('ujianAdmin.storeToken');
     Route::put('updateJadwal/{id}', [UjianAdminController::class, 'updateJadwal'])->name('updateJadwal');

@@ -198,6 +198,23 @@
                     }
                 });
             });
+            $('.simpan_nilai').click(function(event) {
+                var form =  $(this).closest("form");
+                var name = $(this).data("name");
+                event.preventDefault();
+                swal({
+                    title: `Apakah anda yakin ingin menyimpan data ini ?`,
+                    text: "Ini Akan Mengubah Seluruh Nilai Peserta Sesuai Dengan Nilai Sementara Dari Babak Ujian Yang Anda Pilih !",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                    form.submit();
+                    }
+                });
+            });
             $('.show_confirm_simpan_ujian').click(function(event) {
                 var form =  $(this).closest("form");
                 var name = $(this).data("name");

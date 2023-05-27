@@ -5,9 +5,26 @@
 <div class="content">
     <!-- Full Table -->
     <div class="block">
-        <div class="block-header block-header-default">
-            <h3 class="block-title">Hasil Ujian</h3>
-            <input type="checkbox" checked data-toggle="toggle" data-onstyle="dark">
+        <div class="block-header block-header-default row text-center">
+            <div class="col text-left">
+                <h3 class="block-title">Hasil Ujian</h3>
+            </div>
+            <div class="col">
+            <span>Perlihatkan Hasil Ke Peserta &nbsp</span><br>
+            <input type="checkbox" data-toggle="toggle" data-onstyle="dark"> &nbsp
+            </div>
+            <div class="col">
+            <form action="{{route('ujianAdmin.input_semua_nilai')}}" method="post">
+                @csrf
+                <select name="exam_id" class="form-control">
+                    @foreach($exam as $ex)
+                        <option value="{{$ex->id}}">{{$ex->title}}</option>
+                    @endforeach
+                </select>
+                <button class="btn btn-success btn-block simpan_nilai" type="submit">Simpan Nilai Akhir</button>
+            </form>
+            </div>
+           
         </div>
         <div class="block-content">
             <div class="table-responsive">
@@ -19,7 +36,9 @@
                             <th style="width: 30%;">Ujian</th>
                             <th style="width: 30%;">Asal Sekolah</th>
                             <th style="width: 15%;">Jumlah Soal</th>
-                            <th style="width: 15%;">Nilai</th>
+                            <th style="width: 15%;">Nilai Otomatis (PG)</th>
+                            <th style="width: 15%;">Nilai Akhir</th>
+                            <th style="width: 15%;">Status Kelulusan</th>
                             <th class="text-center" style="width: 100px;">Lihat/Nilai Pengerjaan</th>
                         </tr>
                     </thead>
@@ -39,6 +58,26 @@
                             <td>{{count($soal->where('exam_id',$nilai->exam_id))}} Soal</td>
                             <td>
                                 <span class="badge badge-primary">{{$nilai->nilai}} / {{$nilai->total_nilai}}</span>
+                            </td>
+                            <td>  
+                                @if($hasil_akhir_ujian->where('id_user',$nilai->id_user)->where('exam_id',$nilai->exam_id)->first())
+                                <span class="badge badge-success">
+                                    {{$hasil_akhir_ujian->where('id_user',$nilai->id_user)->where('exam_id',$nilai->exam_id)->first()->nilai_akhir}}
+                                </span>
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            <td>
+                                @if($hasil_akhir_ujian->where('id_user',$nilai->id_user)->where('exam_id',$nilai->exam_id)->first())
+                                        @if($hasil_akhir_ujian->where('id_user',$nilai->id_user)->where('exam_id',$nilai->exam_id)->first()->status == 1)
+                                            <span class="badge badge-success">Lolos</span>
+                                        @else
+                                            <span class="badge badge-danger">Belum Lolos</span>
+                                        @endif
+                                @else
+                                    -
+                                @endif
                             </td>
                             <td class="text-center">
                                 <div class="btn-group">

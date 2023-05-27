@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\exam_answer;
 use App\Models\exam_question;
+use App\Models\Exam;
+use App\Models\Hasil_Akhir_Ujian;
+use App\Models\User;
+
 
 class HasilUjianController extends Controller
 {
@@ -23,7 +27,9 @@ class HasilUjianController extends Controller
     {
         $nilai = DB::table('vw_nilai_akhir_peserta')->get();
         $soal = exam_question::all();
-        return view('admin.hasilUjian' , ['nilai'=>$nilai , 'soal'=>$soal]);
+        $ujian = Exam::all();
+        $hasil_akhir = hasil_akhir_ujian::all();
+        return view('admin.hasilUjian' , ['nilai'=>$nilai , 'soal'=>$soal , 'exam'=>$ujian , 'hasil_akhir_ujian'=>$hasil_akhir]);
     }
 
     /**
@@ -70,15 +76,20 @@ class HasilUjianController extends Controller
         $jawaban =  DB::table('exam_answers AS a')
                     ->leftJoin('question_options AS b', 'a.answer_question_option_id', '=', 'b.id')
                     ->leftJoin('question_options AS c', 'a.answer_right_option_id', '=', 'c.id')
+                    ->where('id_user',$id_user)
+                    ->where('exam_id' , $exam_id)
                     ->select('a.*', 'b.option_text AS option_text_answer', 'c.option_text AS option_text_right_answer')->get();
         $option_matching = DB::table('question_options AS a')
                     ->leftJoin(DB::raw('(SELECT * FROM question_options WHERE type_matching IS NOT NULL) AS b'), 'b.var1', '=', 'a.id')
                     ->select('a.*', 'b.option_text AS option_text_left')
                     ->where('a.type_matching', 'right')
                     ->get();
-        $nilai = DB::table('vw_nilai_peserta')->get();
-        // echo json_encode($data);die();
-        return view('admin.jawabanPeserta' , ['soal'=>$data , 'option'=>$option , 'jawaban'=>$jawaban , 'option_matching'=>$option_matching , 'nilai'=>$nilai]);
+        $nilai = DB::table('vw_nilai_peserta')->where('id_user',$id_user)->where('exam_id' , $exam_id)->get();
+        $nilai_sementara = DB::table('vw_nilai_akhir_peserta')->where('id_user',$id_user)->where('exam_id' , $exam_id)->first();
+        $nilai_akhir = DB::table('hasil_akhir_ujian')->where('id_user',$id_user)->where('exam_id' , $exam_id)->first();
+        $user = User::all()->where('id',$id_user)->first();
+        // echo json_encode($nilai_sementara);die();
+        return view('admin.jawabanPeserta' , ['soal'=>$data , 'option'=>$option , 'jawaban'=>$jawaban , 'option_matching'=>$option_matching , 'nilai'=>$nilai , 'nilai_sementara'=>$nilai_sementara , 'nilai_akhir'=>$nilai_akhir , 'user'=>$user]);
     }
 
     /**
