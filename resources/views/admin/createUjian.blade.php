@@ -260,7 +260,7 @@ $(document).ready(function (){
                                 "<td>Test Sekolah</td>"+
                                 "<td>"+(result[index].finish == 1 ? '<span class="text-success">Selesai</span>':'<span class="text-info">Belum Selesai</span>')+"</td>"+
                                 '<td>'+
-                                    '<form method="POST" action="/pengerjaan/'+result[index].id_attemps+'" style="display:inline">'+
+                                    '<form method="POST" action="/ujianAdmin/'+result[index].id_attemps+'" style="display:inline">'+
                                         '@csrf'+
                                         '<input type="hidden" name="_method" value="DELETE">'+
                                         '<button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>'+

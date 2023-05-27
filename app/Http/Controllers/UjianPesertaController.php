@@ -141,13 +141,7 @@ class UjianPesertaController extends Controller
      */
     public function destroy($id)
     {
-        $exam_attemps = exam_attemp::find($id);
-        if($exam_attemps->finish == 1){
-            return back()->with('error','Data gagal dihapus karena peserta sudah menyelesaikan ujian');
-        }
-        $exam_attemps->delete();
 
-        return back()->with('success','Data Berhasil Dihapus');
     }
     public function selesaikanUjian($id){
         // Menghapus data ujian pada session

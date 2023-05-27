@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Exam_Attemp;
 use App\Models\User;
 use App\Models\Hasil_Akhir_Ujian;
-
 use DB;
 class UjianAdminController extends Controller
 {
@@ -199,6 +198,12 @@ class UjianAdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $exam_attemps = exam_attemp::find($id);
+        if($exam_attemps->finish == 1){
+            return back()->with('error','Data gagal dihapus karena peserta sudah menyelesaikan ujian');
+        }
+        $exam_attemps->delete();
+
+        return back()->with('success','Data Berhasil Dihapus');
     }
 }
