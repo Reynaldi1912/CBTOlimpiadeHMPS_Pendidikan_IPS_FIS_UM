@@ -27,6 +27,7 @@ class Exam extends Component
         $exist_answer = Exam_Answer::all()->where('id_user',Auth::user()->id)->where('exam_id', $this->examId);
         $list_soal = DB::table('vw_question_exam')->where('id', $this->examId)->get();
 
+
         return view('livewire.exam', [
             'soals' => $soals,
             'id' => $soals[0]->id,

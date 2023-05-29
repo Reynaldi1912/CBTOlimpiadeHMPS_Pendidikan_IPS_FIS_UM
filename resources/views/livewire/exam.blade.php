@@ -1,3 +1,32 @@
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.13.0/Sortable.min.js"></script>
+  <style>
+    .sortable-list {
+      list-style-type: none;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    #sortable-clues li {
+        pointer-events: none;
+    }
+
+    .sortable-item {
+      background-color: #f4f4f4;
+      padding: 10px;
+      margin-bottom: 10px;
+      cursor: move;
+    }
+    .sortable-item.highlight {
+      background-color: #c0c0c0;
+    }
+    .matching-container .matching-column .sortable-list {
+      min-height: 200px;
+    }
+    .matching-container .matching-column .form-group {
+      margin-bottom: 10px;
+    }
+  </style>
+
   <div class="row">
     <div class="col-sm-3">
         <div class="block">
@@ -31,33 +60,73 @@
             <Textarea class="form-control" name="answer" rows="5" maxlength="200">@if($existing_answer->where('id_exam_question',$soal->question_id)->first() != null){{$existing_answer->where('id_exam_question',$soal->question_id)->first()->answer_desc}}@endif</Textarea>
             @endif
             @if($soal->question_type == 'matching')  
-                <table class="table">
-                    <tbody>
-                    @foreach($soal->jawaban as $option)
-                        @if($option->type_matching == 'left')
-                            <tr>
+            <div class="container">
+                <div class="matching-container">
+                    <div class="matching-column">
+                    <h4>Clue</h4>
+                    <ul id="sortable-clues" class="sortable-list">
+                        @php
+                            $i = 1;
+                        @endphp
+                        @foreach($soal->jawaban as $option)
+                            @if($option->type_matching == 'left')
                                 <input type="hidden" name="left_matching[]" value="{{$option->id}}">
-                                <td>
-                                    <?php
-                                        echo $option->option_text;
-                                    ?>
-                                </td>
-                                <td>
-                                    <select class="form-control" name="matching[]">
-                                        @foreach($soal->jawaban->where('type_matching', 'right') as $option_right)
-                                            @if($existing_answer->where('answer_question_option_id', $option->id)->isNotEmpty() && $existing_answer->where('answer_question_option_id', $option->id)->first()->answer_right_option_id == $option_right->id)
-                                                <option value="{{ $option_right->id }}" selected>{{ $option_right->option_text }}</option>
-                                            @else
-                                                <option value="{{ $option_right->id }}">{{ $option_right->option_text }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                </td>
-                            </tr>
+                                <li class="sortable-item" draggable="false">
+                                    @php
+                                        echo $i++ .". ".$option->option_text
+                                    @endphp
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                    </div>
+                    <div class="matching-column mt-5">
+                    <h5>Jawaban urut dari atas (1,2 dan seterusnya)</h5>
+                        @if($existing_answer->where('id_exam_question',$soal->question_id)->isNotEmpty())
+                            @php    
+                            $data_ = json_decode($existing_answer->where('id_exam_question',$soal->question_id), true);
+
+                            $answerRightOptionIds = [];
+                            foreach ($data_ as $item) {
+                                $answerRightOptionIds[] = $item['answer_right_option_id'];
+                            }
+                            $matchingValue = implode(',', $answerRightOptionIds);
+                            @endphp
+                            <input type="hidden" name="matching" class="jawaban-input" value="{{$matchingValue}}">
+                        @else
+                            <input type="hidden" name="matching" class="jawaban-input">
                         @endif
-                    @endforeach
-                    </tbody>
-                </table>  
+                        <div id="matching-answers" class="sortable-list" onchange="updateAnswers();">
+                        @if($existing_answer->where('id_exam_question',$soal->question_id)->isNotEmpty())
+                            @php
+                                $data = json_decode($existing_answer->where('id_exam_question',$soal->question_id), true);
+                                $values = array_values($data);
+                            @endphp
+                            @foreach($values as $data)
+                            <li class="sortable-item" draggable="true" data-id="{{ $data['answer_right_option_id'] }}">
+                                {{ $option->where('id', $data['answer_right_option_id'])->pluck('option_text')->first() }}
+                            </li>
+                        @endforeach
+                        @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4 matching_option">
+                    <div class="col-md-12">
+                    <ul id="sortable-options" class="sortable-list">
+                        @if($existing_answer->where('id_exam_question',$soal->question_id)->isEmpty())
+                            @foreach($soal->jawaban as $option)
+                                @if($option->type_matching == 'right')
+                                    <li class="sortable-item" draggable="true" data-id="{{ $option->id }}">
+                                    {{ $option->option_text }}
+                                    </li>
+                                @endif
+                            @endforeach
+                        @endif
+                    </ul>
+                    </div>
+                </div>
+            </div>
             @endif
 
             @foreach($soal->jawaban as $option)
@@ -114,6 +183,69 @@
   </div>
 
 <script>
+    $(document).ready(function() {
+
+        var sortableClues = new Sortable(document.getElementById('sortable-clues'), {
+        group: 'matching',
+        animation: 150,
+        filter: '.sortable-item',
+        onEnd: function(evt) {
+            updateAnswers();
+        }
+        });
+
+        var sortableAnswers = new Sortable(document.getElementById('matching-answers'), {
+        group: 'matching',
+        animation: 150,
+        draggable: '.sortable-item',
+        onEnd: function(evt) {
+            updateAnswers();
+        }
+        });
+
+        var sortableOptions = new Sortable(document.getElementById('sortable-options'), {
+        group: 'matching',
+        animation: 150,
+        draggable: '.sortable-item',
+        onEnd: function(evt) {
+            checkAnswer(evt.item.innerText);
+        }
+        });
+
+        function updateAnswers() {
+            var answers = [];
+            $('#matching-answers li').each(function() {
+                var optionId = $(this).data('id'); // Ambil ID dari opsi jawaban
+                answers.push(optionId);
+            });
+            $('.jawaban-input').each(function(index) {
+                $(this).val(answers || ''); // Setel nilai input dengan ID opsi jawaban atau kosong jika tidak ada
+            });
+        }
+        
+        
+        function checkAnswer(option, optionId) {
+            var answer = $('#matching-answers li:empty').first();
+            if (answer.length > 0) {
+                answer.text(option);
+                answer.attr('data-id', optionId); // Set data-id attribute
+
+                var answers = []; // Updated answers array
+                $('#matching-answers li').each(function() {
+                var optionId = $(this).data('id');
+                answers.push(optionId);
+                });
+
+                $('.jawaban-input').each(function(index) {
+                $(this).val(answers || ''); // Set value of jawaban[] input
+                });
+            }
+        }
+        $('#matching-answers').on('DOMSubtreeModified', function() {
+            updateAnswers(); // Panggil fungsi updateAnswers() ketika ada perubahan dalam anak-anak elemen #matching-answers
+        });
+    });
+
     function setRagu() {
         document.getElementById("txtStatus").value = "1";
     }

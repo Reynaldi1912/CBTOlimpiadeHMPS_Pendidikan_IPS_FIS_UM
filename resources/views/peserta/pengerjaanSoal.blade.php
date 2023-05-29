@@ -61,11 +61,11 @@
                         <div class="block">
                             <button type="button" class="btn btn-alt-danger" data-toggle="modal" data-target="#instruksi-pengerjaan">Instruksi Pengerjaan!</button>
                         </div>
-                        <div class="col-6 col-md-4 col-xl-2">
+                        <div class="col-6 col-md-6 col-xl-3">
                             <div class="block block-link-pop text-center" href="javascript:void(0)">
                                 <div class="block-content">
                                     <p class="font-size-h5 text-earth" id="waktu-tersisa">
-                                        <!-- <strong>987&euro;</strong> -->
+                                        ---- Menit -- Detik
                                     </p>
                                 </div>
                                 <div class="bg-body-light">

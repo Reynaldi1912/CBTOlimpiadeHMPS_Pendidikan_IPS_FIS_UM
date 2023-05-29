@@ -98,21 +98,22 @@ class AnswerExamController extends Controller
                 );
             }
         }elseif ($request->question_type == 'matching' && $request->matching) {
-            for ($i=0; $i < sizeof($request->matching); $i++) { 
+            $data = explode (",", $request->matching); 
+            for ($i=0; $i < sizeof($data); $i++) { 
                 $model = Exam_Answer::all()->where('id_exam_question',$request->id_question)->where('id_user',Auth::user()->id)->first();
                 if($model){
                     $model->delete();
                 }
             }
 
-            for ($i=0; $i < sizeof($request->matching); $i++) { 
+            for ($i=0; $i < sizeof($data); $i++) { 
                 Exam_Answer::Create(
                     [
                         'id_user'=>Auth::user()->id,
                         'exam_id' => $request->exam_id,
                         'id_exam_question' => $request->id_question,
                         'answer_question_option_id' =>$request->left_matching[$i],
-                        'answer_right_option_id' => $request->matching[$i],
+                        'answer_right_option_id' => $data[$i],
                         'created_by' => Auth::user()->id,
                         'ragu' => $request->txtStatus
                     ]
