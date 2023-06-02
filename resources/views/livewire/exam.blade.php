@@ -46,7 +46,20 @@
                 <input type="hidden" name="exam_id" value="{{$id}}">
                 <input type="hidden" name="id_question" value="{{$soal->question_id}}">
                 <input type="hidden" name="question_type" value="{{$soal->question_type}}">
-                <span >type : {{$soal->question_type}}</span>
+                <span >Tipe Soal: 
+
+                    @php
+                        if($soal->question_type == 'multiple_choice' || $soal->question_type == 'true_or_false'){
+                            echo 'Pilihan Ganda';
+                        } elseif($soal->question_type == 'matching'){
+                            echo 'Menjodohkan';
+                        } elseif($soal->question_type == 'complex_multiple_choice'){
+                            echo 'Pilihan Ganda Kompleks';
+                        } elseif($soal->question_type == 'long_desc' || $soal->question_type == 'short_desc'){
+                            echo 'Uraian';
+                        }
+                    @endphp
+                </span>
             </div>
             <h5>
                 <?php
@@ -61,26 +74,26 @@
             @endif
             @if($soal->question_type == 'matching')  
             <div class="container">
-                <div class="matching-container">
-                    <div class="matching-column">
+                <div class="matching-container row">
+                    <div class="matching-column col">
                     <h4>Clue</h4>
-                    <ul id="sortable-clues" class="sortable-list">
-                        @php
-                            $i = 1;
-                        @endphp
-                        @foreach($soal->jawaban as $option)
-                            @if($option->type_matching == 'left')
-                                <input type="hidden" name="left_matching[]" value="{{$option->id}}">
-                                <li class="sortable-item" draggable="false">
-                                    @php
-                                        echo $i++ .". ".$option->option_text
-                                    @endphp
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
+                        <ul id="sortable-clues" class="sortable-list">
+                            @php
+                                $i = 1;
+                            @endphp
+                            @foreach($soal->jawaban as $option)
+                                @if($option->type_matching == 'left')
+                                    <input type="hidden" name="left_matching[]" value="{{$option->id}}">
+                                    <li class="sortable-item" draggable="false">
+                                        @php
+                                            echo $i++ .". ".$option->option_text
+                                        @endphp
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
                     </div>
-                    <div class="matching-column mt-5">
+                    <div class="matching-column mt-5 col">
                     <h5>Jawaban urut dari atas (1,2 dan seterusnya)</h5>
                         @if($existing_answer->where('id_exam_question',$soal->question_id)->isNotEmpty())
                             @php    
