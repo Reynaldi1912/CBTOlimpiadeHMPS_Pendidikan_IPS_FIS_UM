@@ -50,6 +50,16 @@
 
 <script>
     $(document).ready(function() {
+        $('#summernote').summernote({
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['para', ['ul', 'ol']],
+                ['insert', ['link', 'picture']],
+                ['view', []],
+            ]
+        });
+
         $('#summernote').summernote();
     })
     
@@ -76,7 +86,16 @@
                                     '<div id="optionPlus">'+
                                     '</div>'
                                     ;
-            $('#summernote1').summernote();
+                $('#summernote1').summernote({
+                    toolbar: [
+                        ['style', ['bold', 'italic', 'underline', 'clear']],
+                        ['font', ['strikethrough', 'superscript', 'subscript']],
+                        ['para', ['ul', 'ol']],
+                        ['insert', ['link', 'picture']],
+                        ['view', []],
+                    ]
+                });
+                $('#summernote1').summernote();        
         }else if(question_type_id == 2){
             updateForm.innerHTML =  
                                     '<div class="row">'+
@@ -97,6 +116,15 @@
                                     '<div id="optionPlus">'+
                                     '</div>'
                                     ;
+                $('#summernote1').summernote({
+                    toolbar: [
+                        ['style', ['bold', 'italic', 'underline', 'clear']],
+                        ['font', ['strikethrough', 'superscript', 'subscript']],
+                        ['para', ['ul', 'ol']],
+                        ['insert', ['link', 'picture']],
+                        ['view', []],
+                    ]
+                });
             $('#summernote1').summernote();
         }else if(question_type_id == 3){
             updateForm.innerHTML =      
@@ -126,6 +154,15 @@
                                     '</div>'+
                                     '<div id="optionPlus">'+
                                     '</div>';
+                $('#summernote1').summernote({
+                    toolbar: [
+                        ['style', ['bold', 'italic', 'underline', 'clear']],
+                        ['font', ['strikethrough', 'superscript', 'subscript']],
+                        ['para', ['ul', 'ol']],
+                        ['insert', ['link', 'picture']],
+                        ['view', []],
+                    ]
+                });
             $('#summernote1').summernote();
         }else{
             updateForm.innerHTML = '';
@@ -163,6 +200,15 @@
             }
             
             for (let index = 0; index < parseInt(numberLooping); index++) {
+                $('#summernote'+(index+2)+'').summernote({
+                    toolbar: [
+                        ['style', ['bold', 'italic', 'underline', 'clear']],
+                        ['font', ['strikethrough', 'superscript', 'subscript']],
+                        ['para', ['ul', 'ol']],
+                        ['insert', ['link', 'picture']],
+                        ['view', []],
+                    ]
+                });
                 $('#summernote'+(index+2)+'').summernote();                
             }
         }else if(question_type_id == 2){
@@ -190,7 +236,16 @@
             }
             
             for (let index = 0; index < parseInt(numberLooping); index++) {
-                $('#summernote'+(index+2)+'').summernote();                
+                $('#summernote'+(index+2)+'').summernote({
+                    toolbar: [
+                        ['style', ['bold', 'italic', 'underline', 'clear']],
+                        ['font', ['strikethrough', 'superscript', 'subscript']],
+                        ['para', ['ul', 'ol']],
+                        ['insert', ['link', 'picture']],
+                        ['view', []],
+                    ]
+                });
+                $('#summernote'+(index+2)+'').summernote();
             }
         }else if(question_type_id == 4){
             var updateForm = document.getElementById("optionPlus");
@@ -218,7 +273,16 @@
 
             }
             for (let index = 0; index < parseInt(numberLooping); index++) {
-                $('#summernote'+(index+2)+'').summernote();                
+                $('#summernote'+(index+2)+'').summernote({
+                    toolbar: [
+                        ['style', ['bold', 'italic', 'underline', 'clear']],
+                        ['font', ['strikethrough', 'superscript', 'subscript']],
+                        ['para', ['ul', 'ol']],
+                        ['insert', ['link', 'picture']],
+                        ['view', []],
+                    ]
+                });
+                $('#summernote'+(index+2)+'').summernote();             
             }
         }
     }

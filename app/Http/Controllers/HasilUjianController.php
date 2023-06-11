@@ -81,6 +81,7 @@ class HasilUjianController extends Controller
         $data = DB::table('exam_questions as b')
                     ->leftJoin('question_type as c', 'b.question_type_id', '=', 'c.id')
                     ->select('b.id as id_question', 'b.question', 'b.exam_id', 'c.title as question_type')
+                    ->where('exam_id' , $exam_id)
                     ->get();
         $option = DB::table('question_options as a')
                 ->leftJoin('exam_questions as b', 'a.exam_question_id', '=', 'b.id')

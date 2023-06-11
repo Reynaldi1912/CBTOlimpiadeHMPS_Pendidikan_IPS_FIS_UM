@@ -27,7 +27,7 @@
     }
   </style>
 
-  <div class="row">
+  <div class="row soal">
     <div class="col-sm-3">
         <div class="block">
             <div class="block-header block-header-default text-center">
@@ -194,6 +194,16 @@
     </form>
     </div>
   </div>
+
+  <script>
+    $(document).ready(function() {
+        // Mengubah ukuran semua gambar menjadi lebar 300px dan tinggi 300px
+        $(".soal img").css({
+        'max-width': "300px",
+        'max-height': "200px"
+        });
+    });
+</script>
 
 <script>
     $(document).ready(function() {

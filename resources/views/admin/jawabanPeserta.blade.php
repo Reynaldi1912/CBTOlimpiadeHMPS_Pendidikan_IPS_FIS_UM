@@ -276,4 +276,15 @@
 <script src="/codebase/js/plugins/jquery-ui/jquery-ui.min.js"></script>
 <script src="/codebase/js/plugins/moment/moment.min.js"></script>
 
+<script>
+  $(document).ready(function() {
+    // Mengubah ukuran semua gambar menjadi lebar 300px dan tinggi 300px
+    $(".content img").css({
+      'max-width': "300px",
+      'max-height': "200px"
+    });
+  });
+</script>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>

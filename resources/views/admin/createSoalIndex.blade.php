@@ -173,4 +173,14 @@
         });
     });
 </script>
+
+<script>
+  $(document).ready(function() {
+    // Mengubah ukuran semua gambar menjadi lebar 300px dan tinggi 300px
+    $(".modal img").css({
+      'max-width': "300px",
+      'max-height': "200px"
+    });
+  });
+</script>
 @endsection
