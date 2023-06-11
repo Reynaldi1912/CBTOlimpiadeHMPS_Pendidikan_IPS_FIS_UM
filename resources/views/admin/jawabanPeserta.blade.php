@@ -80,7 +80,7 @@
                 <thead>
                     <tr>
                         <th class="text-center">No.</th>
-                        <th style="width: 20%;">Soal</th>
+                        <th style="width: 10%; word-wrap: break-word;" wrap="hard">Soal</th>
                         <th>Type</th>
                         <th class="d-none d-sm-table-cell" style="width: 30%;">Option</th>
                         <th class="d-none d-sm-table-cell" style="width: 30%;">Jawaban</th>
