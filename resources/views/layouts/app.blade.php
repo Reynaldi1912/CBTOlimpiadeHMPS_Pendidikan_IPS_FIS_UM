@@ -4,7 +4,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-        <title>Codebase - Bootstrap 4 Admin Template &amp; UI Framework</title>
+        @if(Auth::user()->role=='admin')
+        <title>CBT HMPS PIPS</title>
+        @elseif(Auth::user()->role=='peserta')
+        <title>Peserta CBT HMPS PIPS</title>
+        @endif
 
         <meta name="description" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
         <meta name="author" content="pixelcave">

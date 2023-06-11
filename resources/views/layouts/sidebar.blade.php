@@ -26,7 +26,7 @@
                 @if(Auth::user()->role=='admin')
                 <div class="content-header-item">
                     <a class="link-effect font-w700">
-                        <span class="font-size-xl text-dual-primary-dark">HMPS</span><span class="font-size-xl text-primary"> IPS</span>
+                        <span class="font-size-xl text-dual-primary-dark">HMPS</span><span class="font-size-xl text-primary"> PIPS</span>
                     </a>
                 </div>
                 @elseif(Auth::user()->role=='peserta')
