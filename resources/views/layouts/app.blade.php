@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
         @if(Auth::user()->role=='admin')
-        <title>CBT HMPS PIPS</title>
+        <title>Admin</title>
         @elseif(Auth::user()->role=='peserta')
         <title>Peserta CBT HMPS PIPS</title>
         @endif

@@ -8,9 +8,7 @@
             <div class="content content-full text-center">
                 <!-- Avatar -->
                 <div class="mb-15">
-                    <a class="img-link" href="be_pages_generic_profile.html">
-                        <img class="img-avatar img-avatar96 img-avatar-thumb" src="/codebase/media/avatars/avatar15.jpg" alt="">
-                    </a>
+                    <img class="img-avatar img-avatar96 img-avatar-thumb" src="/codebase/media/avatars/avatar15.jpg" alt="">
                 </div>
                 <!-- END Avatar -->
 

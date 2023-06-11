@@ -32,7 +32,7 @@
                 @elseif(Auth::user()->role=='peserta')
                 <div class="content-header-item">
                     <a class="link-effect font-w700">
-                        <span class="font-size-xl text-dual-primary-dark">Halaman</span><span class="font-size-xl text-primary"> Peserta</span>
+                        <span class="font-size-xl text-dual-primary-dark">CBT</span><span class="font-size-xl text-primary"> HMPS PIPS</span>
                     </a>
                 </div>
                 @endif
