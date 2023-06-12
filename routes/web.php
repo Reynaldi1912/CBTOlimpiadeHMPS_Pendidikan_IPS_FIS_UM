@@ -54,7 +54,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('input_nilai_akhir', [UjianAdminController::class, 'input_nilai_akhir'])->name('ujianAdmin.input_nilai_akhir');
 
     Route::post('update-lolos/{id}', [HasilUjianController::class, 'update_lolos'])->name('ujianAdmin.update_lolos');
-    Route::put('tambah-peserta-ujian/{id}', [UjianAdminController::class, 'tambahPeserta'])->name('ujianAdmin.tambahPeserta');
+    Route::post('tambah-peserta-ujian/{id}', [UjianAdminController::class, 'tambahPeserta'])->name('ujianAdmin.tambahPeserta');
     Route::post('ujianAdmin/storeToken', [UjianAdminController::class, 'storeToken'])->name('ujianAdmin.storeToken');
     Route::put('updateJadwal/{id}', [UjianAdminController::class, 'updateJadwal'])->name('updateJadwal');
     Route::post('update-pengumuman/{id}', [HomeController::class, 'updatePengumuman'])->name('update-pengumuman');

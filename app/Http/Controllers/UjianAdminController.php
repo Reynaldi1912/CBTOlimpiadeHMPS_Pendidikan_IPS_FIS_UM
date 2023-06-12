@@ -84,14 +84,29 @@ class UjianAdminController extends Controller
         
     }
     public function tambahPeserta(Request $request , $id){
-        exam_attemp::create([
-            'id_user'=> $request->id_user,
-            'exam_id' => $id,
-            'total_attemp' => 0,
-            'finish' => 0
-        ]);
+        $cek = exam_attemp::where('total_attemp' ,'>',0)->where('exam_id', $id)->get();
+        if($cek->isNotEmpty()){
+            return back()->with('error','Tidak Bisa Tambah Peserta . Terdapat Peserta Yang Sudah Mengerjakan');
+        }elseif($cek->isEmpty()){
+            exam_attemp::where('finish', 0)->where('exam_id', $id)->delete();
+            if($request->id_peserta){
+                for ($i=0; $i < sizeof($request->id_peserta) ; $i++) { 
+                    exam_attemp::updateOrCreate(
+                    [
+                        'id_user'=> $request->id_peserta[$i],
+                        'exam_id'=> $id,
+                    ],
+                    [
+                        'id_user'=> $request->id_peserta[$i],
+                        'exam_id' => $id,
+                        'total_attemp' => 0,
+                        'finish' => 0
+                    ]);        
+                }
+            }
+            return back()->with('success','peserta berhasil di update');
+        }
 
-        return redirect()->route('ujianAdmin.index')->with('success','peserta berhasil ditambahkan');
     }
 
     /**

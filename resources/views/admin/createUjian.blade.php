@@ -94,7 +94,7 @@
                                         $i = 1;
                                     ?>
                                     @foreach($exam as $exam)
-                                    <tr data-id="{{$exam->id}}">
+                                    <tr>
                                         <td class="text-center">{{$i++}}</td>
                                         <td class="font-w600">{{$exam->title}}</td>
                                         <td class="d-none d-sm-table-cell">{{$exam->description}}</td>
@@ -114,7 +114,7 @@
                                             <button type="button" title="edit jadwal" class="btn btn-sm btn-warning text-white" onclick="updateForm('{{$exam->id}}', '{{$exam->title}}', '{{$exam->description}}', '{{$exam->start_at}}', {{$exam->duration}})">
                                                 <i class="fa fa-pencil"></i>
                                             </button>
-                                            <a class="btn btn-sm btn-success text-white btn-show-modal" title="tambah peserta" data-toggle="modal" data-target="#modal-popout" title="lihat peserta"><i class="fa fa-eye"></i></a>
+                                            <a class="btn btn-sm btn-success text-white btn-show-modal" href="/ujianAdmin/{{$exam->id}}/edit" title="tambah peserta"><i class="fa fa-eye"></i></a>
                                             <form action="{{route('ujianAdmin.update',$exam->id)}}" method="post">
                                                 @csrf
                                                 @method('PATCH')
@@ -147,51 +147,6 @@
     </div>
 </div>
 <!-- END Page Content -->   
-
-<div class="modal fade" id="modal-popout" tabindex="-1" role="dialog" aria-labelledby="modal-popout" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-popout" role="document">
-        <div class="modal-content">
-            <div class="block block-themed block-transparent mb-0">
-                <div class="block-header bg-primary-dark">
-                    <div class="row">
-                        <div class="col-8">
-                            <h3 class="block-title text-white">List Peserta Ujian</h3>
-                        </div>
-                        <div class="col">
-                            <a id="addPeserta" class="btn btn-success btn-block">Tambah Peserta Ujian</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="block-content">
-                    <!-- Striped Table -->
-                    <div class="block">
-                        <div class="block-content">
-                            <table class="table table-striped table-vcenter">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center" style="width: 50px;">No.</th>
-                                        <th class="d-none d-sm-table-cell" style="width: 50%;">Nama Peserta</th>
-                                        <th class="d-none d-sm-table-cell" style="width: 50%;">Asal Sekolah</th>
-                                        <th class="d-none d-sm-table-cell" style="width: 15%;">Status</th>
-                                        <th class="text-center" style="width: 100px;">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="content">
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- END Striped Table -->
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-alt-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- END Pop Out Modal -->
 
 <div class="modal fade" id="modal-popout-token" tabindex="-1" role="dialog" aria-labelledby="modal-popout" aria-hidden="true">
     <div class="modal-dialog modal-dialog-popout" role="document">
