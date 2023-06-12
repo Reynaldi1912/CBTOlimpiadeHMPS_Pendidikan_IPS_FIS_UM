@@ -102,9 +102,10 @@ class HasilUjianController extends Controller
         $nilai = DB::table('vw_nilai_peserta')->where('id_user',$id_user)->where('exam_id' , $exam_id)->get();
         $nilai_sementara = DB::table('vw_nilai_akhir_peserta')->where('id_user',$id_user)->where('exam_id' , $exam_id)->first();
         $nilai_akhir = DB::table('hasil_akhir_ujian')->where('id_user',$id_user)->where('exam_id' , $exam_id)->first();
+        $hasil_uraian = DB::table('hasil_uraian')->where('id_user',$id_user)->where('exam_id' , $exam_id)->get();
         $user = User::all()->where('id',$id_user)->first();
         // echo json_encode($nilai_sementara);die();
-        return view('admin.jawabanPeserta' , ['soal'=>$data , 'option'=>$option , 'jawaban'=>$jawaban , 'option_matching'=>$option_matching , 'nilai'=>$nilai , 'nilai_sementara'=>$nilai_sementara , 'nilai_akhir'=>$nilai_akhir , 'user'=>$user]);
+        return view('admin.jawabanPeserta' , ['soal'=>$data , 'option'=>$option , 'jawaban'=>$jawaban , 'option_matching'=>$option_matching , 'nilai'=>$nilai , 'nilai_sementara'=>$nilai_sementara , 'nilai_akhir'=>$nilai_akhir , 'user'=>$user , 'hasil_uraian'=>$hasil_uraian]);
     }
 
     /**

@@ -40,7 +40,7 @@
                             <th style="width: 30%;">Ujian</th>
                             <th style="width: 30%;">Asal Sekolah</th>
                             <th style="width: 15%;">Jumlah Soal</th>
-                            <th style="width: 15%;">Nilai Otomatis (PG)</th>
+                            <!-- <th style="width: 15%;">Nilai Otomatis (PG)</th> -->
                             <th style="width: 15%;">Nilai Akhir</th>
                             <th style="width: 15%;">Status Kelulusan</th>
                             <th class="text-center" style="width: 100px;">Lihat/Nilai Pengerjaan</th>
@@ -60,13 +60,13 @@
                             <td>{{$nilai->title}}</td>
                             <td>SMP Muhammadiyah 1 Malang</td>
                             <td>{{count($soal->where('exam_id',$nilai->exam_id))}} Soal</td>
-                            <td>
+                            <!-- <td>
                                 <span class="badge badge-primary">{{$nilai->nilai}} / {{$nilai->total_nilai}}</span>
-                            </td>
+                            </td> -->
                             <td>  
                                 @if($hasil_akhir_ujian->where('id_user',$nilai->id_user)->where('exam_id',$nilai->exam_id)->first())
                                 <span class="badge badge-success">
-                                    {{$hasil_akhir_ujian->where('id_user',$nilai->id_user)->where('exam_id',$nilai->exam_id)->first()->nilai_akhir}}
+                                    {{$hasil_akhir_ujian->where('id_user',$nilai->id_user)->where('exam_id',$nilai->exam_id)->first()->nilai_akhir_ujian}}
                                 </span>
                                 @else
                                     -

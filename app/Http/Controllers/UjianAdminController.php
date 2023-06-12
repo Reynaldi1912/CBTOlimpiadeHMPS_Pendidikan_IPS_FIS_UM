@@ -7,8 +7,10 @@ use App\Models\Exam;
 use Illuminate\Support\Facades\Session;
 use App\Models\Exam_Attemp;
 use App\Models\User;
+use App\Models\Hasil_Uraian;
 use App\Models\Hasil_Akhir_Ujian;
 use DB;
+use Auth;
 class UjianAdminController extends Controller
 {
     /**
@@ -119,6 +121,7 @@ class UjianAdminController extends Controller
         ]);
         return back()->with('warning','Jadwal Berhasil DiUpdate');
     }
+
     public function input_semua_nilai(Request $request){
         $nilai_sementara = DB::table('vw_nilai_akhir_peserta')->where('exam_id',$request->exam_id)->get();
 
@@ -133,6 +136,7 @@ class UjianAdminController extends Controller
                     'exam_id' => $key->exam_id,
                     'nilai_akhir' => $key->nilai,
                     'nilai_max' => $key->total_nilai,
+                    'nilai_akhir_ujian' => $key->nilai,
                     'status' => false
                 ]
             );
@@ -142,6 +146,32 @@ class UjianAdminController extends Controller
     }
     public function input_nilai_akhir(Request $request){
 
+        Hasil_Uraian::updateOrCreate(
+            [
+                'id_user' => $request->id_user,
+                'exam_id' => $request->exam_id,
+                'question_id' => $request->question_id
+            ],
+            [
+                'id_user' => $request->id_user,
+                'exam_id' => $request->exam_id,
+                'question_id' => $request->question_id,
+                'nilai' => $request->nilai,
+                'created_by' => Auth::user()->username
+            ]
+        );
+
+        $nilai_uraian = DB::table('hasil_uraian')
+                        ->where('exam_id', $request->exam_id)
+                        ->where('id_user', $request->id_user)
+                        ->get();
+        $total_nilai = 0;
+        foreach ($nilai_uraian as $item) {
+            $total_nilai += $item->nilai;
+        }
+    
+        $existing_nilai_akhir = Hasil_Akhir_Ujian::where('id_user', $request->id_user)->where('exam_id', $request->exam_id)->first();
+
         Hasil_Akhir_Ujian::updateOrCreate(
             [
                 'id_user' => $request->id_user,
@@ -150,12 +180,15 @@ class UjianAdminController extends Controller
             [
                 'id_user' => $request->id_user,
                 'exam_id' => $request->exam_id,
-                'nilai_akhir' => $request->nilai,
-                'nilai_max' => $request->total_nilai,
+                'nilai_akhir' => $existing_nilai_akhir->nilai_akhir,
+                'nilai_max' => $existing_nilai_akhir->nilai_max,
+                'nilai_akhir_ujian' => $existing_nilai_akhir->nilai_akhir + $total_nilai,
                 'status' => false
             ]
         );
-        return back()->with('success','Nilai Akhir Sudah Diinputkan');
+    
+        
+        return back()->with('success','Nilai berhasil Di Inputkan');
     }
 
     /**

@@ -63,11 +63,7 @@
                 </div>
                 <div class="col">
                     <h3 class="block-title"><small>Nilai Akhir</small></h3>
-                    <input class="form-control" type="text" readonly placeholder="{{$nilai_akhir ? $nilai_akhir->nilai_akhir : 0}}">
-                </div>
-                <div class="col">
-                    <h3 class="block-title"></h3>
-                    <button type="button" class="btn btn-success min-width-125" data-toggle="modal" data-target="#edit-nilai" title="Edit">Rubah Nilai Peserta</button>
+                    <input class="form-control" type="text" readonly placeholder="{{$nilai_akhir ? $nilai_akhir->nilai_akhir_ujian : 0}}">
                 </div>
             </div>
             
@@ -178,6 +174,14 @@
                         </td>
                         <td class="d-none d-sm-table-cell">
                             @if($soal->question_type == 'long_desc' || $soal->question_type == 'short_desc')
+                                <form action="{{route('ujianAdmin.input_nilai_akhir')}}" method="post">
+                                    @csrf
+                                    <input type="number" class="form-control" name="nilai" value="{{ $hasil_uraian->where('question_id', $soal->id_question)->first() ? $hasil_uraian->where('question_id', $soal->id_question)->first()->nilai : 0 }}">
+                                    <input type="hidden" value="{{$nilai_sementara->id_user}}" name="id_user">
+                                    <input type="hidden" value="{{$nilai_sementara->exam_id}}" name="exam_id">
+                                    <input type="hidden" value="{{$soal->id_question}}" name="question_id">
+                                    <button class="btn btn-success" type="submit">Save</button>
+                                </form>
                             @else
                                 @if(count($nilai->where('id_question', $soal->id_question)) == 0)
                                     <span class="badge badge-warning">
@@ -209,34 +213,7 @@
 <!-- END Page Content -->
 
 <!-- Pop Out Modal -->
-<div class="modal fade" id="edit-nilai" tabindex="-1" role="dialog" aria-labelledby="modal-popout" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-popout" role="document">
-        <div class="modal-content">
-            <div class="block block-themed block-transparent mb-0">
-                <div class="block-header bg-primary-dark">
-                    <h3 class="block-title">Masukkan Nilai</h3>
-                </div>
-                <div class="block-content">
-                <form action="{{route('ujianAdmin.input_nilai_akhir')}}" method="post" >
-                    @csrf
-                    <div class="form-group">
-                        <label for="example-nf-email">Nilai</label>
-                        <input type="hidden" value="{{$nilai_sementara->id_user}}" name="id_user">
-                        <input type="hidden" value="{{$nilai_sementara->exam_id}}" name="exam_id">
-                        <input type="hidden" value="{{$nilai_sementara->total_nilai}}" name="total_nilai">
-                        <input type="value" class="form-control" id="nilai_akhir" value="{{$nilai_sementara->nilai}}" name="nilai" placeholder="Masukkan Nilai.." required>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-alt-success">
-                            <i class="fa fa-check"></i> Submit
-                        </button>
-                    </div>
-                </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 <!-- END Pop Out Modal -->
 </body>
 </html>
