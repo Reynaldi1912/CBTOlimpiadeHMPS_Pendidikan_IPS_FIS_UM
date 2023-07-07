@@ -40,7 +40,7 @@
     </div>
     <div class="col-sm-9">
         @foreach($soals as $index => $soal)
-        <form action="{{route('answer.store')}}" method="post">
+        <form action="{{route('answer.store')}}" id="answerForm" method="post">
             @csrf
             <div class="question @if($index !== 0) d-none @endif" data-question-number="{{$index}}">
                 <input type="hidden" name="exam_id" value="{{$id}}">
@@ -171,24 +171,24 @@
                 </div>
             </div>
             <hr>
+            <input type="hidden" name="txtPage" id="txtPage">
+            <input type="hidden" name="txtNoHalaman" id="txtNoHalaman">
             <div class="row d-flex justify-content-center">
                 <div class="col-lg-12 d-flex justify-content-between">
                     <input type="hidden" id="txtStatus" name="txtStatus">
                     @if ($soals->onFirstPage())
                         <a class="btn btn-primary disabled" href="#"><i class="si si-action-undo"></i> Sebelumnya</a>
                     @else
-                        <a class="btn btn-primary" href="{{ $soals->previousPageUrl() }}"><i class="si si-action-undo"></i> Sebelumnya</a>
+                        <a class="btn btn-primary" onclick="goToPreviousPage()"><i class="si si-action-undo"></i> Sebelumnya</a>
                     @endif
                     @if ($soals->hasMorePages())
-                        <a class="btn btn-primary" href="{{ $soals->nextPageUrl() }}"><i class="si si-action-redo"></i> Selanjutnya</a>
+                        <a class="btn btn-primary" onclick="goToNextPage()"><i class="si si-action-redo"></i> Selanjutnya</a>
                     @endif
                 </div>
             </div>
             <hr>
             <div class="container">
                 <div class="row justify-content-end">
-                    <button class="btn btn-secondary mr-5" onclick="setRagu()" type="submit">Ragu - ragu</button>
-                    <button class="btn btn-success" onclick="setSimpan()" type="submit">Simpan Jawaban</button>
                 </div>
             </div>
     </form>
@@ -204,10 +204,35 @@
         });
     });
 </script>
+@livewireScripts
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Mendapatkan nomor halaman saat ini dari parameter URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var currentPage = parseInt(urlParams.get('page'));
+        // Mengatur nilai default 1 jika parameter page tidak ada
+        if (isNaN(currentPage) || currentPage <= 0) {
+            currentPage = 1;
+        }
+        document.getElementById('txtNoHalaman').value = currentPage;
+    });
+
+function goToPreviousPage() {
+  document.getElementById('txtStatus').value = '0';
+  document.getElementById('txtPage').value = 'prev';
+  document.getElementById('answerForm').submit();
+}
+
+function goToNextPage() {
+  document.getElementById('txtStatus').value = '0';
+  document.getElementById('txtPage').value = 'next';
+  document.getElementById('answerForm').submit();
+}
+
+</script>
 
 <script>
     $(document).ready(function() {
-
         var sortableClues = new Sortable(document.getElementById('sortable-clues'), {
         group: 'matching',
         animation: 150,

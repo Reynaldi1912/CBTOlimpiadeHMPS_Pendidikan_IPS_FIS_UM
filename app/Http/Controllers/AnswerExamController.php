@@ -139,8 +139,11 @@ class AnswerExamController extends Controller
         }else{
             return back()->with('error','Jawab Terlebih Dahulu');
         }
-
-        return back()->with('success','Jawaban berhasil Disimpan');
+        if($request->txtPage == 'next'){
+            return redirect()->to('kerjakanUjian/2?page='.($request->txtNoHalaman+1));
+        }elseif($request->txtPage == 'prev'){
+            return redirect()->to('kerjakanUjian/2?page='.($request->txtNoHalaman-1));
+        }
         
     }
 
