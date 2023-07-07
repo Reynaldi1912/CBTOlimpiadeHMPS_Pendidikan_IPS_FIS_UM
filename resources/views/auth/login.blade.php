@@ -5,7 +5,7 @@
 
         <title>Login Peserta</title>
 
-        <meta name="description" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+        <!-- <meta name="description" content="Codebase - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest"> -->
         <meta name="author" content="pixelcave">
         <meta name="robots" content="noindex, nofollow">
 
@@ -19,9 +19,12 @@
 
         <!-- Icons -->
         <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-        <link rel="shortcut icon" href="/codebase/media/favicons/favicon.png">
-        <link rel="icon" type="image/png" sizes="192x192" href="/codebase/media/favicons/favicon-192x192.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="/codebase/media/favicons/apple-touch-icon-180x180.png">
+        <!-- <link rel="shortcut icon" href="/img/lambang-UM.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="/img/lambang-UM.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/img/lambang-UM.png"> -->
+        <link rel="shortcut icon" href="/img/Logo-HMP-300x300.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="/img/Logo-HMP-300x300.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/img/Logo-HMP-300x300.png">
         <!-- END Icons -->
 
         <!-- Stylesheets -->
@@ -35,7 +38,6 @@
         <!-- END Stylesheets -->
     </head>
     <body>
-
         <!-- Page Container -->
         <!--
             Available classes for #page-container:
@@ -87,8 +89,8 @@
             <main id="main-container">
 
                 <!-- Page Content -->
-                <div class="bg-gd-dusk">
-                    <div class="hero-static content content-full bg-white invisible" data-toggle="appear">
+                <div class="umBackground">
+                    <div class="hero-static content content-full bg-white invisible" data-toggle="appear" style="width: 50%;">
                         <!-- Header -->
                         <div class="py-30 px-5 text-center">
                             <h1 class="h2 font-w700 mt-50 mb-10">Selamat Datang Peserta</h1>
