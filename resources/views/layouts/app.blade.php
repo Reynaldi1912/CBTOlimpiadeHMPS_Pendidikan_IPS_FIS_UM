@@ -24,9 +24,12 @@
 
         <!-- Icons -->
         <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-        <link rel="shortcut icon" href="/codebase/media/favicons/favicon.png">
-        <link rel="icon" type="image/png" sizes="192x192" href="/codebase/media/favicons/favicon-192x192.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="/codebase/media/favicons/apple-touch-icon-180x180.png">
+        <link rel="shortcut icon" href="/img/lambang-UM.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="/img/lambang-UM.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/img/lambang-UM.png">
+        <!-- <link rel="shortcut icon" href="/img/Logo-HMP-300x300.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="/img/Logo-HMP-300x300.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/img/Logo-HMP-300x300.png"> -->
         <!-- END Icons -->
 
         <!-- Stylesheets -->

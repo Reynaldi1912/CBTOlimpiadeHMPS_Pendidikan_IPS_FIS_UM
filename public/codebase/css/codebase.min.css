@@ -1,6 +1,17 @@
-.umBackground{
-    background-image: url('/img/bg_um.png');
+.umBackground {
+    background-image: url("/img/bg_um.png");
     background-position: center;
+    background-size: cover;
+}
+
+.iconicLogo4{
+    width: height;
+    height: 300px;
+}
+
+.sidebarIconPeserta {
+    width: height;
+    height: 30px;
 }
 
 /*!

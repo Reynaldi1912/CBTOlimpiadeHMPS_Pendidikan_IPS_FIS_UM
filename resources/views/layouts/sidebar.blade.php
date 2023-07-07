@@ -30,7 +30,9 @@
                     </a>
                 </div>
                 @elseif(Auth::user()->role=='peserta')
+                <!-- <img class="img-avatar img-avatar32" src="/img/Logo-HMP-300x300.png" alt=""> -->
                 <div class="content-header-item">
+                    <img class="sidebarIconPeserta" src="/img/Logo-HMP-300x300.png" alt="">
                     <a class="link-effect font-w700">
                         <span class="font-size-xl text-dual-primary-dark">CBT</span><span class="font-size-xl text-primary"> HMPS PIPS</span>
                     </a>

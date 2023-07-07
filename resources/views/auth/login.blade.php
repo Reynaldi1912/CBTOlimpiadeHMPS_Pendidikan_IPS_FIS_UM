@@ -90,10 +90,11 @@
 
                 <!-- Page Content -->
                 <div class="umBackground">
-                    <div class="hero-static content content-full bg-white invisible" data-toggle="appear" style="width: 50%;">
+                    <div class="hero-static content content-full bg-white invisible" data-toggle="appear" style="border-radius: 25px;">
                         <!-- Header -->
                         <div class="py-30 px-5 text-center">
-                            <h1 class="h2 font-w700 mt-50 mb-10">Selamat Datang Peserta</h1>
+                            <h1 class="h2 font-w700 mb-10">Selamat Datang Kepada Peserta OLIMPIPS</h1>
+                            <img class="iconicLogo4" src="/img/maskotOlimpiade4-removebg-preview.png" alt="">
                             <h2 class="h4 font-w400 text-muted mb-0">Silahkan Log In</h2>
                         </div>
                         <!-- END Header -->
@@ -117,11 +118,12 @@
                                         <div class="col-12">
                                             <div class="form-material floating">
                                                 <input type="password" class="form-control" id="login-password" name="password">
+                                                <i class=""></i>
                                                 <label for="login-password">Password</label>
-                                                <input type="checkbox" onclick="myFunction()">Show Password
                                             </div>
                                         </div>
                                     </div>
+                                    <input type="checkbox" onclick="myFunction()">Show Password <br>
                                     <div class="form-group row gutters-tiny">
                                         <div class="col-12 mb-10">
                                             <button type="submit" class="btn btn-block btn-hero btn-noborder btn-rounded btn-alt-primary">
@@ -177,6 +179,16 @@
 
         <script>
             function myFunction() {
+            var x = document.getElementById("login-password");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+            }
+        </script>
+        <script>
+            function myFunction2() {
             var x = document.getElementById("login-password");
             if (x.type === "password") {
                 x.type = "text";
