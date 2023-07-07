@@ -22,50 +22,76 @@
                 </button>
                 <!-- END Close Sidebar -->
 
-                <!-- Logo -->
+                <!-- Side User -->
                 @if(Auth::user()->role=='admin')
                 <div class="content-header-item">
-                    <a class="link-effect font-w700">
-                        <span class="font-size-xl text-dual-primary-dark">HMPS</span><span class="font-size-xl text-primary"> PIPS</span>
+                    <span class="font-size-xl text-dual-primary-dark">HMPS</span>
+                    <a class="link-effect font-w700" style="cursor: context-menu;">
+                        <span class="font-size-xl text-primary"> PIPS</span>
                     </a>
                 </div>
                 @elseif(Auth::user()->role=='peserta')
-                <!-- <img class="img-avatar img-avatar32" src="/img/Logo-HMP-300x300.png" alt=""> -->
                 <div class="content-header-item">
-                    <img class="sidebarIconPeserta" src="/img/Logo-HMP-300x300.png" alt="">
-                    <a class="link-effect font-w700">
-                        <span class="font-size-xl text-dual-primary-dark">CBT</span><span class="font-size-xl text-primary"> HMPS PIPS</span>
+                    <!-- <img class="sidebarIconPeserta" src="/img/Logo-HMP-300x300.png" alt=""> -->
+                    <span class="font-size-xl text-dual-primary-dark">Hai...</span>
+                    <a href="{{ url('/profilPeserta') }}" class="link-effect font-w700" style="cursor: context-menu;">
+                        <span class="font-size-xl text-primary"> {{ Auth::user()->username }}</span>
                     </a>
                 </div>
                 @endif
-                <!-- END Logo -->
+                <!-- END Side User -->
             </div>
             <!-- END Normal Mode -->
         </div>
         <!-- END Side Header -->
 
-        <!-- Side User -->
+        <!-- Logo -->
         <div class="content-side content-side-full content-side-user px-10 align-parent">
+            @if(Auth::user()->role=='admin')
             <!-- Visible only in mini mode -->
             <div class="sidebar-mini-visible-b align-v animated fadeIn">
-                <img class="img-avatar img-avatar32" src="/codebase/media/avatars/avatar15.jpg" alt="">
+                <img class="img-avatar img-avatar32" src="/img/Logo-HMP-300x300.png" alt="">
             </div>
             <!-- END Visible only in mini mode -->
 
             <!-- Visible only in normal mode -->
             <div class="sidebar-mini-hidden-b text-center">
                 <a class="img-link">
-                    <img class="img-avatar" src="/codebase/media/avatars/avatar15.jpg" alt="">
+                    <img class="" src="/img/Logo-HMP-300x300.png" alt="" style="width: height; height: 75px;">
                 </a>
                 <ul class="list-inline mt-10">
                     <li class="list-inline-item">
-                        <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase">{{ Auth::user()->username }}</a>
+                        <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase" style="cursor: context-menu;">{{ Auth::user()->username }}</a>
                     </li>
                 </ul>
             </div>
             <!-- END Visible only in normal mode -->
+            
+            @elseif(Auth::user()->role=='peserta')
+            <!-- Visible only in mini mode -->
+            <div class="sidebar-mini-visible-b align-v animated fadeIn">
+                <img class="img-avatar img-avatar32" src="/img/Logo-HMP-300x300.png" alt="">
+            </div>
+            <!-- END Visible only in mini mode -->
+
+            <!-- Visible only in normal mode -->
+            <div class="sidebar-mini-hidden-b text-center">
+                <a class="img-link">
+                    <img class="img-avatar" src="/img/Logo-HMP-300x300.png" alt="">
+                </a>
+                <ul class="list-inline mt-10">
+                    <li class="list-inline-item">
+                        <span class="font-size-xl text-dual-primary-dark">CBT</span>
+                        <a href="http://hmpips.fis.um.ac.id/" target="_blank" class="link-effect font-w700" style="cursor: context-menu;">
+                            <span class="font-size-xl text-primary"> HMPS PIPS</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- END Visible only in normal mode -->
+            @endif
         </div>
-        <!-- END Side User -->
+        <!-- END Logo -->
 
         <!-- Side Navigation -->
         @if(Auth::user()->role=='admin')

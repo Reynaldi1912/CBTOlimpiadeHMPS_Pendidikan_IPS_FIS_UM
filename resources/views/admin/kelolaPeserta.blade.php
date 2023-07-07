@@ -83,7 +83,7 @@
                                             <div class="col-12">
                                                 <div class="form-material floating">
                                                     <input type="text" class="form-control" id="signup-name" name="name">
-                                                    <label for="signup-name">Nama Lengkap</label>
+                                                    <label for="signup-name">Nama Ketua</label>
                                                 </div>
                                             </div>
                                         </div>

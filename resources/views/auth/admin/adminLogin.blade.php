@@ -117,7 +117,7 @@
                                         <div class="col-12">
                                             <div class="form-material floating">
                                                 <input type="text" class="form-control" id="login-username" name="username">
-                                                <label for="login-username">Username</label>
+                                                <label for="login-username">Username / E - Mail</label>
                                             </div>
                                         </div>
                                     </div>
