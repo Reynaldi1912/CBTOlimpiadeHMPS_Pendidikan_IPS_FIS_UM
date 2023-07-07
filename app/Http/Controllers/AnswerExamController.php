@@ -140,9 +140,9 @@ class AnswerExamController extends Controller
             return back()->with('error','Jawab Terlebih Dahulu');
         }
         if($request->txtPage == 'next'){
-            return redirect()->to('kerjakanUjian/2?page='.($request->txtNoHalaman+1));
+            return redirect()->to('kerjakanUjian/'.$request->exam_id.'?page='.($request->txtNoHalaman+1));
         }elseif($request->txtPage == 'prev'){
-            return redirect()->to('kerjakanUjian/2?page='.($request->txtNoHalaman-1));
+            return redirect()->to('kerjakanUjian/'.$request->exam_id.'?page='.($request->txtNoHalaman-1));
         }
         
     }
