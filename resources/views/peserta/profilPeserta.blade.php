@@ -17,7 +17,7 @@
                     John Smith
                 </h1>
                 <h2 class="h5 text-white-op">
-                    Peserta dari <a class="text-primary-light" href="javascript:void(0)">(asal_sekolah)</a>
+                    Peserta dari <a class="text-primary-light">(asal_sekolah)</a>
                 </h2>
                 <!-- END Personal -->
             </div>
