@@ -36,13 +36,6 @@ class UserController extends Controller
         return view('admin.kelolaPeserta' , ['data'=>$data]);
     }
 
-    public function profilePeserta()
-    {
-        $id = Auth::user()->id;
-        $data = User::all()->where('role','peserta')->where('id',$id)->first();
-        return view('peserta.profilPeserta' , ['data'=>$data]);
-    }
-
     public function getUser($id){
         echo json_encode(User::all()->where('id',$id)->first());
     }
