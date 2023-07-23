@@ -42,109 +42,114 @@ class AnswerExamController extends Controller
      */
     public function store(Request $request)
     {
-        $jawaban = $request->all();
-        $soal = Question_Option::find($request->id_question);
-        //Jika Jawaban yakin
-        if ($request->question_type == 'true_or_false' && $request->multiple_choice) {
-            Exam_Answer::updateOrCreate(
-                [   
-                    'id_user'=>Auth::user()->id,
-                    'exam_id' => $request->exam_id,
-                    'id_exam_question' => $request->id_question
-                ]
-                ,[
-                    'id_user'=>Auth::user()->id,
-                    'exam_id' => $request->exam_id,
-                    'id_exam_question' => $request->id_question,
-                    'answer_question_option_id' => $request->multiple_choice,
-                    'created_by' => Auth::user()->id,
-                    'ragu' => $request->txtStatus
-                ]
-            );
-        } elseif ($request->question_type == 'multiple_choice' && $request->multiple_choice) {
-            Exam_Answer::updateOrCreate(
-                [   
-                    'id_user'=>Auth::user()->id,
-                    'exam_id' => $request->exam_id,
-                    'id_exam_question' => $request->id_question
-                ]
-                ,[
-                    'id_user'=>Auth::user()->id,
-                    'exam_id' => $request->exam_id,
-                    'id_exam_question' => $request->id_question,
-                    'answer_question_option_id' =>$request->multiple_choice,
-                    'created_by' => Auth::user()->id,
-                    'ragu' => $request->txtStatus
-                ]
-            );
-        }elseif ($request->question_type == 'complex_multiple_choice' && $request->complex_multiple_box) {
-            $model = Exam_Answer::all()->where('id_exam_question',$request->id_question)->where('id_user',Auth::user()->id);
-            if($model){
-                foreach($model as $m) {
-                    $m->delete();
-                }
-            }
-            
-            for ($i=0; $i < sizeof($request->complex_multiple_box); $i++) { 
-                Exam_Answer::Create(
-                    [
-                        'id_user'=>Auth::user()->id,
-                        'exam_id' => $request->exam_id,
-                        'id_exam_question' => $request->id_question,
-                        'answer_question_option_id' =>$request->complex_multiple_box[$i],
-                        'created_by' => Auth::user()->id,
-                        'ragu' => $request->txtStatus
-                    ]
-                );
-            }
-        }elseif ($request->question_type == 'matching' && $request->matching) {
-            $data = explode (",", $request->matching); 
-            for ($i=0; $i < sizeof($data); $i++) { 
-                $model = Exam_Answer::all()->where('id_exam_question',$request->id_question)->where('id_user',Auth::user()->id)->first();
-                if($model){
-                    $model->delete();
-                }
-            }
+        try {
+            // Memastikan bahwa permintaan mengandung data JSON
+            if ($request->header('Content-Type') === 'application/json') {
+                // Mendapatkan data dari body permintaan dalam bentuk array
+                $data = $request->json()->all();
+                //proses
+                $soal = Question_Option::find($request->id_question);
+                //Jika Jawaban yakin
+                if ($request->question_type == 'true_or_false') {
+                    Exam_Answer::updateOrCreate(
+                        [   
+                            'id_user'=>Auth::user()->id,
+                            'exam_id' => $request->exam_id,
+                            'id_exam_question' => $request->id_question
+                        ]
+                        ,[
+                            'id_user'=>Auth::user()->id,
+                            'exam_id' => $request->exam_id,
+                            'id_exam_question' => $request->id_question,
+                            'answer_question_option_id' => $request->answer,
+                            'created_by' => Auth::user()->id,
+                            'ragu' => $request->ragu
+                        ]
+                    );
+                } elseif ($request->question_type == 'multiple_choice') {
+                    Exam_Answer::updateOrCreate(
+                        [   
+                            'id_user'=>Auth::user()->id,
+                            'exam_id' => $request->exam_id,
+                            'id_exam_question' => $request->id_question
+                        ]
+                        ,[
+                            'id_user'=>Auth::user()->id,
+                            'exam_id' => $request->exam_id,
+                            'id_exam_question' => $request->id_question,
+                            'answer_question_option_id' =>$request->answer,
+                            'created_by' => Auth::user()->id,
+                            'ragu' => $request->ragu
+                        ]
+                    );
+                }elseif ($request->question_type == 'complex_multiple_choice') {
+                    $model = Exam_Answer::all()->where('id_exam_question',$request->id_question)->where('id_user',Auth::user()->id);
+                    if($model){
+                        foreach($model as $m) {
+                            $m->delete();
+                        }
+                    }
+                    
+                    for ($i=0; $i < sizeof($request->answer); $i++) { 
+                        Exam_Answer::Create(
+                            [
+                                'id_user'=>Auth::user()->id,
+                                'exam_id' => $request->exam_id,
+                                'id_exam_question' => $request->id_question,
+                                'answer_question_option_id' =>$request->answer[$i],
+                                'created_by' => Auth::user()->id,
+                                'ragu' => $request->ragu
+                            ]
+                        );
+                    }
+                }elseif ($request->question_type == 'matching') {
+                    for ($i=0; $i < sizeof($request->answer); $i++) { 
+                        $model = Exam_Answer::all()->where('id_exam_question',$request->id_question)->where('id_user',Auth::user()->id)->first();
+                        if($model){
+                            $model->delete();
+                        }
+                    }
 
-            for ($i=0; $i < sizeof($data); $i++) { 
-                Exam_Answer::Create(
-                    [
-                        'id_user'=>Auth::user()->id,
-                        'exam_id' => $request->exam_id,
-                        'id_exam_question' => $request->id_question,
-                        'answer_question_option_id' =>$request->left_matching[$i],
-                        'answer_right_option_id' => $data[$i],
-                        'created_by' => Auth::user()->id,
-                        'ragu' => $request->txtStatus
-                    ]
-                );
+                    for ($i=0; $i < sizeof($request->answer); $i++) { 
+                        Exam_Answer::Create(
+                            [
+                                'id_user'=>Auth::user()->id,
+                                'exam_id' => $request->exam_id,
+                                'id_exam_question' => $request->id_question,
+                                'answer_question_option_id' =>$request->left[$i],
+                                'answer_right_option_id' => $request->answer[$i],
+                                'created_by' => Auth::user()->id,
+                                'ragu' => $request->ragu
+                            ]
+                        );
+                    }
+                }elseif($request->question_type == 'long_desc' || $request->question_type == 'short_desc'){
+                    Exam_Answer::updateOrCreate(
+                        [   
+                            'id_user'=>Auth::user()->id,
+                            'exam_id' => $request->exam_id,
+                            'id_exam_question' => $request->id_question
+                        ]
+                        ,[
+                            'id_user'=>Auth::user()->id,
+                            'question_type' => $request->question_type,
+                            'exam_id' => $request->exam_id,
+                            'id_exam_question' => $request->id_question,
+                            'answer_desc' => $request->answer,
+                            'created_by' => Auth::user()->id,
+                            'ragu' => $request->ragu
+                        ]
+                    );
+                }else{
+                    return response()->json(['message' => 'Data gagal diolah']);
+                }
+            } else {
+                return response()->json(['error' => 'Content-Type harus berupa application/json'], 400);
             }
-        }elseif($request->question_type == 'long_desc' || $request->question_type == 'short_desc'){
-            Exam_Answer::updateOrCreate(
-                [   
-                    'id_user'=>Auth::user()->id,
-                    'exam_id' => $request->exam_id,
-                    'id_exam_question' => $request->id_question
-                ]
-                ,[
-                    'id_user'=>Auth::user()->id,
-                    'question_type' => $request->question_type,
-                    'exam_id' => $request->exam_id,
-                    'id_exam_question' => $request->id_question,
-                    'answer_desc' => $request->answer,
-                    'created_by' => Auth::user()->id,
-                    'ragu' => $request->txtStatus
-                ]
-            );
-        }else{
-            return back()->with('error','Jawab Terlebih Dahulu');
+        } catch (\Exception $e) {
+            // Tangani jika ada kesalahan saat memproses data
+            return response()->json(['error' => 'Terjadi kesalahan saat memproses data'], 500);
         }
-        if($request->txtPage == 'next'){
-            return redirect()->to('kerjakanUjian/'.$request->exam_id.'?page='.($request->txtNoHalaman+1));
-        }elseif($request->txtPage == 'prev'){
-            return redirect()->to('kerjakanUjian/'.$request->exam_id.'?page='.($request->txtNoHalaman-1));
-        }
-        
     }
 
     /**

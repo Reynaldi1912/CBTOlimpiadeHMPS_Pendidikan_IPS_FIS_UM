@@ -14,10 +14,10 @@
 
                 <!-- Personal -->
                 <h1 class="h3 text-white font-w700 mb-10">
-                    John Smith
+                    {{$data->name}}
                 </h1>
                 <h2 class="h5 text-white-op">
-                    Peserta dari <a class="text-primary-light">(asal_sekolah)</a>
+                    Peserta dari <a class="text-primary-light">{{$data->asal_sekolah}}</a>
                 </h2>
                 <!-- END Personal -->
             </div>
@@ -34,27 +34,27 @@
             </div>
             <div class="block-content">
                 <div class="form-group row">
-                    <label class="col-12">Nama Ketua</label>
+                    <label class="col-12">Username</label>
                     <div class="col-md-9">
-                        <div class="form-control-plaintext">(Username)</div>
+                        <div class="form-control-plaintext">( {{$data->username}} )</div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-12">E-Mail</label>
                     <div class="col-md-9">
-                        <div class="form-control-plaintext">(E-Mail Siswa)</div>
+                        <div class="form-control-plaintext">( {{$data->email}} )</div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-12">Asal Sekolah</label>
                     <div class="col-md-9">
-                        <div class="form-control-plaintext">(AsalSekolah)</div>
+                        <div class="form-control-plaintext">( {{$data->asal_sekolah}} )</div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-12">Guru Pendamping</label>
                     <div class="col-md-9">
-                        <div class="form-control-plaintext">(Nama Guru Pendamping)</div>
+                        <div class="form-control-plaintext">( {{$data->guru_pendamping}} )</div>
                     </div>
                 </div>
             </div>

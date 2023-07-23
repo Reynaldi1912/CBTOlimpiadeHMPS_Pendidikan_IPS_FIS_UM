@@ -29,14 +29,15 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'role:peserta'])->group(function () {
     Route::resource('answer', AnswerExamController::class);
+    // Route::post('/answer-question', [AnswerExamController::class, 'store']);
     Route::get('/kerjakanUjian/{id}', [UjianPesertaController::class, 'kerjakanUjian'])->name('pengerjaan.kerjakanUjian');
     Route::get('/selesaikanUjian/{id}', [UjianPesertaController::class, 'selesaikanUjian'])->name('pengerjaan.selesaikanUjian');
     //end jika keadaan mengerjakan
     Route::group(['middleware' => ['ujian']], function () {
         Route::resource('pengerjaan', UjianPesertaController::class);
-        Route::get('/profilPeserta', function () {return view('peserta.profilPeserta');})->name('profilPeserta');  
     });
     Route::get('/dashboard-user', [HomeController::class, 'dashboardUser'])->name('dashboard_user');
+    Route::get('/profilPeserta',[UserController::class, 'profilePeserta'])->name('profilPeserta');  
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

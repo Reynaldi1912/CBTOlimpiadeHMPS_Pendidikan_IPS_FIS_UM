@@ -90,6 +90,22 @@
                                         <div class="form-group row">
                                             <div class="col-12">
                                                 <div class="form-material floating">
+                                                    <input type="text" class="form-control" id="signup-username" name="asal_sekolah">
+                                                    <label for="signup-username">Asal Sekolah</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <div class="form-material floating">
+                                                    <input type="text" class="form-control" id="signup-username" name="guru_pendamping">
+                                                    <label for="signup-username">Guru Pendamping</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <div class="form-material floating">
                                                     <input type="text" class="form-control" id="signup-username" name="username">
                                                     <label for="signup-username">Username</label>
                                                 </div>
@@ -150,9 +166,21 @@
                                         @method('PATCH')
                                         <input type="hidden" name="status" value="peserta">
                                         <div class="form-group row">
-                                            <label class="col-12" for="example-text-input">Nama</label>
+                                            <label class="col-12" for="example-text-input">Nama Ketua</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" id="name" name="name" placeholder="Nama..">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-12">Asal Sekolah</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" id="asal_sekolah" name="asal_sekolah" placeholder="Asal Sekolah..">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-12">Guru Pendamping</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" id="guru_pendamping" name="guru_pendamping" placeholder="Guru Pendamping..">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -204,7 +232,8 @@
                 document.getElementById('name').value = obj.name;
                 document.getElementById('username').value = obj.username;
                 document.getElementById('email').value = obj.email;
-
+                document.getElementById('asal_sekolah').value = obj.asal_sekolah;
+                document.getElementById('guru_pendamping').value = obj.guru_pendamping;
             $('#myModal').modal('show');
             },
             error: function(xhr) {

@@ -1,4 +1,4 @@
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.13.0/Sortable.min.js"></script>
   <style>
     .sortable-list {
@@ -27,6 +27,8 @@
     }
   </style>
 
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+
   <div class="row soal">
     <div class="col-sm-3">
         <div class="block">
@@ -38,14 +40,14 @@
             </div>
         </div>
     </div>
+
     <div class="col-sm-9">
         @foreach($soals as $index => $soal)
-        <form action="{{route('answer.store')}}" id="answerForm" method="post">
-            @csrf
+        <form id="answerForm" method="post" data-question-type="{{$soal->question_type}}">
             <div class="question @if($index !== 0) d-none @endif" data-question-number="{{$index}}">
-                <input type="hidden" name="exam_id" value="{{$id}}">
-                <input type="hidden" name="id_question" value="{{$soal->question_id}}">
-                <input type="hidden" name="question_type" value="{{$soal->question_type}}">
+                <input type="hidden" name="exam_id" id="exam_id" value="{{$id}}">
+                <input type="hidden" name="id_question" id="id_question" value="{{$soal->question_id}}">
+                <input type="hidden" name="question_type" id="question_type" value="{{$soal->question_type}}">
                 <span >Tipe Soal: 
 
                     @php
@@ -67,85 +69,58 @@
                 ?>
             </h5>
             @if($soal->question_type == 'long_desc')
-            <Textarea class="form-control" name="answer" rows="5" >@if($existing_answer->where('id_exam_question',$soal->question_id)->first() != null){{$existing_answer->where('id_exam_question',$soal->question_id)->first()->answer_desc}}@endif</Textarea>
+            <Textarea class="form-control" name="answer" onchange="updateAnswer('ld');" rows="5" >@if($existing_answer->where('id_exam_question',$soal->question_id)->first() != null){{$existing_answer->where('id_exam_question',$soal->question_id)->first()->answer_desc}}@endif</Textarea>
             @endif
             @if($soal->question_type == 'short_desc')
-            <Textarea class="form-control" name="answer" rows="5" maxlength="200">@if($existing_answer->where('id_exam_question',$soal->question_id)->first() != null){{$existing_answer->where('id_exam_question',$soal->question_id)->first()->answer_desc}}@endif</Textarea>
+            <Textarea class="form-control" name="answer" onchange="updateAnswer('sd');" rows="5" maxlength="200">@if($existing_answer->where('id_exam_question',$soal->question_id)->first() != null){{$existing_answer->where('id_exam_question',$soal->question_id)->first()->answer_desc}}@endif</Textarea>
             @endif
-            @if($soal->question_type == 'matching')  
-            <div class="container">
-                <div class="matching-container row">
-                    <div class="matching-column col">
-                    <h4>Clue</h4>
-                        <ul id="sortable-clues" class="sortable-list">
-                            @php
-                                $i = 1;
-                            @endphp
-                            @foreach($soal->jawaban as $option)
-                                @if($option->type_matching == 'left')
-                                    <input type="hidden" name="left_matching[]" value="{{$option->id}}">
-                                    <li class="sortable-item" draggable="false">
-                                        @php
-                                            echo $i++ .". ".$option->option_text
-                                        @endphp
-                                    </li>
-                                @endif
-                            @endforeach
-                        </ul>
-                    </div>
-                    <div class="matching-column mt-5 col">
-                    <h5>Jawaban urut dari atas (1,2 dan seterusnya)</h5>
-                        @if($existing_answer->where('id_exam_question',$soal->question_id)->isNotEmpty())
-                            @php    
-                            $data_ = json_decode($existing_answer->where('id_exam_question',$soal->question_id), true);
 
-                            $answerRightOptionIds = [];
-                            foreach ($data_ as $item) {
-                                $answerRightOptionIds[] = $item['answer_right_option_id'];
-                            }
-                            $matchingValue = implode(',', $answerRightOptionIds);
-                            @endphp
-                            <input type="hidden" name="matching" class="jawaban-input" value="{{$matchingValue}}">
-                        @else
-                            <input type="hidden" name="matching" class="jawaban-input">
-                        @endif
-                        <div id="matching-answers" class="sortable-list" onchange="updateAnswers();">
-                        @if($existing_answer->where('id_exam_question',$soal->question_id)->isNotEmpty())
-                            @php
-                                $data = json_decode($existing_answer->where('id_exam_question',$soal->question_id), true);
-                                $values = array_values($data);
-                            @endphp
-                            @foreach($values as $data)
-                            <li class="sortable-item" draggable="true" data-id="{{ $data['answer_right_option_id'] }}">
-                                {{ $option->where('id', $data['answer_right_option_id'])->pluck('option_text')->first() }}
-                            </li>
-                        @endforeach
-                        @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4 matching_option">
-                    <div class="col-md-12">
-                    <ul id="sortable-options" class="sortable-list">
-                        @if($existing_answer->where('id_exam_question',$soal->question_id)->isEmpty())
-                            @foreach($soal->jawaban as $option)
-                                @if($option->type_matching == 'right')
-                                    <li class="sortable-item" draggable="true" data-id="{{ $option->id }}">
-                                    {{ $option->option_text }}
-                                    </li>
-                                @endif
-                            @endforeach
-                        @endif
-                    </ul>
-                    </div>
+            @if($soal->question_type == 'matching')
+                <table class="table">
+                    <tbody>
+                    @foreach($soal->jawaban as $option)
+                        @if($option->type_matching == 'left')
+                            <tr>
+                                <td style="width:30%">
+                                    <input type="hidden" name="left_matching[]" value="{{$option->id}}">
+                                    <?php
+                                        echo $option->option_text;
+                                    ?>
+                                </td>
+                                <td style="width:70%">
+                                    <select class="form-control" name="right_option[]" onchange="updateAnswer('matching');">
+                                        <?php
+                                        $options = $soal->jawaban->where('type_matching', 'right')->toArray();
+
+                                        shuffle($options);
+                                        ?>
+
+                                        @foreach($options as $option_right)
+                                            @if($existing_answer->where('answer_question_option_id', $option->id)->isNotEmpty() && $existing_answer->where('answer_question_option_id', $option->id)->first()->answer_right_option_id == $option_right['id'])
+                                                <option value="{{ $option_right['id'] }}" selected>{{ $option_right['option_text'] }}</option>
+                                            @else
+                                                <option value="{{ $option_right['id'] }}">{{ $option_right['option_text'] }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </td>
+
+                            </tr>
+                            @endif
+                    @endforeach
+                    </tbody>
+                </table>  
+            
+
                 </div>
             </div>
+
             @endif
 
             @foreach($soal->jawaban as $option)
                 @if($soal->question_type == 'true_or_false' || $soal->question_type == 'multiple_choice')
                     <label class="css-control css-control-primary css-radio">
-                        <input type="radio" class="css-control-input" name="multiple_choice" value="{{ $option->id}}" @if($existing_answer->contains('answer_question_option_id', $option->id)) checked @endif>
+                        <input type="radio" class="css-control-input" name="multiple_choice" onchange="updateAnswer('tot_mc');" value="{{ $option->id}}" @if($existing_answer->contains('answer_question_option_id', $option->id)) checked @endif>
                         <span class="css-control-indicator"></span>
                         <?php
                             echo strip_tags($option->option_text, "<img>");
@@ -154,7 +129,7 @@
                     <br>
                 @elseif($soal->question_type == 'complex_multiple_choice')
                 <label class="css-control css-control-primary css-checkbox">
-                    <input type="checkbox" class="css-control-input" name="complex_multiple_box[]" value="{{ $option->id}}" @if($existing_answer->contains('answer_question_option_id', $option->id)) checked @endif>
+                    <input type="checkbox" class="css-control-input" name="complex_multiple_box" onchange="updateAnswer('cmc');" value="{{ $option->id}}" @if($existing_answer->contains('answer_question_option_id', $option->id)) checked @endif>
                     <span class="css-control-indicator"></span> 
                     <?php
                         echo strip_tags($option->option_text, "<img>");
@@ -179,10 +154,15 @@
                     @if ($soals->onFirstPage())
                         <a class="btn btn-primary disabled" href="#"><i class="si si-action-undo"></i> Sebelumnya</a>
                     @else
-                        <a class="btn btn-primary" onclick="goToPreviousPage()"><i class="si si-action-undo"></i> Sebelumnya</a>
+                        <a href="{{ $soals->previousPageUrl() }}" class="btn btn-primary"><i class="si si-action-undo"></i> Sebelumnya</a>
                     @endif
+                    <div class="form-check btn btn-block btn-secondary" style="width: 15%" data-toggle="buttons">
+                        <div class=" ml-10" >
+                            <input class="form-check-input d-flex justify-content-center align-items-center" type="checkbox" id="ragu" autocomplete="off" onchange="updateAnswer('{{$soal->question_type}}')"> Ragu - Ragu
+                        </div>
+                    </div>
                     @if ($soals->hasMorePages())
-                        <a class="btn btn-primary" onclick="goToNextPage()"><i class="si si-action-redo"></i> Selanjutnya</a>
+                        <a href="{{ $soals->nextPageUrl() }}" class="btn btn-primary"><i class="si si-action-redo"></i> Selanjutnya</a>
                     @endif
                 </div>
             </div>
@@ -195,104 +175,100 @@
     </div>
   </div>
 
-  <script>
+@livewireScripts
+<script>
+
     $(document).ready(function() {
         // Mengubah ukuran semua gambar menjadi lebar 300px dan tinggi 300px
         $(".soal img").css({
-        'max-width': "300px",
-        'max-height': "200px"
+        'max-width': "100px",
+        'max-height': "100px"
         });
     });
-</script>
-@livewireScripts
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Mendapatkan nomor halaman saat ini dari parameter URL
-        var urlParams = new URLSearchParams(window.location.search);
-        var currentPage = parseInt(urlParams.get('page'));
-        // Mengatur nilai default 1 jika parameter page tidak ada
-        if (isNaN(currentPage) || currentPage <= 0) {
-            currentPage = 1;
-        }
-        document.getElementById('txtNoHalaman').value = currentPage;
-    });
 
-function goToPreviousPage() {
-  document.getElementById('txtStatus').value = '0';
-  document.getElementById('txtPage').value = 'prev';
-  document.getElementById('answerForm').submit();
-}
+    function updateAnswer(type) {
+        var answer = null;
+        var left = null;
+        var ragu = 0;
 
-function goToNextPage() {
-  document.getElementById('txtStatus').value = '0';
-  document.getElementById('txtPage').value = 'next';
-  document.getElementById('answerForm').submit();
-}
-
-</script>
-
-<script>
-    $(document).ready(function() {
-        var sortableClues = new Sortable(document.getElementById('sortable-clues'), {
-        group: 'matching',
-        animation: 150,
-        filter: '.sortable-item',
-        onEnd: function(evt) {
-            updateAnswers();
-        }
-        });
-
-        var sortableAnswers = new Sortable(document.getElementById('matching-answers'), {
-        group: 'matching',
-        animation: 150,
-        draggable: '.sortable-item',
-        onEnd: function(evt) {
-            updateAnswers();
-        }
-        });
-
-        var sortableOptions = new Sortable(document.getElementById('sortable-options'), {
-        group: 'matching',
-        animation: 150,
-        draggable: '.sortable-item',
-        onEnd: function(evt) {
-            checkAnswer(evt.item.innerText);
-        }
-        });
-
-        function updateAnswers() {
-            var answers = [];
-            $('#matching-answers li').each(function() {
-                var optionId = $(this).data('id'); // Ambil ID dari opsi jawaban
-                answers.push(optionId);
-            });
-            $('.jawaban-input').each(function(index) {
-                $(this).val(answers || ''); // Setel nilai input dengan ID opsi jawaban atau kosong jika tidak ada
-            });
-        }
-        
-        
-        function checkAnswer(option, optionId) {
-            var answer = $('#matching-answers li:empty').first();
-            if (answer.length > 0) {
-                answer.text(option);
-                answer.attr('data-id', optionId); // Set data-id attribute
-
-                var answers = []; // Updated answers array
-                $('#matching-answers li').each(function() {
-                var optionId = $(this).data('id');
-                answers.push(optionId);
-                });
-
-                $('.jawaban-input').each(function(index) {
-                $(this).val(answers || ''); // Set value of jawaban[] input
-                });
+        console.log(type);
+        if (type === 'ld' || type === 'long_desc') {
+            var textareaElement = document.querySelector('textarea[name="answer"]');
+            answer = textareaElement.value;
+        } else if (type === 'sd' || type === 'long_desc') {
+            var textareaElement = document.querySelector('textarea[name="answer"]');
+            answer = textareaElement.value;
+        } else if (type === 'tot_mc' || type === 'true_or_false' || type === 'multiple_choice') {
+            var selectedRadio = document.querySelector('input[name="multiple_choice"]:checked');
+            if (selectedRadio) {
+            answer = selectedRadio.value;
             }
+        } else if (type === 'cmc' || type === 'complex_multiple_choice') {
+            var checkboxes = document.querySelectorAll('input[name="complex_multiple_box"]:checked');
+            if (checkboxes.length > 0) {
+            answer = [];
+            checkboxes.forEach(function(checkbox) {
+                answer.push(checkbox.value);
+            });
+            }
+        }else if(type == 'matching'){
+            var selectedOptions = document.querySelectorAll('select[name="right_option[]"]');
+            var selectedLeftOptions = document.querySelectorAll('input[name="left_matching[]"]');
+            answer = [];
+            left = [];
+
+            selectedLeftOptions.forEach(function(element) {
+                left.push(element.value);
+            });
+
+            selectedOptions.forEach(function(option) {
+                answer.push(option.value);
+            });
         }
-        $('#matching-answers').on('DOMSubtreeModified', function() {
-            updateAnswers(); // Panggil fungsi updateAnswers() ketika ada perubahan dalam anak-anak elemen #matching-answers
+    
+        // console.log('Left:', left);
+        // console.log('Answer:', answer);
+        
+        var examId = document.getElementById('exam_id').value;
+        var questionId = document.getElementById('id_question').value;
+        var question_type = document.getElementById('question_type').value;
+        var checkbox = document.getElementById('ragu');
+
+        if (checkbox.checked == true) {
+            ragu = 1;
+        }
+        // console.log('ragu:', ragu);
+
+
+        // Data yang akan dikirimkan dalam body request
+        var data = {
+            question_type: question_type,
+            exam_id: examId,
+            id_question: questionId,
+            type: type,
+            answer: answer,
+            ragu: ragu,
+            left: left
+        };
+
+        $.ajax({
+            url: '/answer',
+            type: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            dataType: 'json',
+            data: JSON.stringify(data),
+            success: function(data) {
+                console.log(data);
+            },
+            error: function(error) {
+                console.log(error);
+            }
         });
-    });
+    }
+
 
     function setRagu() {
         document.getElementById("txtStatus").value = "1";
@@ -301,50 +277,18 @@ function goToNextPage() {
     function setSimpan() {
         document.getElementById("txtStatus").value = "0";
     }
+
 </script>
+
 <script>
-    var currentQuestion = 0;
-    var totalQuestions = {{$soals->count()}};
-
-    function showQuestion(questionNumber) {
-        var questions = document.getElementsByClassName('question');
-        for (var i = 0; i < questions.length; i++) {
-            questions[i].classList.add('d-none');
-        }
-        questions[questionNumber].classList.remove('d-none');
-    }
-
-    function showNextQuestion() {
-        if (currentQuestion < totalQuestions - 1) {
-            currentQuestion++;
-            showQuestion(currentQuestion);
-        }
-    }
-
-    function showPreviousQuestion() {
-        if (currentQuestion > 0) {
-            currentQuestion--;
-            showQuestion(currentQuestion);
-        }
-    }
-
-    showQuestion(currentQuestion);
-
-    document.getElementById('next-btn').addEventListener('click', function () {
-        showNextQuestion();
-    });
-
-    document.getElementById('prev-btn').addEventListener('click', function () {
-        showPreviousQuestion();
-    });
-
-    // Tambahkan event listener untuk tombol navigasi pagination Laravel
-    var paginationLinks = document.getElementsByClassName('page-link');
-    for (var i = 0; i < paginationLinks.length; i++) {
-        paginationLinks[i].addEventListener('click', function () {
-            var questionNumber = this.getAttribute('data-question-number');
-            currentQuestion = parseInt(questionNumber);
-            showQuestion(currentQuestion);
-        });
-    }
+    $('[data-toggle="buttons"] .btn').on('click', function () {
+    // toggle style
+    $(this).toggleClass('btn-success btn-danger active');
+    
+    // toggle checkbox
+    var $chk = $(this).find('[type=checkbox]');
+    $chk.prop('checked',!$chk.prop('checked'));
+    
+    return false;
+});
 </script>

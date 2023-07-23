@@ -54,14 +54,12 @@
                             <label class="col-lg-4 col-form-label">Benar / Salah <span class="text-danger">*</span></label>
                             <div class="col-lg-4">
                                 <select name="txtStatusBenar" id="" class="form-control">
-                                    <option value="2">2</option>
                                     <option value="1">1</option>
                                 </select>
                             </div>
                             <div class="col-lg-4">
                                 <select name="txtStatusSalah" id="" class="form-control">
                                     <option value="0">0</option>
-                                    <option value="-1">-1</option>
                                 </select>
                             </div>
                         </div>
@@ -286,14 +284,12 @@ function updateForm(id , title , description , start_at , duration){
                             "<label class='col-lg-4 col-form-label'>Benar / Salah <span class='text-danger'>*</span></label>"+
                             "<div class='col-lg-4'>"+
                                 "<select name='txtStatusBenar' class='form-control'>"+
-                                    "<option value='2'>2</option>"+
                                     "<option value='1'>1</option>"+
                                 "</select>"+
                             "</div>"+
                             "<div class='col-lg-4'>"+
                                 "<select name='txtStatusSalah' class='form-control'>"+
                                     "<option value='0'>0</option>"+
-                                    "<option value='-1'>-1</option>"+
                                 "</select>"+
                             "</div>"+
                         "</div>"+

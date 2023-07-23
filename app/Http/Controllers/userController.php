@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
+use Auth;
 class UserController extends Controller
 {
     /**
@@ -35,6 +36,13 @@ class UserController extends Controller
         return view('admin.kelolaPeserta' , ['data'=>$data]);
     }
 
+    public function profilePeserta()
+    {
+        $id = Auth::user()->id;
+        $data = User::all()->where('role','peserta')->where('id',$id)->first();
+        return view('peserta.profilPeserta' , ['data'=>$data]);
+    }
+
     public function getUser($id){
         echo json_encode(User::all()->where('id',$id)->first());
     }
@@ -53,6 +61,8 @@ class UserController extends Controller
                 'email' => $request->email,
                 'role' => 'peserta',
                 'password' => Hash::make($request->password),
+                'asal_sekolah' => $request->asal_sekolah,
+                'guru_pendamping' => $request->guru_pendamping
             ]);
         }elseif($request->status == 'admin'){
             user::create([
@@ -103,13 +113,16 @@ class UserController extends Controller
             $user->update([
                 'name' => $request->name,
                 'username' => $request->username,
-                'email' => $request->email
+                'email' => $request->email,'asal_sekolah' => $request->asal_sekolah,
+                'guru_pendamping' => $request->guru_pendamping
             ]);
         }elseif($status == 'peserta'){
             $user->update([
                 'name' => $request->name,
                 'username' => $request->username,
-                'email' => $request->email
+                'email' => $request->email,
+                'asal_sekolah' => $request->asal_sekolah,
+                'guru_pendamping' => $request->guru_pendamping
             ]);
         }
         return back()->with('success','Data Berhasil Diubah');
