@@ -7,6 +7,7 @@ use Auth;
 use DB;
 use App\Models\Exam;
 use App\Models\Hasil_Akhir_Ujian;
+use App\Models\User;
 
 class HomeController extends Controller
 {
