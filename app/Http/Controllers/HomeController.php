@@ -7,6 +7,7 @@ use Auth;
 use DB;
 use App\Models\Exam;
 use App\Models\Hasil_Akhir_Ujian;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -32,6 +33,13 @@ class HomeController extends Controller
         }elseif(Auth::user()->role == 'peserta'){
             return redirect()->route('dashboard_user');
         }
+    }
+    
+    public function profilePeserta()
+    {
+        $id = Auth::user()->id;
+        $data = User::all()->where('role','peserta')->where('id',$id)->first();
+        return view('peserta.profilPeserta' , ['data'=>$data]);
     }
     public function dashboardAdmin(){
         $data = DB::table('users')->get();

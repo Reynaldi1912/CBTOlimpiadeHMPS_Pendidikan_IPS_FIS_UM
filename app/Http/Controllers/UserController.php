@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
+use Auth;
 class UserController extends Controller
 {
     /**
@@ -53,6 +53,8 @@ class UserController extends Controller
                 'email' => $request->email,
                 'role' => 'peserta',
                 'password' => Hash::make($request->password),
+                'asal_sekolah' => $request->asal_sekolah,
+                'guru_pendamping' => $request->guru_pendamping
             ]);
         }elseif($request->status == 'admin'){
             user::create([
@@ -103,13 +105,16 @@ class UserController extends Controller
             $user->update([
                 'name' => $request->name,
                 'username' => $request->username,
-                'email' => $request->email
+                'email' => $request->email,'asal_sekolah' => $request->asal_sekolah,
+                'guru_pendamping' => $request->guru_pendamping
             ]);
         }elseif($status == 'peserta'){
             $user->update([
                 'name' => $request->name,
                 'username' => $request->username,
-                'email' => $request->email
+                'email' => $request->email,
+                'asal_sekolah' => $request->asal_sekolah,
+                'guru_pendamping' => $request->guru_pendamping
             ]);
         }
         return back()->with('success','Data Berhasil Diubah');
