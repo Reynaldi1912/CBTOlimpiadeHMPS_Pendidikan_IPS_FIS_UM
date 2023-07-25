@@ -18,7 +18,7 @@ jobs:
           key : ${{secrets.SSH_PRIVATE_KEY}}
           username: ${{ secrets.SSH_USERNAME }}
           script: |
-            cd /var/www/html/simpus_laravel/
+            cd /var/www/html/Olimphmpips/
             sudo git fetch
             sudo git reset --hard origin/master
             sudo git pull
